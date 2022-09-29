@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let aCenter of centers">
+    <a
+      routerLink="/centers/detail/{{aCenter.id}}">
+      {{aCenter.name}}
+    </a>
+  </li>
+</ul>

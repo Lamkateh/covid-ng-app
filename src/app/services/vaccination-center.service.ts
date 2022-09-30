@@ -10,16 +10,29 @@ export class VaccinationCenterService {
   constructor(private httpClient: HttpClient) {}
 
   getVaccinationCentersByCity(
-    city: string
+    city: string,
+    page: number = 0
   ): Observable<{ content: VaccinationCenter[] }> {
     return this.httpClient.get<{ content: VaccinationCenter[] }>(
-      '/public/centers/city/' + city
+      '/public/centers/city/' + city,
+      {
+        params: {
+          page: page.toString(),
+        },
+      }
     );
   }
 
-  getAllVaccinationCenters(): Observable<{ content: VaccinationCenter[] }> {
+  getAllVaccinationCenters(
+    page: number = 0
+  ): Observable<{ content: VaccinationCenter[] }> {
     return this.httpClient.get<{ content: VaccinationCenter[] }>(
-      '/public/centers'
+      '/public/centers',
+      {
+        params: {
+          page: page.toString(),
+        },
+      }
     );
   }
 }

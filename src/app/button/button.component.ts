@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
+  onClick() {
+    console.log('Button clicked');
+    this.clickEvent.emit();
+  }
+
   @Input() title: string;
+  @Output() clickEvent = new EventEmitter();
 
   constructor() {}
 

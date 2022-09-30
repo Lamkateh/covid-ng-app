@@ -7,18 +7,18 @@ import { AppComponent } from './app.component';
 import { VaccinationCenterComponent } from './vaccination-center/vaccination-center.component';
 import { VaccinationCenterListComponent } from './vaccination-center-list/vaccination-center-list.component';
 
+import { ButtonGeneralComponent } from './button-general/button-general.component';
+import { VaccinationCenterModule } from './vaccination-center/vaccination-center.module';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    VaccinationCenterComponent,
-    VaccinationCenterListComponent
-  ],
+  declarations: [AppComponent, VaccinationCenterListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    VaccinationCenterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

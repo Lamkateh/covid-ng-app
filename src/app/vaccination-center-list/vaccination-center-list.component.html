@@ -1,6 +1,7 @@
 <div *ngFor="let aCenter of list; let last = last">
   <app-vaccination-center-list-item
     [ngClass]="{ 'last-child': last }"
+    [id]="aCenter.id"
     [name]="aCenter.name"
     [city]="aCenter.city"
     [lastChild]="last"

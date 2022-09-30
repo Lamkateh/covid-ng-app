@@ -6,5 +6,10 @@
     <div class="center-name">{{ name }}</div>
     <div class="center-city">{{ city }}</div>
   </div>
-  <div><app-button title="Prendre RDV"></app-button></div>
+  <div>
+    <app-button
+      title="Prendre RDV"
+      (clickEvent)="onAppointementClick()"
+    ></app-button>
+  </div>
 </div>

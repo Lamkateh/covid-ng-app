@@ -1,0 +1,13 @@
+<div>
+  <form (submit)="onSearchCity()">
+    <input
+      type="text"
+      id="searchInput"
+      name="search_term"
+      placeholder="Rechercher par ville"
+      [(ngModel)]="citySearchTerm"
+    />
+    {{ listLoading ? "Loading..." : "" }}
+  </form>
+  <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
+</div>

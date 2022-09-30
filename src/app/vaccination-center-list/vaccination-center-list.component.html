@@ -1,8 +1,7 @@
-<ul>
-  <li *ngFor="let aCenter of centers">
-    <a
-      routerLink="/centers/detail/{{aCenter.id}}">
-      {{aCenter.name}}
-    </a>
-  </li>
-</ul>
+<div *ngFor="let aCenter of list; let last = last">
+  <app-vaccination-center-list-item
+    [ngClass]="{ 'last-child': last }"
+    [name]="aCenter.name"
+    [lastChild]="last"
+  ></app-vaccination-center-list-item>
+</div>

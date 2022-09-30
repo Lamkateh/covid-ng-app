@@ -9,9 +9,17 @@ import { VaccinationCenter } from '../vaccination-center/vaccination-center';
 export class VaccinationCenterService {
   constructor(private httpClient: HttpClient) {}
 
-  getVaccinationCentersByCity(city: string): Observable<VaccinationCenter[]> {
-    return this.httpClient.get<VaccinationCenter[]>(
+  getVaccinationCentersByCity(
+    city: string
+  ): Observable<{ content: VaccinationCenter[] }> {
+    return this.httpClient.get<{ content: VaccinationCenter[] }>(
       '/public/centers/city/' + city
+    );
+  }
+
+  getAllVaccinationCenters(): Observable<{ content: VaccinationCenter[] }> {
+    return this.httpClient.get<{ content: VaccinationCenter[] }>(
+      '/public/centers'
     );
   }
 }

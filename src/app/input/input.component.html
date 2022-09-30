@@ -2,6 +2,6 @@
   <label for="label">{{label}}</label>
   <div>
     <input type="text" id="label">
-    <mat-icon>search</mat-icon>
+    <mat-icon *ngIf="isSearch()">search</mat-icon>
   </div>
 </div>

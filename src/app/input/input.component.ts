@@ -8,10 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class InputComponent implements OnInit {
 
   @Input() label?: string;
+  @Input() search?: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  isSearch() {
+    return this.search;
   }
 
 }

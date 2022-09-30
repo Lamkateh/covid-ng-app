@@ -9,6 +9,7 @@ export class VaccinationCenterListItemComponent implements OnInit {
   constructor() {}
 
   @Input() name: string = '';
+  @Input() city: string = '';
   @Input() lastChild: boolean = false;
 
   ngOnInit(): void {}

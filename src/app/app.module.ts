@@ -10,6 +10,11 @@ import { VaccinationCenterListItemComponent } from './vaccination-center-list-it
 import { HomePublicPageComponent } from './home-public-page/home-public-page.component';
 import { FormsModule } from '@angular/forms';
 
+import { ButtonGeneralComponent } from './button-general/button-general.component';
+import { VaccinationCenterModule } from './vaccination-center/vaccination-center.module';
+import { InputComponent } from './input/input.component';
+import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent,

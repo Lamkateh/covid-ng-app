@@ -9,14 +9,17 @@ import { VaccinationCenterListComponent } from './vaccination-center-list/vaccin
 
 import { ButtonGeneralComponent } from './button-general/button-general.component';
 import { VaccinationCenterModule } from './vaccination-center/vaccination-center.module';
+import { InputComponent } from './input/input.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, VaccinationCenterListComponent],
+  declarations: [AppComponent, VaccinationCenterListComponent, InputComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     VaccinationCenterModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

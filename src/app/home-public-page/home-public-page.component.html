@@ -10,4 +10,5 @@
     {{ listLoading ? "Loading..." : "" }}
   </form>
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
+  <app-button title="Afficher plus" (clickEvent)="onMoreRequest()"></app-button>
 </div>

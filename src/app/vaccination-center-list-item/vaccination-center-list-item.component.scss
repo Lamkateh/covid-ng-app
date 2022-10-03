@@ -1,10 +1,60 @@
 .vaccination-center-list-item {
-  border: 1px solid #000;
-  padding: 10px;
+  background-color: #EEE;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
+  height: 220px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+  .center-name {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .center-infos {
+    display: flex;
+    flex-direction: row;
+
+    .center-city {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .city-name {
+        padding-left: 5px;
+      }
+    }
+
+    .center-phone {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 30px;
+
+      .phone-number {
+        padding-left: 5px;
+      }
+    }
+  }
+
+  .appointment-availability {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .green-check-icon {
+      color: green;
+    }
+
+    span {
+      padding-left: 10px;
+      color: green;
+    }
+  }
 }
 
 .vaccination-center-list-item.last-child {

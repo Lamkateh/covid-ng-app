@@ -1,15 +1,20 @@
-<div
-  class="vaccination-center-list-item"
-  [ngClass]="lastChild ? 'last-child' : ''"
->
-  <div>
-    <div class="center-name">{{ name }}</div>
-    <div class="center-city">{{ city }}</div>
+<div class="vaccination-center-list-item" [ngClass]="lastChild ? 'last-child' : ''">
+  <div class="center-name">{{ name | titlecase }}</div>
+  <div class="center-infos">
+    <div class="center-city">
+      <mat-icon>home</mat-icon>
+      <div class="city-name">{{ city }}</div>
+    </div>
+    <div class="center-phone">
+      <mat-icon>phone</mat-icon>
+      <div class="phone-number">{{ phone }}</div>
+    </div>
+  </div>
+  <div class="appointment-availability">
+    <mat-icon class="green-check-icon">check</mat-icon>
+    <span>Rendez-vous disponible(s)</span>
   </div>
   <div>
-    <app-button
-      title="Prendre RDV"
-      (clickEvent)="onAppointementClick()"
-    ></app-button>
+    <app-button title="Prendre RDV" (clickEvent)="onAppointementClick()"></app-button>
   </div>
 </div>

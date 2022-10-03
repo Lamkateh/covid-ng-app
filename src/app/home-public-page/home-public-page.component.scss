@@ -1,0 +1,48 @@
+.homepage {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .search-center-form {
+    height: 20rem;
+    width: 40%;
+    padding-left: 5%;
+    margin-top: 5rem;
+
+    .title {
+      font-size: 30px;
+      font-weight: bold;
+      color: #2B51D2;
+      padding-bottom: 20px;
+      white-space: nowrap;
+    }
+
+    .loader {
+      margin: 3rem 0 0 40%;
+    }
+  }
+
+  img {
+    z-index: -1;
+    top: 0;
+    right: 10%;
+    position: absolute;
+    width: 450px;
+  }
+
+  app-vaccination-center-list {
+    z-index: 1;
+    background-color: #FFF;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px 30px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+  }
+
+  app-button {
+    margin: auto;
+  }
+}

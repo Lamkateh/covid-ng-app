@@ -2,19 +2,14 @@
   border: 0;
   line-height: 2.5;
   padding: 0 20px;
-  font-size: 1rem;
   text-align: center;
-  color: #fff;
-  background-color: rgba(0, 160, 200, 0.8);
+  color: #FFF;
+  background-color: #2B51D2;
   border-radius: 10px;
+  width: 100%;
 }
 
 .button:hover {
-  background-color: rgba(0, 160, 255, 0.8);
   cursor: pointer;
-}
-
-.button:active {
-  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
-    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+  transform: scale(1.05);
 }

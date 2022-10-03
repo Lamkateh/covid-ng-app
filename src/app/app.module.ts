@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { VaccinationCenterModule } from './vaccination-center/vaccination-center.module';
 import { SharedModule } from './shared/shared.module';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     VaccinationCenterListItemComponent,
     HomePublicPageComponent,
     LoginPageComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

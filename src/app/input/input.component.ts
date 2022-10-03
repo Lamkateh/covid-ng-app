@@ -15,7 +15,7 @@ export class InputComponent implements OnInit {
   @Input() inputValue?: string;
   @Output() inputValueChange = new EventEmitter();
 
-  change(newValue) {
+  change(newValue: string) {
     this.inputValue = newValue;
     this.inputValueChange.emit(newValue);
   }

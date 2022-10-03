@@ -1,0 +1,39 @@
+div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #EEE;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+  span {
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 20px;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline-block;
+      margin-right: 20px;
+
+      a {
+        margin: 0 10px;
+        color: #333;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .active {
+        color: #666;
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
-<div>
+<div class="main">
   <label for="name">{{ label }}</label>
-  <div>
+  <div class="input-element">
     <input type="text" id="name" [name]="name" [placeholder]="placeholder" [ngModel]="inputValue"
       (ngModelChange)="change($event)">
     <mat-icon *ngIf="isSearch()">search</mat-icon>

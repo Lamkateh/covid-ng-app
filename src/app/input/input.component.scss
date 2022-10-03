@@ -1,26 +1,31 @@
-div {
+.main {
   display: flex;
   flex-direction: column;
+  padding-bottom: 10px;
+
   label {
     padding-bottom: 5px;
   }
-  div {
+
+  .input-element {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     input {
       color: black;
-      background-color: lightgray;
+      background-color: #EEE;
       border-radius: 3px;
-      border: 1px solid gray;
+      border: none;
       outline: none;
       min-height: 25px;
       width: 100%;
+      padding: 5px 5px 5px 10px;
     }
+
     mat-icon {
       position: absolute;
       right: 0;
     }
   }
 }
-

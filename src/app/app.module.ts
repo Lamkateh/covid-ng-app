@@ -11,8 +11,8 @@ import { FormsModule } from '@angular/forms';
 
 import { VaccinationCenterModule } from './vaccination-center/vaccination-center.module';
 import { SharedModule } from './shared/shared.module';
-import { TimetableComponent } from './timetable/timetable.component';
-import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccination-center-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +20,8 @@ import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccin
     VaccinationCenterListComponent,
     VaccinationCenterListItemComponent,
     HomePublicPageComponent,
-    TimetableComponent,
-    VaccinationCenterPageComponent,
+    LoginPageComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,4 +33,4 @@ import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccin
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

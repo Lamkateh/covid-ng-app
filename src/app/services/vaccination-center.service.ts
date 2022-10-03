@@ -7,7 +7,15 @@ import { VaccinationCenter } from '../vaccination-center/vaccination-center';
   providedIn: 'root',
 })
 export class VaccinationCenterService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
+
+  getVaccinationCenterById(
+    id: number
+  ): Observable<VaccinationCenter> {
+    return this.httpClient.get<VaccinationCenter>(
+      '/public/center/' + id
+    );
+  }
 
   getVaccinationCentersByCity(
     city: string,

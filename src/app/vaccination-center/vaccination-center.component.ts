@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailValidator } from '@angular/forms';
 import { VaccinationCenter } from './vaccination-center';
+import { VaccinationCenterService } from '../services/vaccination-center.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-vaccination-center',
@@ -9,19 +10,22 @@ import { VaccinationCenter } from './vaccination-center';
 })
 export class VaccinationCenterComponent implements OnInit {
 
-  center?: VaccinationCenter = {
-    id: 1,
-    name: "Hopital Central",
-    address: "140 rue Saint Dizier",
-    zipCode: "54000",
-    city: "Nancy",
-    phone: "0345567889",
-    email: "hopitalcentral@gmail.com"
-  };
+  center?: VaccinationCenter;
 
-  constructor() { }
+  getCenter(id: number) {
+    this.service
+      .getVaccinationCenterById(id)
+      .subscribe(result => {
+        this.center = result;
+      });
+  }
+
+
+  constructor(private service: VaccinationCenterService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.getCenter(id);
   }
 
 }

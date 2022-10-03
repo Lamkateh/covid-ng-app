@@ -13,7 +13,7 @@ export class HomePublicPageComponent implements OnInit {
   citySearched: string = '';
   listLoading: boolean = false;
   page: number = 0;
-  lastPage: boolean = false; // TODO : implement last page
+  lastPage: boolean = false;
 
   onSearchCity() {
     this.citySearched = this.citySearchTerm;
@@ -34,31 +34,29 @@ export class HomePublicPageComponent implements OnInit {
     if (this.citySearched === '') {
       this.service
         .getAllVaccinationCenters(this.page)
-        .subscribe((centers: { content: VaccinationCenter[] }) => {
-          this.centers.push(...centers.content);
-          this.listLoading = false;
-        });
+        .subscribe(
+          (centers: { content: VaccinationCenter[]; last: boolean }) => {
+            this.centers.push(...centers.content);
+            this.listLoading = false;
+            this.lastPage = centers.last;
+          }
+        );
     } else {
       this.service
         .getVaccinationCentersByCity(this.citySearched, this.page)
-        .subscribe((centers: { content: VaccinationCenter[] }) => {
-          this.centers.push(...centers.content);
-          this.listLoading = false;
-        });
+        .subscribe(
+          (centers: { content: VaccinationCenter[]; last: boolean }) => {
+            this.centers.push(...centers.content);
+            this.listLoading = false;
+            this.lastPage = centers.last;
+          }
+        );
     }
   }
 
-  constructor(private service: VaccinationCenterService) { }
+  constructor(private service: VaccinationCenterService) {}
 
   ngOnInit(): void {
     this.getResult();
-    /*this.listLoading = true;
-    this.service
-      .getAllVaccinationCenters()
-      .subscribe((centers: { content: VaccinationCenter[] }) => {
-        this.centers = centers.content;
-        this.listLoading = false;
-      });
-      */
   }
 }

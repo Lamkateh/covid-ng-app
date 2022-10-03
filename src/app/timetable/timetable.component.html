@@ -1,0 +1,28 @@
+<div class="timetable-container">
+  <div>
+    <div class="day-column-headers">
+      <div *ngFor="let day of this.getAppointmentList()">
+        <div class="day-column-header">{{ day.cleanDate }}</div>
+      </div>
+    </div>
+    <div class="timetable-scroll">
+      <div class="timetable" [style.height]="timetableHeight">
+        <div *ngFor="let day of this.getAppointmentList()">
+          <div class="day-column">
+            <div *ngFor="let appointment of day.list">
+              <div
+                *ngIf="appointment.available"
+                class="appointment"
+                [style.width]="appointment.width"
+                [style.height]="appointment.height"
+                [style.top]="appointment.top"
+              >
+                {{ appointment.time.split(" ")[1] }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+$column-width: 300px;
+$column-header-height: 50px;
+
+.timetable-container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+
+  .timetable-scroll {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .day-column-headers {
+    width: $column-width;
+    display: flex;
+    flex-direction: row;
+    .day-column-header {
+      width: $column-width;
+      height: $column-header-height;
+      border: 1px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .timetable {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid #000;
+
+    .day-column {
+      height: 100%;
+      width: $column-width;
+      border-right: 1px solid #333;
+      background-color: rgba($color: #000000, $alpha: 0.5);
+      position: relative;
+    }
+
+    .appointment {
+      background-color: blue;
+      border-radius: 4px;
+      position: absolute;
+      color: #fff;
+      left: 1px;
+      transform: translateY(1px);
+    }
+  }
+}

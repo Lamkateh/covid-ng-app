@@ -48,7 +48,7 @@ export class HomePublicPageComponent implements OnInit {
     }
   }
 
-  constructor(private service: VaccinationCenterService) {}
+  constructor(private service: VaccinationCenterService) { }
 
   ngOnInit(): void {
     this.getResult();

@@ -13,6 +13,7 @@ export class HomePublicPageComponent implements OnInit {
   citySearched: string = '';
   listLoading: boolean = false;
   page: number = 0;
+  lastPage: boolean = false; // TODO : implement last page
 
   onSearchCity() {
     this.citySearched = this.citySearchTerm;

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 import { VaccinationCenterModule } from './vaccination-center/vaccination-center.module';
 import { SharedModule } from './shared/shared.module';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     VaccinationCenterListComponent,
     VaccinationCenterListItemComponent,
     HomePublicPageComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,

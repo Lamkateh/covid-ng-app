@@ -1,20 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppointmentPreview } from '../appointment-preview/appointment-preview';
 import { VaccinationCenter } from '../vaccination-center/vaccination-center';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VaccinationCenterService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getVaccinationCenterById(
-    id: number
-  ): Observable<VaccinationCenter> {
-    return this.httpClient.get<VaccinationCenter>(
-      '/public/center/' + id
-    );
+  getVaccinationCenterById(id: number): Observable<VaccinationCenter> {
+    return this.httpClient.get<VaccinationCenter>('/public/center/' + id);
   }
 
   getVaccinationCentersByCity(
@@ -41,6 +38,12 @@ export class VaccinationCenterService {
           page: page.toString(),
         },
       }
+    );
+  }
+
+  getAppointmentsByCenterId(id: number): Observable<AppointmentPreview[]> {
+    return this.httpClient.get<AppointmentPreview[]>(
+      '/public/appointments/' + id
     );
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { VaccinationCenterService } from '../services/vaccination-center.service';
 
 const COLUMN_WIDTH = 300;
-const ROW_HEIGHT = 5;
+const ROW_HEIGHT = 10;
 const START_HOUR = '8:00';
 const END_HOUR = '18:00';
 
@@ -27,6 +28,8 @@ const MONTH = [
   styleUrls: ['./timetable.component.scss'],
 })
 export class TimetableComponent implements OnInit {
+  @Input() centerId: number | null = null;
+
   appointments: {
     date: string;
     cleanDate?: string;
@@ -41,68 +44,7 @@ export class TimetableComponent implements OnInit {
       height?: string;
       top?: string;
     }[];
-  }[] = [
-    {
-      date: '2021-05-01',
-      list: [
-        {
-          time: '2021-05-01 10:00',
-          available: true,
-          duration: 30,
-        },
-        {
-          time: '2021-05-01 10:30',
-          available: false,
-          duration: 30,
-        },
-      ],
-    },
-    {
-      date: '2021-05-02',
-      list: [
-        {
-          time: '2021-05-02 10:00',
-          available: true,
-          duration: 30,
-        },
-        {
-          time: '2021-05-02 10:30',
-          available: false,
-          duration: 30,
-        },
-      ],
-    },
-    {
-      date: '2021-05-03',
-      list: [
-        {
-          time: '2021-05-03 10:00',
-          available: true,
-          duration: 30,
-        },
-        {
-          time: '2021-05-03 10:30',
-          available: false,
-          duration: 30,
-        },
-      ],
-    },
-    {
-      date: '2021-05-04',
-      list: [
-        {
-          time: '2021-05-04 10:00',
-          available: true,
-          duration: 30,
-        },
-        {
-          time: '2021-05-04 10:30',
-          available: false,
-          duration: 30,
-        },
-      ],
-    },
-  ];
+  }[] = [];
   startHourTimestamp: number = new Date(
     '2020-01-01 ' + START_HOUR.trim()
   ).getTime();
@@ -110,14 +52,48 @@ export class TimetableComponent implements OnInit {
     '2020-01-01 ' + END_HOUR.trim()
   ).getTime();
   timetableHeight: string = `${Math.floor(
-    ((this.endHourTimestamp - this.startHourTimestamp) / (1000 * 60)) *
-      ROW_HEIGHT
+    ((this.endHourTimestamp - this.startHourTimestamp) / (1000 * 60 * 5)) *
+      ROW_HEIGHT +
+      50
   )}px`;
 
-  constructor() {}
+  constructor(private service: VaccinationCenterService) {}
 
   ngOnInit(): void {
-    console.log(this.getYLabel());
+    this.getAppointments();
+  }
+
+  getAppointments() {
+    if (this.centerId) {
+      this.service
+        .getAppointmentsByCenterId(this.centerId)
+        .subscribe((appointments) => {
+          let result = [];
+          appointments.forEach((appointment) => {
+            if (result.find((day) => day.date === appointment.date)) {
+              result
+                .find((day) => day.date === appointment.date)
+                .list.push({
+                  time: appointment.date + ' ' + appointment.time,
+                  available: true,
+                  duration: 15,
+                });
+            } else {
+              result.push({
+                date: appointment.date,
+                list: [
+                  {
+                    time: appointment.date + ' ' + appointment.time,
+                    available: true,
+                    duration: 15,
+                  },
+                ],
+              });
+            }
+          });
+          this.appointments = result;
+        });
+    }
   }
 
   getAppointmentList() {
@@ -135,9 +111,9 @@ export class TimetableComponent implements OnInit {
       ).getTime();
       day.list.forEach((appointment) => {
         appointment.timestamp = new Date(appointment.time).getTime();
-        appointment.width = `${COLUMN_WIDTH - 2}px`;
+        appointment.width = `${COLUMN_WIDTH - 4}px`;
         appointment.height = `${
-          Math.floor(appointment.duration / 5) * ROW_HEIGHT - 2
+          Math.floor(appointment.duration / 5) * ROW_HEIGHT - 4
         }px`;
         appointment.top = `${
           Math.floor(

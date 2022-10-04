@@ -13,6 +13,9 @@ import { VaccinationCenterModule } from './vaccination-center/vaccination-center
 import { SharedModule } from './shared/shared.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
+import { AppointmentPreviewComponent } from './appointment-preview/appointment-preview.component';
+import { TimetableComponent } from './timetable/timetable.component';
+import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccination-center-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { HeaderComponent } from './header/header.component';
     HomePublicPageComponent,
     LoginPageComponent,
     HeaderComponent,
+    AppointmentPreviewComponent,
+    VaccinationCenterPageComponent,
+    TimetableComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,47 @@
+.centers-management-page {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .search-center-form {
+    height: 25rem;
+    width: 40%;
+    padding-left: 5%;
+
+    .title {
+      font-size: 30px;
+      font-weight: bold;
+      color: #DE0F0F;
+      padding: 50px 0 20px 0;
+      white-space: nowrap;
+    }
+
+    .loader {
+      margin: 25px 0 0 40%;
+    }
+  }
+
+  img {
+    z-index: -1;
+    top: 0;
+    right: 5%;
+    position: absolute;
+    width: 550px;
+  }
+
+  app-vaccination-center-list {
+    z-index: 1;
+    background-color: #FFF;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px 30px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+  }
+
+  .more-button {
+    margin: auto;
+  }
+}

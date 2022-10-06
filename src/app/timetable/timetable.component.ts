@@ -6,7 +6,7 @@ const ROW_HEIGHT = 10;
 const START_HOUR = '8:00';
 const END_HOUR = '18:00';
 
-const DAY_OF_WEEK = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const DAY_OF_WEEK = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 const MONTH = [
   'Jan',
   'Fev',
@@ -29,6 +29,7 @@ const MONTH = [
 })
 export class TimetableComponent implements OnInit {
   @Input() centerId: number | null = null;
+  translationX: number = 0;
 
   appointments: {
     date: string;
@@ -54,7 +55,8 @@ export class TimetableComponent implements OnInit {
   timetableHeight: string = `${Math.floor(
     ((this.endHourTimestamp - this.startHourTimestamp) / (1000 * 60 * 5)) *
       ROW_HEIGHT +
-      50
+      50 +
+      10
   )}px`;
 
   constructor(private service: VaccinationCenterService) {}
@@ -63,6 +65,7 @@ export class TimetableComponent implements OnInit {
     this.getAppointments();
   }
 
+  // TODO : Review after fix in back-end
   getAppointments() {
     if (this.centerId) {
       this.service
@@ -100,7 +103,7 @@ export class TimetableComponent implements OnInit {
     this.appointments.forEach((day) => {
       const date = new Date(day.date);
       day.cleanDate =
-        DAY_OF_WEEK[date.getDay().toString()] +
+        DAY_OF_WEEK[date.getDay()] +
         ' ' +
         date.getDate().toString() +
         ' ' +
@@ -118,7 +121,9 @@ export class TimetableComponent implements OnInit {
         appointment.top = `${
           Math.floor(
             (appointment.timestamp - day.startTimestamp) / (1000 * 60 * 5)
-          ) * ROW_HEIGHT
+          ) *
+            ROW_HEIGHT +
+          5
         }px`;
       });
     });
@@ -141,5 +146,27 @@ export class TimetableComponent implements OnInit {
       );
     }
     return yLabels;
+  }
+
+  translateToRight() {
+    if (this.canTranslateToRight()) {
+      this.translationX -= COLUMN_WIDTH;
+    }
+  }
+
+  canTranslateToRight() {
+    const screenWidth = window.innerWidth;
+    const timetableWidth = (this.appointments.length + 1) * COLUMN_WIDTH;
+    return timetableWidth + this.translationX > screenWidth;
+  }
+
+  translateToLeft() {
+    if (this.canTranslateToLeft()) {
+      this.translationX += COLUMN_WIDTH;
+    }
+  }
+
+  canTranslateToLeft() {
+    return this.translationX < 0;
   }
 }

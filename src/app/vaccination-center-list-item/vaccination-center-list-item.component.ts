@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./vaccination-center-list-item.component.scss'],
 })
 export class VaccinationCenterListItemComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   @Input() id: number;
   @Input() name: string = '';
   @Input() city: string = '';
+  @Input() phone: string = '';
   @Input() lastChild: boolean = false;
 
   onAppointementClick() {
@@ -20,5 +21,5 @@ export class VaccinationCenterListItemComponent implements OnInit {
     this.router.navigateByUrl('/centers/' + this.id);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

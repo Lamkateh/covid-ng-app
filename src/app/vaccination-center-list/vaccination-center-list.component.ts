@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
 import { VaccinationCenter } from '../vaccination-center/vaccination-center';
 
@@ -10,9 +10,9 @@ import { VaccinationCenter } from '../vaccination-center/vaccination-center';
 export class VaccinationCenterListComponent implements OnInit {
   centers?: VaccinationCenter[] = [];
 
-  constructor() {}
+  constructor() { }
 
   @Input() list: VaccinationCenter[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

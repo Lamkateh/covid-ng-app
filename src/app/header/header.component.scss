@@ -2,15 +2,16 @@ div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #EEE;
-  margin-bottom: 20px;
+  background-color: #2b51d2;
   padding: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
-  span {
+  .title {
     font-weight: bold;
     font-size: 20px;
     padding-left: 20px;
+    color: #fff;
+    text-decoration: none;
   }
 
   ul {
@@ -22,7 +23,7 @@ div {
 
       a {
         margin: 0 10px;
-        color: #333;
+        color: #fff;
         text-decoration: none;
 
         &:hover {
@@ -31,7 +32,6 @@ div {
       }
 
       .active {
-        color: #666;
         text-decoration: underline;
       }
     }

@@ -54,6 +54,16 @@ export class HomePublicPageComponent implements OnInit {
     }
   }
 
+  isLoading() {
+    if (this.listLoading) return true;
+    else return false;
+  }
+
+  isNotLoading() {
+    if (this.listLoading) return false;
+    else return true;
+  }
+
   constructor(private service: VaccinationCenterService) {}
 
   ngOnInit(): void {

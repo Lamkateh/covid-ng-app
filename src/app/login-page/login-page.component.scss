@@ -4,6 +4,7 @@ div {
   width: 100%;
   justify-content: center;
   align-items: center;
+  margin-top: 7rem;
 
   h2 {
     font-size: 20px;
@@ -22,7 +23,6 @@ div {
 
     app-button {
       margin-top: 10px;
-      width: 50%;
     }
   }
 }

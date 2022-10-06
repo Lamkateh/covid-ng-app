@@ -13,6 +13,10 @@ import { VaccinationCenterModule } from './vaccination-center/vaccination-center
 import { SharedModule } from './shared/shared.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HeaderComponent } from './header/header.component';
+import { CentersManagementPageComponent } from './centers-management-page/centers-management-page.component';
+import { CenterManagementPageComponent } from './center-management-page/center-management-page.component';
+import { SchedulePageComponent } from './schedule-page/schedule-page.component';
+import { ConfigurationPageComponent } from './configuration-page/configuration-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,10 @@ import { HeaderComponent } from './header/header.component';
     HomePublicPageComponent,
     LoginPageComponent,
     HeaderComponent,
+    CentersManagementPageComponent,
+    CenterManagementPageComponent,
+    SchedulePageComponent,
+    ConfigurationPageComponent,
   ],
   imports: [
     BrowserModule,

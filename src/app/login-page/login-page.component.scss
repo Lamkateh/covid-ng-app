@@ -1,4 +1,4 @@
-div {
+.login-page {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -6,12 +6,13 @@ div {
   align-items: center;
   margin-top: 7rem;
 
-  h2 {
+  .title {
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 20px;
   }
 
-  form {
+  .login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,18 +20,19 @@ div {
 
     app-input {
       width: 100%;
+      padding-bottom: 10px;
     }
 
-    app-button {
+    .login-button {
       margin-top: 10px;
     }
   }
 }
 
 @media (max-width: 800px) {
-  div {
-    form {
-      app-button {
+  .login-page {
+    .login-form {
+      .login-button {
         width: 100%;
       }
     }

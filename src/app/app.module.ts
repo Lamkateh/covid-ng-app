@@ -17,6 +17,9 @@ import { CentersManagementPageComponent } from './centers-management-page/center
 import { CenterManagementPageComponent } from './center-management-page/center-management-page.component';
 import { SchedulePageComponent } from './schedule-page/schedule-page.component';
 import { ConfigurationPageComponent } from './configuration-page/configuration-page.component';
+import { AppointmentPreviewComponent } from './appointment-preview/appointment-preview.component';
+import { TimetableComponent } from './timetable/timetable.component';
+import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccination-center-page.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { ConfigurationPageComponent } from './configuration-page/configuration-p
     CenterManagementPageComponent,
     SchedulePageComponent,
     ConfigurationPageComponent,
+    AppointmentPreviewComponent,
+    VaccinationCenterPageComponent,
+    TimetableComponent,
   ],
   imports: [
     BrowserModule,

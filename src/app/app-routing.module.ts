@@ -6,11 +6,11 @@ import { ConfigurationPageComponent } from './configuration-page/configuration-p
 import { HomePublicPageComponent } from './home-public-page/home-public-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SchedulePageComponent } from './schedule-page/schedule-page.component';
-import { VaccinationCenterComponent } from './vaccination-center/vaccination-center.component';
+import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccination-center-page.component';
 
 const routes: Routes = [
   { path: 'centers', component: HomePublicPageComponent },
-  { path: 'centers/:id', component: VaccinationCenterComponent },
+  { path: 'centers/:id', component: VaccinationCenterPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'management/centers', component: CentersManagementPageComponent },
   { path: 'management/center', component: CenterManagementPageComponent },

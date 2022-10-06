@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppointmentPreview } from '../appointment-preview/appointment-preview';
 import { VaccinationCenter } from '../vaccination-center/vaccination-center';
 
 @Injectable({
@@ -48,6 +49,12 @@ export class VaccinationCenterService {
           page: page.toString(),
         },
       }
+    );
+  }
+
+  getAppointmentsByCenterId(id: number): Observable<AppointmentPreview[]> {
+    return this.httpClient.get<AppointmentPreview[]>(
+      '/public/appointments/' + id
     );
   }
 }

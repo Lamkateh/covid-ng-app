@@ -1,0 +1,43 @@
+<div class="timetable-container">
+  <button
+    class="control-btn control-btn-right"
+    (click)="this.translateToRight()"
+    *ngIf="this.canTranslateToRight()"
+  >
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+  <button
+    class="control-btn control-btn-left"
+    (click)="this.translateToLeft()"
+    *ngIf="this.canTranslateToLeft()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <div
+    class="timetable-translation"
+    [style.transform]="'translateX(' + translationX + 'px)'"
+  >
+    <div class="day-column-headers">
+      <div *ngFor="let day of this.getAppointmentList(); let first = first">
+        <div class="day-column-header" [ngClass]="{ first: first }">
+          {{ day.cleanDate }}
+        </div>
+      </div>
+    </div>
+    <div class="timetable-scroll">
+      <div class="timetable" [style.height]="timetableHeight">
+        <div *ngFor="let day of this.getAppointmentList()">
+          <div class="day-column">
+            <div *ngFor="let appointment of day.list">
+              <app-appointment-preview
+                [time]="appointment.time.split(' ')[1]"
+                [height]="appointment.height"
+                [top]="appointment.top"
+              ></app-appointment-preview>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+$information-min-width: 300px;
+
+.vaccination-center-page {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100vh - 40px);
+  overflow: hidden;
+
+  .information-wrapper {
+    min-width: $information-min-width;
+    border-right: 2px solid #ddd;
+  }
+
+  .timetable-wrapper {
+    width: calc(100% - #{$information-min-width});
+  }
+}

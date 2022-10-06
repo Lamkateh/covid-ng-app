@@ -1,8 +1,22 @@
-<div>
-  <h2 [title]="center?.name">{{ center?.name | uppercase }}</h2>
-  <div>
-    {{ center?.address }}
-    <span>{{ center?.zipCode }} {{ center?.city }}</span>
-    <span>{{ center?.phone }} {{ center?.email }}</span>
-  </div>
+<div class="vaccination-center">
+  <h1 [title]="center?.name">{{ center?.name | uppercase }}</h1>
+
+  <section>
+    <h2>Adresse</h2>
+    <div>
+      <span>{{ center?.address }}</span>
+    </div>
+    <div>
+      <span>{{ center?.zipCode }} {{ center?.city }}</span>
+    </div>
+  </section>
+  <section>
+    <h2>Contact</h2>
+    <div *ngIf="center.phone !== null">
+      <span>Téléphone : </span><span>{{ center.phone }}</span>
+    </div>
+    <div *ngIf="center.email !== null">
+      <span>Email : </span><span>{{ center.email }}</span>
+    </div>
+  </section>
 </div>

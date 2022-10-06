@@ -21,5 +21,19 @@ export class VaccinationCenterListItemComponent implements OnInit {
     this.router.navigateByUrl('/centers/' + this.id);
   }
 
+  isHomePage(): boolean {
+    if (this.router.url == "/centers") return true;
+    else return false;
+  }
+
+  isManagementCentersPage(): boolean {
+    if (this.router.url == "/management/centers") return true;
+    else return false;
+  }
+
+  onEditClick() { }
+
+  onAdminAndMedecinClick() { }
+
   ngOnInit(): void { }
 }

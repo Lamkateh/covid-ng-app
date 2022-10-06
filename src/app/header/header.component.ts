@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { VaccinationCenterService } from '../services/vaccination-center.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +10,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   @Input() title!: string;
+  color: string;
 
-  constructor() { }
+  getColor() {
+    this.color = this.service.getColorTheme();
+  }
+
+  constructor(private service: VaccinationCenterService) { }
 
   ngOnInit(): void {
+    this.getColor();
   }
 
 }

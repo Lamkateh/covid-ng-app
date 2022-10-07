@@ -10,11 +10,15 @@ import { VaccinationCenter } from "../vaccination-center/vaccination-center";
 export class VaccinationCenterService {
   constructor(private httpClient: HttpClient) {}
 
-  user_role: string = "PATIENT";
+  user_role: string;
 
   getColorTheme() {
-    if (this.user_role == "SUPERADMIN") return "#DE0F0F"; //TODO with roles
-    else return "#2B51D2";
+    this.user_role = ""; //TODO
+
+    if (this.user_role == "SUPERADMIN") return "#D24848";
+    else if (this.user_role == "ADMIN") return "#E59C01";
+    else if (this.user_role == "DOCTOR") return "#84B56C";
+    else return "#3791D8";
   }
 
   getVaccinationCenterById(id: number): Observable<VaccinationCenter> {

@@ -16,7 +16,6 @@ export class VaccinationCenterListItemComponent implements OnInit {
   @Input() lastChild: boolean = false;
 
   onAppointementClick() {
-    console.log('Appointement clicked');
     // navigate to appointement page
     this.router.navigateByUrl('/centers/' + this.id);
   }

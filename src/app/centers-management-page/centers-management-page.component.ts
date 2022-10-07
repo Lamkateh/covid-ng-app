@@ -14,6 +14,7 @@ export class CentersManagementPageComponent implements OnInit {
   citySearched: string = '';
   listLoading: boolean = false;
   page: number = 0;
+  color: string;
 
   onSearchCity() {
     this.citySearched = this.citySearchTerm;
@@ -58,9 +59,14 @@ export class CentersManagementPageComponent implements OnInit {
     else return true;
   }
 
+  getColor() {
+    this.color = this.service.getColorTheme();
+  }
+
   constructor(private service: VaccinationCenterService) { }
 
   ngOnInit(): void {
+    this.getColor();
     this.getResult();
   }
 

@@ -30,16 +30,6 @@ export class VaccinationCenterListItemComponent implements OnInit {
     else return false;
   }
 
-  hasCity(): boolean {
-    if (this.city) return true;
-    else return false;
-  }
-
-  hasPhone(): boolean {
-    if (this.phone) return true;
-    else return false;
-  }
-
   onEditClick() { }
 
   onAdminAndMedecinClick() { }

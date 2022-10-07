@@ -1,8 +1,8 @@
 <div class="centers-management-page">
   <form class="search-center-form" (submit)="onSearchCity()">
-    <div class="title">Ajoutez un nouveau centre de vaccination ?</div>
+    <div class="title" [ngStyle]="{'color': color}">Ajoutez un nouveau centre de vaccination ?</div>
     <app-button class="new-center-button" title="Nouveau centre"></app-button>
-    <div class="title">Filtrez les centres de vaccination</div>
+    <div class="title" [ngStyle]="{'color': color}">Filtrez les centres de vaccination</div>
     <app-input class="search-input" name="search_item" placeholder="Dans quelle ville ?" [(inputValue)]="citySearchTerm"
       [search]="true">
     </app-input>

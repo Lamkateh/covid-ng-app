@@ -1,5 +1,5 @@
 <div class="login-page">
-  <div class="title">Connexion</div>
+  <div class="title" [ngStyle]="{'color': color}">Connexion</div>
   <form class="login-form" (submit)="login()">
     <app-input label="Adresse mail" name="email" placeholder="Entrez votre adresse mail" [(inputValue)]="emailAddress">
     </app-input>

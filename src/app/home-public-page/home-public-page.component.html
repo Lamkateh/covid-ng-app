@@ -1,20 +1,11 @@
 <div class="homepage">
   <form class="search-center-form" (submit)="onSearchCity()">
-    <div class="title">Trouvez un centre de vaccination près de chez vous</div>
-    <app-input
-      name="search_item"
-      placeholder="Dans quelle ville ?"
-      [(inputValue)]="citySearchTerm"
-      [search]="true"
-    >
+    <div class="title" [ngStyle]="{'color': color}">Trouvez un centre de vaccination près de chez vous</div>
+    <app-input name="search_item" placeholder="Dans quelle ville ?" [(inputValue)]="citySearchTerm" [search]="true">
     </app-input>
     <mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>
   </form>
   <img src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
-  <app-button
-    title="Afficher plus"
-    (clickEvent)="onMoreRequest()"
-    *ngIf="isNotLoading()"
-  ></app-button>
+  <app-button title="Afficher plus" (clickEvent)="onMoreRequest()" *ngIf="isNotLoading()"></app-button>
 </div>

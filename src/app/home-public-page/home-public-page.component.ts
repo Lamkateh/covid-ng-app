@@ -14,6 +14,7 @@ export class HomePublicPageComponent implements OnInit {
   listLoading: boolean = false;
   page: number = 0;
   lastPage: boolean = false;
+  color: string;
 
   onSearchCity() {
     this.citySearched = this.citySearchTerm;
@@ -64,9 +65,14 @@ export class HomePublicPageComponent implements OnInit {
     else return true;
   }
 
-  constructor(private service: VaccinationCenterService) {}
+  getColor() {
+    this.color = this.service.getColorTheme();
+  }
+
+  constructor(private service: VaccinationCenterService) { }
 
   ngOnInit(): void {
+    this.getColor();
     this.getResult();
   }
 }

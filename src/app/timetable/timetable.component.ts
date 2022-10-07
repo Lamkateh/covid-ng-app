@@ -1,42 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { VaccinationCenterService } from '../services/vaccination-center.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { VaccinationCenterService } from "../services/vaccination-center.service";
 
 const COLUMN_WIDTH = 300;
 const ROW_HEIGHT = 10;
-const START_HOUR = '8:00';
-const END_HOUR = '18:00';
+const START_HOUR = "8:00";
+const END_HOUR = "18:00";
 
-const DAY_OF_WEEK = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+const DAY_OF_WEEK = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 const MONTH = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Avr',
-  'Mai',
-  'Juin',
-  'Juil',
-  'Aout',
-  'Sept',
-  'Oct',
-  'Nov',
-  'Dec',
+  "Jan",
+  "Fev",
+  "Mar",
+  "Avr",
+  "Mai",
+  "Juin",
+  "Juil",
+  "Aout",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
 @Component({
-  selector: 'app-timetable',
-  templateUrl: './timetable.component.html',
-  styleUrls: ['./timetable.component.scss'],
+  selector: "app-timetable",
+  templateUrl: "./timetable.component.html",
+  styleUrls: ["./timetable.component.scss"],
 })
 export class TimetableComponent implements OnInit {
   @Input() centerId: number | null = null;
   translationX: number = 0;
 
-  appointments: {
+  timetable: {
     date: string;
     cleanDate?: string;
     dateTimestamp?: number;
     startTimestamp?: number;
-    list: {
+    appointments: {
       time: string;
       timestamp?: number;
       available: boolean;
@@ -47,10 +47,10 @@ export class TimetableComponent implements OnInit {
     }[];
   }[] = [];
   startHourTimestamp: number = new Date(
-    '2020-01-01 ' + START_HOUR.trim()
+    "2020-01-01 " + START_HOUR.trim()
   ).getTime();
   endHourTimestamp: number = new Date(
-    '2020-01-01 ' + END_HOUR.trim()
+    "2020-01-01 " + END_HOUR.trim()
   ).getTime();
   timetableHeight: string = `${Math.floor(
     ((this.endHourTimestamp - this.startHourTimestamp) / (1000 * 60 * 5)) *
@@ -70,49 +70,44 @@ export class TimetableComponent implements OnInit {
     if (this.centerId) {
       this.service
         .getAppointmentsByCenterId(this.centerId)
-        .subscribe((appointments) => {
-          let result = [];
-          appointments.forEach((appointment) => {
-            if (result.find((day) => day.date === appointment.date)) {
-              result
-                .find((day) => day.date === appointment.date)
-                .list.push({
-                  time: appointment.date + ' ' + appointment.time,
+        .subscribe((timetable) => {
+          this.timetable = timetable.days.map((day) => {
+            return {
+              date: day.date,
+              appointments: day.appointments.map((appointment) => {
+                return {
+                  time: day.date + " " + appointment.time,
                   available: true,
                   duration: 15,
-                });
-            } else {
-              result.push({
-                date: appointment.date,
-                list: [
-                  {
-                    time: appointment.date + ' ' + appointment.time,
-                    available: true,
-                    duration: 15,
-                  },
-                ],
-              });
-            }
+                };
+              }),
+            };
           });
-          this.appointments = result;
+
+          this.startHourTimestamp = new Date(
+            "2020-01-01 " + timetable.startTime.trim()
+          ).getTime();
+          this.endHourTimestamp = new Date(
+            "2020-01-01 " + timetable.closeTime.trim()
+          ).getTime();
         });
     }
   }
 
   getAppointmentList() {
-    this.appointments.forEach((day) => {
+    this.timetable.forEach((day) => {
       const date = new Date(day.date);
       day.cleanDate =
         DAY_OF_WEEK[date.getDay()] +
-        ' ' +
+        " " +
         date.getDate().toString() +
-        ' ' +
+        " " +
         MONTH[date.getMonth().toString()];
       day.dateTimestamp = new Date(day.date).getTime();
       day.startTimestamp = new Date(
-        day.date + ' ' + START_HOUR.trim()
+        day.date + " " + START_HOUR.trim()
       ).getTime();
-      day.list.forEach((appointment) => {
+      day.appointments.forEach((appointment) => {
         appointment.timestamp = new Date(appointment.time).getTime();
         appointment.width = `${COLUMN_WIDTH - 4}px`;
         appointment.height = `${
@@ -128,7 +123,7 @@ export class TimetableComponent implements OnInit {
       });
     });
 
-    return this.appointments;
+    return this.timetable;
   }
 
   getYLabel() {
@@ -140,9 +135,9 @@ export class TimetableComponent implements OnInit {
     ) {
       const date = new Date(i);
       yLabels.push(
-        ('0' + date.getHours()).slice(-2) +
-          ':' +
-          ('0' + date.getMinutes()).slice(-2)
+        ("0" + date.getHours()).slice(-2) +
+          ":" +
+          ("0" + date.getMinutes()).slice(-2)
       );
     }
     return yLabels;
@@ -156,7 +151,7 @@ export class TimetableComponent implements OnInit {
 
   canTranslateToRight() {
     const screenWidth = window.innerWidth;
-    const timetableWidth = (this.appointments.length + 1) * COLUMN_WIDTH;
+    const timetableWidth = (this.timetable.length + 1) * COLUMN_WIDTH;
     return timetableWidth + this.translationX > screenWidth;
   }
 

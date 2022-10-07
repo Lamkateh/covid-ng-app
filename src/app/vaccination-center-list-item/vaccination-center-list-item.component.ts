@@ -16,7 +16,6 @@ export class VaccinationCenterListItemComponent implements OnInit {
   @Input() lastChild: boolean = false;
 
   onAppointementClick() {
-    console.log('Appointement clicked');
     // navigate to appointement page
     this.router.navigateByUrl('/centers/' + this.id);
   }
@@ -28,6 +27,16 @@ export class VaccinationCenterListItemComponent implements OnInit {
 
   isManagementCentersPage(): boolean {
     if (this.router.url == "/management/centers") return true;
+    else return false;
+  }
+
+  hasCity(): boolean {
+    if (this.city) return true;
+    else return false;
+  }
+
+  hasPhone(): boolean {
+    if (this.phone) return true;
     else return false;
   }
 

@@ -1,11 +1,11 @@
 <div class="vaccination-center-list-item" [ngClass]="lastChild ? 'last-child' : ''">
   <div class="center-name">{{ name | titlecase }}</div>
   <div class="center-infos">
-    <div class="center-city">
+    <div class="center-city" *ngIf="hasCity()">
       <mat-icon>home</mat-icon>
       <div class="city-name">{{ city }}</div>
     </div>
-    <div class="center-phone">
+    <div class="center-phone" *ngIf="hasPhone()">
       <mat-icon>phone</mat-icon>
       <div class="phone-number">{{ phone }}</div>
     </div>

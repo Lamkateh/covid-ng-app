@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Route } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
-import { Doctor } from '../users-list/doctor';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-configuration-page',
@@ -10,7 +10,7 @@ import { Doctor } from '../users-list/doctor';
   styleUrls: ['./configuration-page.component.scss'],
 })
 export class ConfigurationPageComponent implements OnInit {
-  superadmins?: Doctor[] = [
+  superadmins?: User[] = [
     {
       id: 1,
       firstName: 'Gaëtan',

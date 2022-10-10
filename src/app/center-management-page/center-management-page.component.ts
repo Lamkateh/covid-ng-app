@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
-import { Doctor } from '../users-list/doctor';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-center-management-page',
@@ -9,7 +9,7 @@ import { Doctor } from '../users-list/doctor';
   styleUrls: ['./center-management-page.component.scss'],
 })
 export class CenterManagementPageComponent implements OnInit {
-  doctors?: Doctor[] = [
+  doctors?: User[] = [
     {
       id: 1,
       firstName: 'Gaëtan',

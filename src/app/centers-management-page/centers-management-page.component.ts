@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
-import { VaccinationCenter } from '../vaccination-center/vaccination-center';
+import { VaccinationCenter } from '../models/vaccination-center';
 
 @Component({
   selector: 'app-centers-management-page',

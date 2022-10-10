@@ -24,6 +24,7 @@ import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccin
 import { UsersListComponent } from './users-list/users-list.component';
 import { UsersListItemComponent } from './users-list-item/users-list-item.component';
 import { AppointmentDialogComponent } from './appointment-dialog/appointment-dialog.component';
+import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { AppointmentDialogComponent } from './appointment-dialog/appointment-dia
     MatDialogModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

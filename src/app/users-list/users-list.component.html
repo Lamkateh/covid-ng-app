@@ -1,7 +1,7 @@
 <div class="user-list" *ngIf="list.length > 0">
   <div class="header">
-    <div class="title" onclick="onAddClick()">{{ role }}</div>
-    <mat-icon>add</mat-icon>
+    <div class="title">{{ role }}</div>
+    <mat-icon (click)="onAddClick()">add</mat-icon>
   </div>
   <div *ngFor="let aDoctor of list; let last = last" class="list">
     <app-users-list-item [ngClass]="{ 'last-child': last }" [id]="aDoctor.id" [firstName]="aDoctor.firstName"

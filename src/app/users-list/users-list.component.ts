@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../models/user';
+import { MatDialog } from '@angular/material/dialog';
+import { UserManagementDialogComponent } from '../user-management-dialog/user-management-dialog.component';
+
 
 @Component({
   selector: 'app-users-list',
@@ -11,11 +14,18 @@ export class UsersListComponent implements OnInit {
   @Input() list: User[] = [];
   @Input() role: string = '';
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  onAddClick() { }
+  onAddClick() {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        title: 'Ajout d\'un utilisateur',
+      }
+    });
+  }
 
 }

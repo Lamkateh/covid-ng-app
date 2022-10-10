@@ -1,7 +1,7 @@
 <div class="config-page">
   <form class="search-superadmin-form" (submit)="onSearchName()">
     <div class="title" [ngStyle]="{'color': color}">Gérez les superadmins</div>
-    <app-input class="search-input" name="search_item" placeholder="Quel est son nom ?" [(inputValue)]="nameSearchTerm"
+    <app-input class="search-input" name="search_item" placeholder="Filtrez par nom" [(inputValue)]="nameSearchTerm"
       [search]="true">
     </app-input>
   </form>

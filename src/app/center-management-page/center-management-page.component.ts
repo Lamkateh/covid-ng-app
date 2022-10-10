@@ -52,5 +52,4 @@ export class CenterManagementPageComponent implements OnInit {
     this.nameSearched = this.nameSearchTerm;
     this.getResult();
   }
-
 }

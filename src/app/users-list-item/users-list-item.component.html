@@ -2,7 +2,7 @@
   <span>{{ id }}</span>
   <span>{{ lastName | uppercase }} {{ firstName | titlecase }}</span>
   <div class="buttons">
-    <mat-icon onclick="onEditClick()">edit</mat-icon>
-    <mat-icon onclick="onDeleteClick()">delete</mat-icon>
+    <mat-icon (click)="onEditClick()">edit</mat-icon>
+    <mat-icon (click)="onDeleteClick()">delete</mat-icon>
   </div>
 </div>

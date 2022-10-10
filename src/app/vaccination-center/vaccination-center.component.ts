@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { VaccinationCenter } from '../models/vaccination-center';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class VaccinationCenterComponent implements OnInit {
 
   center?: VaccinationCenter;
+  @Input() id: number;
 
   getCenter(id: number) {
     this.service
@@ -24,8 +25,10 @@ export class VaccinationCenterComponent implements OnInit {
   constructor(private service: VaccinationCenterService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.getCenter(id);
+    if (!this.id) {
+      this.id = Number(this.route.snapshot.paramMap.get('id'));
+    }
+    this.getCenter(this.id);
   }
 
 }

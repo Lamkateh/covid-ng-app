@@ -7,26 +7,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class InputComponent implements OnInit {
 
-  @Input() label?: string;
-  @Input() placeholder?: string;
-  @Input() name?: string;
-  @Input() search = false;
-
-  @Input() inputValue?: string;
+  @Input() label: string = '';
+  @Input() placeholder: string = '';
+  @Input() name: string = '';
+  @Input() search: boolean = false;
+  @Input() inputValue: string = '';
   @Output() inputValueChange = new EventEmitter();
+
+  constructor() { }
+
+  ngOnInit(): void { }
 
   change(newValue: string) {
     this.inputValue = newValue;
     this.inputValueChange.emit(newValue);
   }
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  isSearch() {
-    return this.search;
-  }
-
 }

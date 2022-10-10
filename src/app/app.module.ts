@@ -24,6 +24,11 @@ import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccin
 import { UsersListComponent } from './users-list/users-list.component';
 import { UsersListItemComponent } from './users-list-item/users-list-item.component';
 import { AppointmentDialogComponent } from './appointment-dialog/appointment-dialog.component';
+import { CenterManagementDialogComponent } from './center-management-dialog/center-management-dialog.component';
+import { UsersManagementDialogComponent } from './users-management-dialog/users-management-dialog.component';
+import { UserManagementDialogComponent } from './user-management-dialog/user-management-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +48,11 @@ import { AppointmentDialogComponent } from './appointment-dialog/appointment-dia
     UsersListComponent,
     UsersListItemComponent,
     AppointmentDialogComponent,
+    CenterManagementDialogComponent,
+    UsersManagementDialogComponent,
+    UserManagementDialogComponent,
+    DeleteDialogComponent,
+    SelectComponent,
   ],
   imports: [
     BrowserModule,

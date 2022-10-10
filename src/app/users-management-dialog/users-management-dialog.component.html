@@ -1,17 +1,21 @@
-<div class="center-management-page">
+<div class="header">
+  <h1 class="title" [ngStyle]="{'color': color}" mat-dialog-title>{{ data['title'] }}</h1>
+  <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
+</div>
+<div class="content">
   <div class="information-wrapper">
-    <app-vaccination-center></app-vaccination-center>
+    <app-vaccination-center [id]="data['centerId']"></app-vaccination-center>
   </div>
   <div class="management-wrapper">
     <form class="search-doctor-form" (submit)="onSearchName()">
-      <div class="title" [ngStyle]="{'color': color}">Gérez les médecins de votre centre</div>
       <app-input class="search-input" name="search_item" placeholder="Filtrez par nom" [(inputValue)]="nameSearchTerm"
         [search]="true">
       </app-input>
     </form>
     <div class="doctors-list">
+      <app-users-list [list]="admins" role="Administrateurs"></app-users-list>
       <app-users-list [list]="doctors" role="Médecins"></app-users-list>
     </div>
-    <mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>
+    <!--<mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>-->
   </div>
 </div>

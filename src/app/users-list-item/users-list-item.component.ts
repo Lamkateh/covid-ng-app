@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { UserManagementDialogComponent } from '../user-management-dialog/user-management-dialog.component';
 
 @Component({
   selector: 'app-users-list-item',
@@ -16,12 +18,32 @@ export class UsersListItemComponent implements OnInit {
   @Input() role: string = '';
   @Input() lastChild: boolean = false;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void { }
 
-  onEditClick() { }
+  onEditClick() {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        title: 'Modification d\'un ' + this.role,
+        lastName: this.lastName,
+        firstName: this.firstName,
+        email: this.email,
+        password: this.password,
+        role: this.role
+      }
+    });
+  }
 
-  onDeleteClick() { }
+  onDeleteClick() {
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        lastName: this.lastName,
+        firstName: this.firstName
+      }
+    });
+  }
 
 }

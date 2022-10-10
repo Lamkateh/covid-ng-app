@@ -3,6 +3,6 @@
   <div class="input-element">
     <input type="text" id="name" [name]="name" [placeholder]="placeholder" [ngModel]="inputValue"
       (ngModelChange)="change($event)">
-    <mat-icon *ngIf="isSearch()">search</mat-icon>
+    <mat-icon *ngIf="search">search</mat-icon>
   </div>
 </div>

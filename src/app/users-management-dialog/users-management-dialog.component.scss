@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+
+  .title {
+    max-width: 90%;
+    font-weight: 600;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+
+  .information-wrapper {
+    width: 35%;
+    border-right: 2px solid #ddd;
+  }
+
+  .management-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5% 0 5%;
+    width: 100%;
+
+    .search-doctor-form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  }
+}

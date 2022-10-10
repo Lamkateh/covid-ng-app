@@ -1,4 +1,8 @@
 .user-list {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+
   .header {
     position: relative;
 
@@ -7,8 +11,6 @@
       border-radius: 10px 10px 0 0;
       padding: 15px 50px;
       font-weight: 700;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-      z-index: -1;
     }
 
     mat-icon {

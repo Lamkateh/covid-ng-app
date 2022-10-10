@@ -10,16 +10,19 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log('intercepted');
+    // TODO : filter private routes
 
-    // Get the token from the AuthService
-    const credentials = 'bruno.dilivio@example.com:password';
-    const authToken = 'Basic ' + btoa(credentials);
+    // Get the token from localstorage
+    const token = localStorage.getItem('rdvaccination-token') ?? null;
+    if (token) {
+      const authToken = 'Basic ' + token;
 
-    const authReq = req.clone({
-      headers: req.headers.set('Authorization', authToken),
-    });
+      const authReq = req.clone({
+        headers: req.headers.set('Authorization', authToken),
+      });
 
-    return next.handle(authReq);
+      return next.handle(authReq);
+    }
+    return next.handle(req);
   }
 }

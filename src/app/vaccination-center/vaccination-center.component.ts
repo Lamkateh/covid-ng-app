@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VaccinationCenter } from './vaccination-center';
+import { VaccinationCenter } from '../models/vaccination-center';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
 import { ActivatedRoute } from '@angular/router';
 

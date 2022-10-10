@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Doctor } from './doctor';
+import { Doctor } from '../models/user';
 
 @Component({
   selector: 'app-users-list',

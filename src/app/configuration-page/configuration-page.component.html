@@ -1,1 +1,12 @@
-<p>configuration-page works!</p>
+<div class="config-page">
+  <form class="search-superadmin-form" (submit)="onSearchName()">
+    <div class="title" [ngStyle]="{'color': color}">Gérez les superadmins</div>
+    <app-input class="search-input" name="search_item" placeholder="Quel est son nom ?" [(inputValue)]="nameSearchTerm"
+      [search]="true">
+    </app-input>
+  </form>
+  <div class="doctors-list">
+    <app-users-list [list]="superadmins" role="Superadmins"></app-users-list>
+  </div>
+  <mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>
+</div>

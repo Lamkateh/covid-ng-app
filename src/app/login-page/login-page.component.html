@@ -3,7 +3,7 @@
   <form class="login-form" (submit)="login()">
     <app-input label="Adresse mail" name="email" placeholder="Entrez votre adresse mail" [(inputValue)]="emailAddress">
     </app-input>
-    <app-input label="Mot de passe" name="^password" placeholder="Entrez votre mot de passe" [(inputValue)]="password">
+    <app-input label="Mot de passe" name="password" placeholder="Entrez votre mot de passe" [(inputValue)]="password">
     </app-input>
     <app-button class="login-button" title="Se connecter" (clickEvent)="login()"></app-button>
   </form>

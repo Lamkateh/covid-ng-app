@@ -1,0 +1,26 @@
+.user-list {
+  .header {
+    position: relative;
+
+    .title {
+      background-color: #ddd;
+      border-radius: 10px 10px 0 0;
+      padding: 15px 50px;
+      font-weight: 700;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      z-index: -1;
+    }
+
+    mat-icon {
+      position: absolute;
+      height: 25px;
+      top: 25%;
+      right: 5%;
+      cursor: pointer;
+    }
+
+    mat-icon:hover {
+      transform: translateY(-1px);
+    }
+  }
+}

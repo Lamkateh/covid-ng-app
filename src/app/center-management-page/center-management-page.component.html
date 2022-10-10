@@ -1,1 +1,17 @@
-<app-vaccination-center></app-vaccination-center>
+<div class="center-management-page">
+  <div class="information-wrapper">
+    <app-vaccination-center></app-vaccination-center>
+  </div>
+  <div class="management-wrapper">
+    <form class="search-doctor-form" (submit)="onSearchName()">
+      <div class="title" [ngStyle]="{'color': color}">Gérez les médecins de votre centre</div>
+      <app-input class="search-input" name="search_item" placeholder="Quel est son nom ?"
+        [(inputValue)]="nameSearchTerm" [search]="true">
+      </app-input>
+    </form>
+    <div class="doctors-list">
+      <app-users-list [list]="doctors" role="Médecins"></app-users-list>
+    </div>
+    <mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>
+  </div>
+</div>

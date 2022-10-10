@@ -13,6 +13,7 @@
   .center-name {
     font-size: 20px;
     text-align: center;
+    font-weight: 700;
   }
 
   .center-infos {
@@ -59,8 +60,4 @@
 
 .vaccination-center-list-item.last-child {
   margin-bottom: 0;
-}
-
-.vaccination-center-list-item .center-name {
-  font-weight: 700;
 }

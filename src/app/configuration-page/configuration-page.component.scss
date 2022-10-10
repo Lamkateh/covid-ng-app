@@ -1,0 +1,25 @@
+.config-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 40px);
+  padding: 5% 5% 0 5%;
+  width: 100%;
+
+  .search-superadmin-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+
+    .title {
+      font-size: 30px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .search-input {
+      padding-right: 10%;
+    }
+  }
+}

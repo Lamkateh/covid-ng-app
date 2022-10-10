@@ -20,6 +20,8 @@ import { ConfigurationPageComponent } from './configuration-page/configuration-p
 import { AppointmentPreviewComponent } from './appointment-preview/appointment-preview.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccination-center-page.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { UsersListItemComponent } from './users-list-item/users-list-item.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { VaccinationCenterPageComponent } from './vaccination-center-page/vaccin
     AppointmentPreviewComponent,
     VaccinationCenterPageComponent,
     TimetableComponent,
+    UsersListComponent,
+    UsersListItemComponent,
   ],
   imports: [
     BrowserModule,

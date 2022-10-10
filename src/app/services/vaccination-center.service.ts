@@ -61,4 +61,12 @@ export class VaccinationCenterService {
       '/public/appointments/' + id
     );
   }
+
+  getAllDoctorsFromCenter(id: number) {
+    //TODO
+  }
+
+  getDoctorsFromCenterByName(id: number, name: string) {
+    //TODO
+  }
 }

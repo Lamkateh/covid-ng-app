@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Doctor } from '../models/user';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-users-list',
@@ -8,7 +8,7 @@ import { Doctor } from '../models/user';
 })
 export class UsersListComponent implements OnInit {
 
-  @Input() list: Doctor[] = [];
+  @Input() list: User[] = [];
   @Input() role: string = '';
 
   constructor() { }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { VaccinationCenterService } from '../services/vaccination-center.service';
 
 @Component({
   selector: 'app-header',
@@ -13,17 +12,14 @@ export class HeaderComponent implements OnInit {
   id: number;
 
   getColor() {
-    this.color = this.vaccinationCenterService.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
   getId() {
     this.id = 10; //TODO
   }
 
-  constructor(
-    private vaccinationCenterService: VaccinationCenterService,
-    public authService: AuthService
-  ) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
     this.getColor();

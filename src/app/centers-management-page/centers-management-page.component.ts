@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
 import { VaccinationCenter } from '../vaccination-center/vaccination-center';
-
 
 @Component({
   selector: 'app-centers-management-page',
   templateUrl: './centers-management-page.component.html',
-  styleUrls: ['./centers-management-page.component.scss']
+  styleUrls: ['./centers-management-page.component.scss'],
 })
 export class CentersManagementPageComponent implements OnInit {
   centers?: VaccinationCenter[] = [];
@@ -33,14 +33,14 @@ export class CentersManagementPageComponent implements OnInit {
       this.centers = [];
     }
     if (this.citySearched === '') {
-      this.service
+      this.vaccinationCenterService
         .getAllVaccinationCenters(this.page)
         .subscribe((centers: { content: VaccinationCenter[] }) => {
           this.centers.push(...centers.content);
           this.listLoading = false;
         });
     } else {
-      this.service
+      this.vaccinationCenterService
         .getVaccinationCentersByCity(this.citySearched, this.page)
         .subscribe((centers: { content: VaccinationCenter[] }) => {
           this.centers.push(...centers.content);
@@ -49,25 +49,17 @@ export class CentersManagementPageComponent implements OnInit {
     }
   }
 
-  isLoading() {
-    if (this.listLoading) return true;
-    else return false;
-  }
-
-  isNotLoading() {
-    if (this.listLoading) return false;
-    else return true;
-  }
-
   getColor() {
-    this.color = this.service.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
-  constructor(private service: VaccinationCenterService) { }
+  constructor(
+    private authService: AuthService,
+    private vaccinationCenterService: VaccinationCenterService
+  ) {}
 
   ngOnInit(): void {
     this.getColor();
     this.getResult();
   }
-
 }

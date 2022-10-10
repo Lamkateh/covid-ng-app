@@ -13,18 +13,14 @@ export class LoginPageComponent implements OnInit {
   @Input() password?: string;
   color: string;
 
-  constructor(
-    private router: Router,
-    private vaccinationCenterService: VaccinationCenterService,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.getColor();
   }
 
   getColor() {
-    this.color = this.vaccinationCenterService.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
   login() {

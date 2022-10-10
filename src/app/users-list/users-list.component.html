@@ -1,4 +1,4 @@
-<div class="user-list">
+<div class="user-list" *ngIf="list.length > 0">
   <div class="header">
     <div class="title" onclick="onAddClick()">{{ role }}</div>
     <mat-icon>add</mat-icon>

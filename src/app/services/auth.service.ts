@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  public user = null;
+
   constructor(private httpClient: HttpClient) {}
 
   signin(email: string, password: string): Observable<any> {
@@ -55,5 +57,27 @@ export class AuthService {
   storeToken(email: string, password: string) {
     const token = btoa(email + ':' + password);
     localStorage.setItem('rdvaccination-token', token);
+  }
+
+  setAuthUser(user: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    birth_date: string | null;
+    phone_number: string | null;
+    center: string | null;
+    roles: string[];
+  }) {
+    this.user = user;
+  }
+
+  getUserInfo(): Observable<any> {
+    return this.httpClient.get<any>('/private/me');
+  }
+
+  logout() {
+    localStorage.removeItem('rdvaccination-token');
+    this.user = null;
   }
 }

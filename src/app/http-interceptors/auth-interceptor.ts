@@ -10,7 +10,10 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    // TODO : filter private routes
+    // filter public routes
+    if (req.url.startsWith('/public')) {
+      return next.handle(req);
+    }
 
     // Get the token from localstorage
     const token = localStorage.getItem('rdvaccination-token') ?? null;

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CenterManagementDialogComponent } from '../center-management-dialog/center-management-dialog.component';
 import { User } from '../models/user';
+import { AuthService } from '../services/auth.service';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
 
 @Component({
@@ -72,7 +73,7 @@ export class UsersManagementDialogComponent implements OnInit {
   //listLoading: boolean = false;
   color: string;
 
-  constructor(private service: VaccinationCenterService, public dialogRef: MatDialogRef<CenterManagementDialogComponent>,
+  constructor(private authService: AuthService, public dialogRef: MatDialogRef<CenterManagementDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       title: string,
       centerId: number
@@ -92,7 +93,7 @@ export class UsersManagementDialogComponent implements OnInit {
   }*/
 
   getColor() {
-    this.color = this.service.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
   onSearchName() {

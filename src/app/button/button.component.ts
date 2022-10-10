@@ -1,7 +1,6 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { VaccinationCenterService } from '../services/vaccination-center.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-button',
@@ -17,10 +16,10 @@ export class ButtonComponent implements OnInit {
   color: string;
   @Output() clickEvent = new EventEmitter();
 
-  constructor(private service: VaccinationCenterService) { }
+  constructor(private authService: AuthService) {}
 
   getColor() {
-    this.color = this.service.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

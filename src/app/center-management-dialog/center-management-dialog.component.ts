@@ -1,7 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { VaccinationCenterService } from '../services/vaccination-center.service';
+import { AuthService } from '../services/auth.service';
 import { UsersManagementDialogComponent } from '../users-management-dialog/users-management-dialog.component';
+
 @Component({
   selector: 'app-center-management-dialog',
   templateUrl: './center-management-dialog.component.html',
@@ -16,7 +17,7 @@ export class CenterManagementDialogComponent implements OnInit {
   phoneTerm: string = '';
   color: string;
 
-  constructor(private service: VaccinationCenterService, public dialogRef: MatDialogRef<CenterManagementDialogComponent>, public dialog: MatDialog,
+  constructor(private authService: AuthService, public dialogRef: MatDialogRef<CenterManagementDialogComponent>, public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: {
       isAddDialog: boolean,
       title: string,
@@ -38,7 +39,7 @@ export class CenterManagementDialogComponent implements OnInit {
   }
 
   getColor() {
-    this.color = this.service.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
   onManageUser() {

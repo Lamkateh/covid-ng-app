@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Role } from '../models/role';
 import { VaccinationCenter } from '../models/vaccination-center';
-import { VaccinationCenterService } from '../services/vaccination-center.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -22,7 +22,7 @@ export class UserManagementDialogComponent implements OnInit {
   roles: Role[] = [];
   centers: VaccinationCenter[] = [];
 
-  constructor(private service: VaccinationCenterService, public dialogRef: MatDialogRef<UserManagementDialogComponent>, public dialog: MatDialog,
+  constructor(private authService: AuthService, public dialogRef: MatDialogRef<UserManagementDialogComponent>, public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: {
       title: string,
       lastName: string,
@@ -47,7 +47,7 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   getColor() {
-    this.color = this.service.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
   getRoles() { }

@@ -29,6 +29,7 @@ import { UsersManagementDialogComponent } from './users-management-dialog/users-
 import { UserManagementDialogComponent } from './user-management-dialog/user-management-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SelectComponent } from './select/select.component';
+import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import { SelectComponent } from './select/select.component';
     MatDialogModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

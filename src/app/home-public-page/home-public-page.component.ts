@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { VaccinationCenterService } from '../services/vaccination-center.service';
 import { VaccinationCenter } from '../models/vaccination-center';
 
@@ -33,7 +34,7 @@ export class HomePublicPageComponent implements OnInit {
       this.centers = [];
     }
     if (this.citySearched === '') {
-      this.service
+      this.vaccinationCenterService
         .getAllVaccinationCenters(this.page)
         .subscribe(
           (centers: { content: VaccinationCenter[]; last: boolean }) => {
@@ -43,7 +44,7 @@ export class HomePublicPageComponent implements OnInit {
           }
         );
     } else {
-      this.service
+      this.vaccinationCenterService
         .getVaccinationCentersByCity(this.citySearched, this.page)
         .subscribe(
           (centers: { content: VaccinationCenter[]; last: boolean }) => {
@@ -66,10 +67,13 @@ export class HomePublicPageComponent implements OnInit {
   }
 
   getColor() {
-    this.color = this.service.getColorTheme();
+    this.color = this.authService.getColorTheme();
   }
 
-  constructor(private service: VaccinationCenterService) { }
+  constructor(
+    private vaccinationCenterService: VaccinationCenterService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getColor();

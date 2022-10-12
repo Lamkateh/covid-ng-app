@@ -21,7 +21,10 @@ const MONTH = [
 @Component({
   selector: 'app-appointment-dialog',
   templateUrl: './appointment-dialog.component.html',
-  styleUrls: ['./appointment-dialog.component.scss'],
+  styleUrls: [
+    '../common/css/dialog.scss',
+    './appointment-dialog.component.scss',
+  ],
 })
 export class AppointmentDialogComponent implements OnInit {
   constructor(

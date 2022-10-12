@@ -10,7 +10,10 @@ import { UsersManagementDialogComponent } from '../users-management-dialog/users
 @Component({
   selector: 'app-center-management-dialog',
   templateUrl: './center-management-dialog.component.html',
-  styleUrls: ['./center-management-dialog.component.scss'],
+  styleUrls: [
+    '../common/css/dialog.scss',
+    './center-management-dialog.component.scss',
+  ],
 })
 export class CenterManagementDialogComponent implements OnInit {
   nameTerm: string = '';

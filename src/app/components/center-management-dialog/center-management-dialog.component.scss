@@ -1,22 +1,3 @@
-.header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-
-  .title {
-    max-width: 90%;
-    font-weight: 600;
-  }
-
-  .close-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-  }
-}
-
 .form {
   display: flex;
   flex-direction: column;
@@ -36,15 +17,7 @@
     }
   }
 
-  .actions-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 5px;
-
-    .manage-user-button {
-      cursor: pointer;
-    }
+  .manage-user-button {
+    cursor: pointer;
   }
 }

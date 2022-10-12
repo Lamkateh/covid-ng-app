@@ -11,7 +11,10 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-user-management-dialog',
   templateUrl: './user-management-dialog.component.html',
-  styleUrls: ['./user-management-dialog.component.scss'],
+  styleUrls: [
+    '../common/css/dialog.scss',
+    './user-management-dialog.component.scss',
+  ],
 })
 export class UserManagementDialogComponent implements OnInit {
   lastNameTerm: string = '';

@@ -7,7 +7,10 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-users-management-dialog',
   templateUrl: './users-management-dialog.component.html',
-  styleUrls: ['./users-management-dialog.component.scss'],
+  styleUrls: [
+    '../common/css/dialog.scss',
+    './users-management-dialog.component.scss',
+  ],
 })
 export class UsersManagementDialogComponent implements OnInit {
   doctors?: User[] = [

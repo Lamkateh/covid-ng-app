@@ -9,6 +9,7 @@ import { AppointmentDialogComponent } from '../appointment-dialog/appointment-di
 })
 export class AppointmentPreviewComponent implements OnInit {
   @Input() time: string;
+  @Input() date: string;
   @Input() height: string;
   @Input() top: string;
 
@@ -20,7 +21,11 @@ export class AppointmentPreviewComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(AppointmentDialogComponent, {
-      width: '250px',
+      //width: '250px',
+      data: {
+        time: this.time,
+        date: this.date,
+      },
     });
   }
 }

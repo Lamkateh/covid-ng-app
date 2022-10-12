@@ -1,27 +1,63 @@
 <div class="header">
-  <h1 class="title" [ngStyle]="{'color': color}" mat-dialog-title>{{ data['title'] }}</h1>
+  <h1 class="title" [ngStyle]="{ color: color }" mat-dialog-title>
+    {{ data["title"] }}
+  </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <form class="form" mat-dialog-content>
   <div class="identity-wrapper">
-    <app-input label="Nom" placeholder="Ex: RAOULT" name="last_name_item" [(inputValue)]="lastNameTerm">
+    <app-input
+      label="Nom"
+      placeholder="Ex: RAOULT"
+      name="last_name_item"
+      [(inputValue)]="lastNameTerm"
+    >
     </app-input>
-    <app-input label="Prénom" placeholder="Ex: Didier" name="first_name_item" [(inputValue)]="firstNameTerm">
+    <app-input
+      label="Prénom"
+      placeholder="Ex: Didier"
+      name="first_name_item"
+      [(inputValue)]="firstNameTerm"
+    >
     </app-input>
   </div>
-  <app-input label="Email" placeholder="Ex: didierraoult@gmail.com" name="email_item" [(inputValue)]="emailTerm">
+  <app-input
+    label="Email"
+    placeholder="Ex: didierraoult@gmail.com"
+    name="email_item"
+    [(inputValue)]="emailTerm"
+  >
   </app-input>
-  <app-input label="Password" placeholder="Ex: *******" name="password_item" [(inputValue)]="passwordTerm">
+  <app-input
+    label="Password"
+    placeholder="Ex: *******"
+    name="password_item"
+    [(inputValue)]="passwordTerm"
+  >
   </app-input>
   <div class="select-wrapper">
-    <app-select label="Rôle" name="role" (selectValue)="roleTerm" [terms]="roles"></app-select>
+    <app-select
+      label="Rôle"
+      name="role"
+      (selectValue)="(roleTerm)"
+      [terms]="roles"
+    ></app-select>
     <!--TODO : if condition-->
-    <app-select label="Centre de rattachement" name="center" [(selectValue)]="centerTerm" *ngIf="roleTerm !== 1"
-      [terms]="centers">
+    <app-select
+      label="Centre de rattachement"
+      name="center"
+      [(selectValue)]="centerTerm"
+      *ngIf="roleTerm !== 1"
+      [terms]="centers"
+    >
     </app-select>
   </div>
   <div class="actions-wrapper">
-    <app-button title="Désactiver" (clickEvent)="onDisableUser()" *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
+    <app-button
+      title="Désactiver"
+      (clickEvent)="onDisableUser()"
+      *ngIf="data['title'] !== 'Ajout d\'un utilisateur'"
+    >
       <!--TODO-->
     </app-button>
     <app-button title="Enregistrer" (clickEvent)="onSaveUser()"></app-button>

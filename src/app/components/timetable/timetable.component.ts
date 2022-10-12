@@ -1,26 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DateService } from 'src/app/services/date.service';
 import { VaccinationCenterService } from '../../services/vaccination-center.service';
 
 const COLUMN_WIDTH = 300;
 const ROW_HEIGHT = 10;
 const START_HOUR = '8:00';
 const END_HOUR = '18:00';
-
-const DAY_OF_WEEK = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-const MONTH = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Avr',
-  'Mai',
-  'Juin',
-  'Juil',
-  'Aout',
-  'Sept',
-  'Oct',
-  'Nov',
-  'Dec',
-];
 
 @Component({
   selector: 'app-timetable',
@@ -59,7 +44,10 @@ export class TimetableComponent implements OnInit {
       10
   )}px`;
 
-  constructor(private service: VaccinationCenterService) {}
+  constructor(
+    private service: VaccinationCenterService,
+    protected dateService: DateService
+  ) {}
 
   ngOnInit(): void {
     this.getAppointments();
@@ -98,11 +86,11 @@ export class TimetableComponent implements OnInit {
     this.timetable.forEach((day) => {
       const date = new Date(day.date);
       day.cleanDate =
-        DAY_OF_WEEK[date.getDay()] +
+        this.dateService.getDayOfWeek(date.getDay(), 'short') +
         ' ' +
         date.getDate().toString() +
         ' ' +
-        MONTH[date.getMonth().toString()];
+        this.dateService.getMonth(date.getMonth(), 'short');
       day.dateTimestamp = new Date(day.date).getTime();
       day.startTimestamp = new Date(
         day.date + ' ' + START_HOUR.trim()

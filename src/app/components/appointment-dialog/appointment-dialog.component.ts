@@ -1,22 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DateService } from 'src/app/services/date.service';
 import { AuthService } from '../../services/auth.service';
-
-const DAY_OF_WEEK = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-const MONTH = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Avr',
-  'Mai',
-  'Juin',
-  'Juil',
-  'Aout',
-  'Sept',
-  'Oct',
-  'Nov',
-  'Dec',
-];
 
 @Component({
   selector: 'app-appointment-dialog',
@@ -30,6 +15,7 @@ export class AppointmentDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AppointmentDialogComponent>,
     protected authService: AuthService,
+    protected dateService: DateService,
     @Inject(MAT_DIALOG_DATA)
     protected data: {
       date: string;
@@ -46,11 +32,11 @@ export class AppointmentDialogComponent implements OnInit {
   getDate() {
     const date = new Date(this.data.date);
     return (
-      DAY_OF_WEEK[date.getDay()] +
+      this.dateService.getDayOfWeek(date.getDay() - 1) +
       ' ' +
       date.getDate() +
       ' ' +
-      MONTH[date.getMonth()]
+      this.dateService.getMonth(date.getMonth())
     );
   }
 }

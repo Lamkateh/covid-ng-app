@@ -87,10 +87,11 @@ export class UsersManagementDialogComponent implements OnInit {
       title: string;
       centerId: number;
     }
-  ) {}
+  ) {
+    this.color = this.authService.getColorTheme();
+  }
 
   ngOnInit(): void {
-    this.getColor();
     this.getResult();
   }
 
@@ -100,10 +101,6 @@ export class UsersManagementDialogComponent implements OnInit {
     if (this.listLoading) return true;
     else return false;
   }*/
-
-  getColor() {
-    this.color = this.authService.getColorTheme();
-  }
 
   onSearchName() {
     this.nameSearched = this.nameSearchTerm;

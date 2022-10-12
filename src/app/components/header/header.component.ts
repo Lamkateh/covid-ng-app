@@ -11,18 +11,15 @@ export class HeaderComponent implements OnInit {
   color: string;
   id: number;
 
-  getColor() {
+  constructor(public authService: AuthService) {
     this.color = this.authService.getColorTheme();
+  }
+
+  ngOnInit(): void {
+    this.getId();
   }
 
   getId() {
     this.id = 10; //TODO
-  }
-
-  constructor(public authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.getColor();
-    this.getId();
   }
 }

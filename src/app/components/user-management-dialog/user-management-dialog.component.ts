@@ -42,10 +42,11 @@ export class UserManagementDialogComponent implements OnInit {
       role: string;
       center: string;
     }
-  ) {}
+  ) {
+    this.color = this.authService.getColorTheme();
+  }
 
   ngOnInit(): void {
-    this.getColor();
     this.getRoles();
     this.getCenters();
     this.lastNameTerm = this.data.lastName;
@@ -54,10 +55,6 @@ export class UserManagementDialogComponent implements OnInit {
     //this.roleTerm = this.data.role;
     this.passwordTerm = this.data.password;
     this.centerTerm = this.data.center;
-  }
-
-  getColor() {
-    this.color = this.authService.getColorTheme();
   }
 
   getRoles() {}

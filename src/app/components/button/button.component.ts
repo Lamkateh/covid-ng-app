@@ -8,21 +8,17 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
-  onClick() {
-    this.clickEvent.emit();
-  }
-
   @Input() title: string;
   color: string;
   @Output() clickEvent = new EventEmitter();
 
-  constructor(private authService: AuthService) {}
-
-  getColor() {
+  constructor(private authService: AuthService) {
     this.color = this.authService.getColorTheme();
   }
 
-  ngOnInit(): void {
-    this.getColor();
+  ngOnInit(): void {}
+
+  onClick() {
+    this.clickEvent.emit();
   }
 }

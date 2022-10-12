@@ -38,19 +38,16 @@ export class CenterManagementDialogComponent implements OnInit {
       phone: string;
       centerId: string;
     }
-  ) {}
+  ) {
+    this.color = this.authService.getColorTheme();
+  }
 
   ngOnInit(): void {
-    this.getColor();
     this.nameTerm = this.data.name;
     this.addressTerm = this.data.address;
     this.zipCodeTerm = this.data.zipCode;
     this.cityTerm = this.data.city;
     this.phoneTerm = this.data.phone;
-  }
-
-  getColor() {
-    this.color = this.authService.getColorTheme();
   }
 
   onManageUser() {

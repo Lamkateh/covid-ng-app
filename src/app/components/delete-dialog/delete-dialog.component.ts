@@ -23,15 +23,11 @@ export class DeleteDialogComponent implements OnInit {
       lastName: string;
       firstName: string;
     }
-  ) {}
-
-  ngOnInit(): void {
-    this.getColor();
-  }
-
-  getColor() {
+  ) {
     this.color = this.authService.getColorTheme();
   }
+
+  ngOnInit(): void {}
 
   onConfirmDelete() {} //TODO
 }

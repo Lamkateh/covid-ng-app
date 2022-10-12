@@ -17,6 +17,17 @@ export class HomePublicPageComponent implements OnInit {
   lastPage: boolean = false;
   color: string;
 
+  constructor(
+    private vaccinationCenterService: VaccinationCenterService,
+    private authService: AuthService
+  ) {
+    this.color = this.authService.getColorTheme();
+  }
+
+  ngOnInit(): void {
+    this.getResult();
+  }
+
   onSearchCity() {
     this.citySearched = this.citySearchTerm;
     this.page = 0;
@@ -64,19 +75,5 @@ export class HomePublicPageComponent implements OnInit {
   isNotLoading() {
     if (this.listLoading) return false;
     else return true;
-  }
-
-  getColor() {
-    this.color = this.authService.getColorTheme();
-  }
-
-  constructor(
-    private vaccinationCenterService: VaccinationCenterService,
-    private authService: AuthService
-  ) {}
-
-  ngOnInit(): void {
-    this.getColor();
-    this.getResult();
   }
 }

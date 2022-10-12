@@ -32,10 +32,11 @@ export class CenterManagementPageComponent implements OnInit {
   listLoading: boolean = false;
   color: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.color = this.authService.getColorTheme();
+  }
 
   ngOnInit(): void {
-    this.getColor();
     this.getResult();
   }
 
@@ -44,10 +45,6 @@ export class CenterManagementPageComponent implements OnInit {
   isLoading() {
     if (this.listLoading) return true;
     else return false;
-  }
-
-  getColor() {
-    this.color = this.authService.getColorTheme();
   }
 
   onSearchName() {

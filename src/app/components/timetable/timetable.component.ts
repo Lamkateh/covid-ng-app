@@ -6,6 +6,7 @@ const COLUMN_WIDTH = 300;
 const ROW_HEIGHT = 10;
 const START_HOUR = '8:00';
 const END_HOUR = '18:00';
+const DURATION = 15;
 
 @Component({
   selector: 'app-timetable',
@@ -59,12 +60,39 @@ export class TimetableComponent implements OnInit {
       this.service
         .getAppointmentsByCenterId(this.centerId)
         .subscribe((timetable) => {
+          console.log('ici');
+          console.log(timetable);
+
           this.timetable = timetable.days.map((day) => {
+            const date = new Date(day.date);
+            const startTimestamp = new Date(
+              day.date + ' ' + START_HOUR.trim()
+            ).getTime();
+
             return {
               date: day.date,
+              dateTimestamp: date.getTime(),
+
+              cleanDate:
+                this.dateService.getDayOfWeek(date.getDay(), 'short') +
+                ' ' +
+                date.getDate().toString() +
+                ' ' +
+                this.dateService.getMonth(date.getMonth(), 'short'),
               appointments: day.appointments.map((appointment) => {
+                const date = new Date(day.date + ' ' + appointment.time);
+                const timestamp = date.getTime();
+
                 return {
-                  time: day.date + ' ' + appointment.time,
+                  time: appointment.time,
+                  timestamp: timestamp,
+                  width: `${COLUMN_WIDTH - 4}px`,
+                  height: `${Math.floor(DURATION / 5) * ROW_HEIGHT - 4}px`,
+                  top: `${
+                    Math.floor((timestamp - startTimestamp) / (1000 * 60 * 5)) *
+                      ROW_HEIGHT +
+                    5
+                  }px`,
                   available: true,
                   duration: 15,
                 };
@@ -73,45 +101,13 @@ export class TimetableComponent implements OnInit {
           });
 
           this.startHourTimestamp = new Date(
-            '2020-01-01 ' + timetable.startTime.trim()
+            '2020-01-01 ' + timetable.startTime.trim() // dummy day
           ).getTime();
           this.endHourTimestamp = new Date(
-            '2020-01-01 ' + timetable.closeTime.trim()
+            '2020-01-01 ' + timetable.closeTime.trim() // dummy day
           ).getTime();
         });
     }
-  }
-
-  getAppointmentList() {
-    this.timetable.forEach((day) => {
-      const date = new Date(day.date);
-      day.cleanDate =
-        this.dateService.getDayOfWeek(date.getDay(), 'short') +
-        ' ' +
-        date.getDate().toString() +
-        ' ' +
-        this.dateService.getMonth(date.getMonth(), 'short');
-      day.dateTimestamp = new Date(day.date).getTime();
-      day.startTimestamp = new Date(
-        day.date + ' ' + START_HOUR.trim()
-      ).getTime();
-      day.appointments.forEach((appointment) => {
-        appointment.timestamp = new Date(appointment.time).getTime();
-        appointment.width = `${COLUMN_WIDTH - 4}px`;
-        appointment.height = `${
-          Math.floor(appointment.duration / 5) * ROW_HEIGHT - 4
-        }px`;
-        appointment.top = `${
-          Math.floor(
-            (appointment.timestamp - day.startTimestamp) / (1000 * 60 * 5)
-          ) *
-            ROW_HEIGHT +
-          5
-        }px`;
-      });
-    });
-
-    return this.timetable;
   }
 
   getYLabel() {

@@ -18,7 +18,7 @@
     [style.transform]="'translateX(' + translationX + 'px)'"
   >
     <div class="day-column-headers">
-      <div *ngFor="let day of this.getAppointmentList(); let first = first">
+      <div *ngFor="let day of this.timetable; let first = first">
         <div class="day-column-header" [ngClass]="{ first: first }">
           {{ day.cleanDate }}
         </div>
@@ -26,12 +26,12 @@
     </div>
     <div class="timetable-scroll">
       <div class="timetable" [style.height]="timetableHeight">
-        <div *ngFor="let day of this.getAppointmentList()">
+        <div *ngFor="let day of this.timetable">
           <div class="day-column">
             <div *ngFor="let appointment of day.appointments">
               <app-appointment-preview
                 [date]="day.date"
-                [time]="appointment.time.split(' ')[1]"
+                [time]="appointment.time"
                 [height]="appointment.height"
                 [top]="appointment.top"
               ></app-appointment-preview>

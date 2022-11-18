@@ -1,0 +1,10 @@
+{
+  "/public": {
+    "target": "http://localhost:8000/",
+    "secure": false
+  },
+  "/private": {
+    "target": "http://localhost:8000/",
+    "secure": false
+  }
+}

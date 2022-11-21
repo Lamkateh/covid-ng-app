@@ -1,16 +1,20 @@
 <div class="centers-management-page">
   <form class="search-center-form" (submit)="onSearchCity()">
     <div class="title" [ngStyle]="{'color': color}">Ajoutez un nouveau centre de vaccination ?</div>
-    <app-button class="new-center-button" title="Nouveau centre" (clickEvent)="onNewCenter()">
-    </app-button>
+    <button mat-raised-button (click)="onNewCenter()">
+      Nouveau centre
+    </button>
     <div class="title" [ngStyle]="{'color': color}">Filtrez les centres de vaccination</div>
-    <app-input class="search-input" name="search_item" placeholder="Dans quelle ville ?" [(inputValue)]="citySearchTerm"
-      [search]="true">
-    </app-input>
+    <mat-form-field [style.width]="'90%'">
+      <mat-label>Dans quelle ville ?</mat-label>
+      <input name="search_item" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
     <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </form>
   <img src="/assets/flat-hand-drawn-doctor-injecting-vaccine-patient.jpg" alt="Gestion" />
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
-  <app-button class="more-button" title="Afficher plus" (clickEvent)="onMoreRequest()" *ngIf="!this.listLoading">
-  </app-button>
+  <button mat-raised-button [style.margin]="'auto'" *ngIf="!this.listLoading" (click)="onMoreRequest()">
+    Afficher plus
+  </button>
 </div>

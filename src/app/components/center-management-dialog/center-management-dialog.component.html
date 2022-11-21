@@ -3,21 +3,34 @@
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <form class="form" mat-dialog-content>
-  <app-input label="Nom" placeholder="Ex: CHU Nancy" name="name_item" [(inputValue)]="nameTerm">
-  </app-input>
-  <app-input label="Adresse" placeholder="Ex: 10 Boulevard des Aiguillettes" name="address_item"
-    [(inputValue)]="addressTerm"></app-input>
+  <mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input name="name_item" matInput [(ngModel)]="nameTerm" placeholder="Ex: CHU Nancy">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Adresse</mat-label>
+    <input name="address_item" matInput [(ngModel)]="addressTerm" placeholder="Ex: 10 Boulevard des Aiguillettes">
+  </mat-form-field>
   <div class="city-wrapper">
-    <app-input label="Code postal" placeholder="Ex: 54000" name="zip_code_item" [(inputValue)]="zipCodeTerm">
-    </app-input>
-    <app-input label="Ville" placeholder="Ex: Nancy" name="city_item" [(inputValue)]="cityTerm">
-    </app-input>
+    <mat-form-field appearance="outline">
+      <mat-label>Code postal</mat-label>
+      <input name="zip_code_item" matInput [(ngModel)]="zipCodeTerm" placeholder="Ex: 54000">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Ville</mat-label>
+      <input name="city_item" matInput [(ngModel)]="cityTerm" placeholder="Ex: Nancy">
+    </mat-form-field>
   </div>
-  <app-input label="Téléphone" placeholder="Ex: +33 3 82 83 70 10" name="phone_item" [(inputValue)]="phoneTerm">
-  </app-input>
+  <mat-form-field appearance="outline">
+    <mat-label>Téléphone</mat-label>
+    <input name="phone_item" matInput [(ngModel)]="phoneTerm" placeholder="Ex: +33 3 82 83 70 10">
+    <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field>
   <div class="actions-wrapper">
     <mat-icon class="manage-user-button" (click)="onManageUser()" *ngIf="!data['isAddDialog']">group
     </mat-icon>
-    <app-button title="Créer" (clickEvent)="onAddCenter()"></app-button>
+    <button mat-raised-button (click)="onAddCenter()">
+      Créer
+    </button>
   </div>
 </form>

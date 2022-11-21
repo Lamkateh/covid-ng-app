@@ -13,11 +13,16 @@
   <div class="appointment-availability">
     <mat-icon *ngIf="isHomePage()" class="green-check-icon">check</mat-icon> <!-- TODO -->
     <span *ngIf="isHomePage()">Rendez-vous disponible(s)</span>
-    <app-button *ngIf="isManagementCentersPage()" title="Modifier le centre" (clickEvent)="onEditClick()"></app-button>
+    <button mat-raised-button *ngIf="isManagementCentersPage()" (click)="onEditClick()">
+      Modifier le centre
+    </button>
   </div>
   <div>
-    <app-button *ngIf="isHomePage()" title="Prendre RDV" (clickEvent)="onAppointementClick()"></app-button>
-    <app-button *ngIf="isManagementCentersPage()" title="Voir les admins et médecins rattachés"
-      (clickEvent)="onAdminAndMedecinClick()"></app-button>
+    <button mat-raised-button *ngIf="isHomePage()" (click)="onAppointementClick()">
+      Prendre RDV
+    </button>
+    <button mat-raised-button *ngIf="isManagementCentersPage()" (click)="onAdminAndMedecinClick()">
+      Voir les admins et médecins rattachés
+    </button>
   </div>
 </div>

@@ -28,7 +28,6 @@ import { CenterManagementDialogComponent } from './components/center-management-
 import { UsersManagementDialogComponent } from './components/users-management-dialog/users-management-dialog.component';
 import { UserManagementDialogComponent } from './components/user-management-dialog/user-management-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
-import { SelectComponent } from './components/select/select.component';
 import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { httpInterceptorProviders } from './http-interceptors';
     UsersManagementDialogComponent,
     UserManagementDialogComponent,
     DeleteDialogComponent,
-    SelectComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,4 +65,4 @@ import { httpInterceptorProviders } from './http-interceptors';
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

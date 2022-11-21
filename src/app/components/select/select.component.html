@@ -1,6 +1,0 @@
-<div class="main">
-  <label for="name">{{ label }}</label>
-  <select [name]="name" id="name" [ngModel]="selectValue" (ngModelChange)="change($event)">
-    <option *ngFor="let term of terms" [ngValue]="term.id">{{term.name}}</option>
-  </select>
-</div>

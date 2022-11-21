@@ -7,5 +7,7 @@
     Etes-vous sûr de vouloir supprimer l'utilisateur {{ data['lastName'] | uppercase }} {{ data['firstName'] | titlecase
     }} ?
   </div>
-  <app-button title="Confirmer" (clickEvent)="onConfirmDelete()"></app-button>
+  <button mat-raised-button (click)="onConfirmDelete()">
+    Confirmer
+  </button>
 </div>

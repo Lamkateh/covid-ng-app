@@ -5,61 +5,48 @@
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <form class="form" mat-dialog-content>
-  <div class="identity-wrapper">
-    <app-input
-      label="Nom"
-      placeholder="Ex: RAOULT"
-      name="last_name_item"
-      [(inputValue)]="lastNameTerm"
-    >
-    </app-input>
-    <app-input
-      label="Prénom"
-      placeholder="Ex: Didier"
-      name="first_name_item"
-      [(inputValue)]="firstNameTerm"
-    >
-    </app-input>
+  <div class="form-field-row">
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Nom</mat-label>
+      <input name="last_name_item" matInput [(ngModel)]="lastNameTerm" placeholder="Ex: RAOULT">
+    </mat-form-field>
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Prénom</mat-label>
+      <input name="first_name_item" matInput [(ngModel)]="firstNameTerm" placeholder="Ex: Didier">
+    </mat-form-field>
   </div>
-  <app-input
-    label="Email"
-    placeholder="Ex: didierraoult@gmail.com"
-    name="email_item"
-    [(inputValue)]="emailTerm"
-  >
-  </app-input>
-  <app-input
-    label="Password"
-    placeholder="Ex: *******"
-    name="password_item"
-    [(inputValue)]="passwordTerm"
-  >
-  </app-input>
-  <div class="select-wrapper">
-    <app-select
-      label="Rôle"
-      name="role"
-      (selectValue)="(roleTerm)"
-      [terms]="roles"
-    ></app-select>
-    <!--TODO : if condition-->
-    <app-select
-      label="Centre de rattachement"
-      name="center"
-      [(selectValue)]="centerTerm"
-      *ngIf="roleTerm !== 1"
-      [terms]="centers"
-    >
-    </app-select>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input name="email_item" matInput [(ngModel)]="emailTerm" placeholder="Ex: didierraoult@gmail.com">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Mot de passe</mat-label>
+    <input name="password_item" matInput [(ngModel)]="passwordTerm" placeholder="Ex: *******">
+  </mat-form-field>
+  <div class="form-field-row">
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Rôle</mat-label>
+      <mat-select [(ngModel)]="roleTerm" name="role">
+        <mat-option *ngFor="let element of this.roles" [value]="element.id">
+          {{ element.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Centre de rattachement</mat-label>
+      <mat-select [(ngModel)]="centerTerm" name="center">
+        <mat-option *ngFor="let element of this.centers" [value]="element.id">
+          {{ element.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="actions-wrapper">
-    <app-button
-      title="Désactiver"
-      (clickEvent)="onDisableUser()"
-      *ngIf="data['title'] !== 'Ajout d\'un utilisateur'"
-    >
-      <!--TODO-->
-    </app-button>
-    <app-button title="Enregistrer" (clickEvent)="onSaveUser()"></app-button>
+    <button mat-raised-button (click)="onDisableUser()" *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
+      Désactiver
+    </button>
+    <button mat-raised-button (click)="onSaveUser()">
+      Enregistrer
+    </button>
   </div>
 </form>

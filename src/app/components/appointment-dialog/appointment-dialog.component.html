@@ -1,5 +1,9 @@
 <div class="header">
-  <h1 class="title" [ngStyle]="{ color: this.authService.getColorTheme() }" mat-dialog-title>
+  <h1
+    class="title"
+    [ngStyle]="{ color: this.authService.getColorTheme() }"
+    mat-dialog-title
+  >
     Prendre un rendez-vous
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
@@ -15,10 +19,12 @@
   <div></div>
 </div>
 <div class="actions-wrapper">
-  <button mat-button mat-dialog-close>
-    Annuler
-  </button>
-  <button mat-raised-button>
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="this.registerAppointment()"
+  >
     Enregistrer
   </button>
 </div>

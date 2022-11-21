@@ -60,7 +60,7 @@ export class TimetableComponent implements OnInit {
       this.service
         .getAppointmentsByCenterId(this.centerId)
         .subscribe((timetable) => {
-          this.timetable = timetable.days.map((day) => {
+          this.timetable = timetable.data.days.map((day) => {
             const date = new Date(day.date);
             const startTimestamp = new Date(
               day.date + " " + START_HOUR.trim()
@@ -98,10 +98,10 @@ export class TimetableComponent implements OnInit {
           });
 
           this.startHourTimestamp = new Date(
-            "2020-01-01 " + timetable.startTime.trim() // dummy day
+            "2020-01-01 " + timetable.data.startTime.trim() // dummy day
           ).getTime();
           this.endHourTimestamp = new Date(
-            "2020-01-01 " + timetable.closeTime.trim() // dummy day
+            "2020-01-01 " + timetable.data.closeTime.trim() // dummy day
           ).getTime();
         });
     }

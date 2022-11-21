@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  selector: "app-login-page",
+  templateUrl: "./login-page.component.html",
+  styleUrls: ["./login-page.component.scss"],
 })
 export class LoginPageComponent implements OnInit {
   @Input() emailAddress?: string;
@@ -19,15 +19,25 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authService.signin(this.emailAddress, this.password).subscribe(
-      (response: any) => {
+    this.authService.signin(this.emailAddress, this.password).subscribe({
+      next: (response: any) => {
         console.log(response);
         this.authService.storeToken(this.emailAddress, this.password);
-        this.router.navigate(['/centers']);
+        this.authService.setAuthUser({
+          id: response.data.id,
+          first_name: response.data.firstName,
+          last_name: response.data.lastName,
+          email: response.data.email,
+          birth_date: response.data.birth_date,
+          phone_number: response.data.phone_number,
+          center: response.data.center,
+          roles: response.data.roles,
+        });
+        this.router.navigate(["/centers"]);
       },
-      (error: any) => {
+      error: (error: any) => {
         console.log(error);
-      }
-    );
+      },
+    });
   }
 }

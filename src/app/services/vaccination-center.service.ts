@@ -5,13 +5,13 @@ import { AppointmentPreview } from "../models/appointment-preview";
 import { VaccinationCenter } from "../models/vaccination-center";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class VaccinationCenterService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getVaccinationCenterById(id: number): Observable<VaccinationCenter> {
-    return this.httpClient.get<VaccinationCenter>('/public/center/' + id);
+    return this.httpClient.get<VaccinationCenter>("/public/center/" + id);
   }
 
   getVaccinationCentersByCity(
@@ -19,7 +19,7 @@ export class VaccinationCenterService {
     page: number = 0
   ): Observable<{ content: VaccinationCenter[] }> {
     return this.httpClient.get<{ content: VaccinationCenter[] }>(
-      '/public/centers/city/' + city,
+      "/public/centers/city/" + city,
       {
         params: {
           page: page.toString(),
@@ -32,7 +32,7 @@ export class VaccinationCenterService {
     page: number = 0
   ): Observable<{ content: VaccinationCenter[] }> {
     return this.httpClient.get<{ content: VaccinationCenter[] }>(
-      '/public/centers',
+      "/public/centers",
       {
         params: {
           page: page.toString(),
@@ -42,21 +42,25 @@ export class VaccinationCenterService {
   }
 
   getAppointmentsByCenterId(id: number): Observable<{
-    days: {
-      date: string;
-      appointments: AppointmentPreview[];
-    }[];
-    startTime: string;
-    closeTime: string;
-  }> {
-    return this.httpClient.get<{
+    data: {
       days: {
         date: string;
         appointments: AppointmentPreview[];
       }[];
       startTime: string;
       closeTime: string;
-    }>('/public/center/' + id + '/appointments');
+    };
+  }> {
+    return this.httpClient.get<{
+      data: {
+        days: {
+          date: string;
+          appointments: AppointmentPreview[];
+        }[];
+        startTime: string;
+        closeTime: string;
+      };
+    }>("/public/center/" + id + "/appointments");
   }
 
   getAllDoctorsFromCenter(id: number) {

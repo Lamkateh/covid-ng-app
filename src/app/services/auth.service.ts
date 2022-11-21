@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthService {
   public user: {
@@ -21,7 +21,7 @@ export class AuthService {
 
   signin(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(
-      '/public/signin',
+      "/public/signin",
       {},
       {
         params: {
@@ -41,9 +41,10 @@ export class AuthService {
     birth_date: string
   ): Observable<any> {
     return this.httpClient.post<any>(
-      '/public/signup',
+      "/public/signup",
+      // TODO: remove this
       {
-        email: 'aaa',
+        email: "aaa",
         password: password,
         first_name: first_name,
         last_name: last_name,
@@ -64,8 +65,8 @@ export class AuthService {
   }
 
   storeToken(email: string, password: string) {
-    const token = btoa(email + ':' + password);
-    localStorage.setItem('rdvaccination-token', token);
+    const token = btoa(email + ":" + password);
+    localStorage.setItem("rdvaccination-token", token);
   }
 
   setAuthUser(user: {
@@ -82,22 +83,22 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<any> {
-    return this.httpClient.get<any>('/private/me');
+    return this.httpClient.get<any>("/private/me");
   }
 
   logout() {
-    localStorage.removeItem('rdvaccination-token');
+    localStorage.removeItem("rdvaccination-token");
     this.user = null;
   }
 
   getColorTheme() {
     if (this.user === null) {
-      return '#3791D8';
+      return "#3791D8";
     }
 
-    if (this.user.roles.includes('SUPERADMIN')) return '#D24848';
-    else if (this.user.roles.includes('ADMIN')) return '#E59C01';
-    else if (this.user.roles.includes('DOCTOR')) return '#84B56C';
-    else return '#3791D8';
+    if (this.user.roles.includes("SUPERADMIN")) return "#D24848";
+    else if (this.user.roles.includes("ADMIN")) return "#E59C01";
+    else if (this.user.roles.includes("DOCTOR")) return "#84B56C";
+    else return "#3791D8";
   }
 }

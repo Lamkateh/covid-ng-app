@@ -4,6 +4,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
+import { EMPTY } from "rxjs";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -26,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(authReq);
     }
-    return next.handle(null);
+    return EMPTY;
     //return next.handle(req);
   }
 }

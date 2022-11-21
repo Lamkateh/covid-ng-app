@@ -7,7 +7,7 @@ import { AuthService } from '../../../services/auth.service';
   selector: 'app-appointment-dialog',
   templateUrl: './appointment-dialog.component.html',
   styleUrls: [
-    '../common/css/dialog.scss',
+    '../../common/css/dialog.scss',
     './appointment-dialog.component.scss',
   ],
 })

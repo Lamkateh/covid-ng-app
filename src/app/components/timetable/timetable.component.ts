@@ -1,17 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DateService } from 'src/app/services/date.service';
-import { VaccinationCenterService } from '../../services/vaccination-center.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { DateService } from "src/app/services/date.service";
+import { VaccinationCenterService } from "../../services/vaccination-center.service";
 
 const COLUMN_WIDTH = 300;
 const ROW_HEIGHT = 10;
-const START_HOUR = '8:00';
-const END_HOUR = '18:00';
+const START_HOUR = "8:00";
+const END_HOUR = "18:00";
 const DURATION = 15;
 
 @Component({
-  selector: 'app-timetable',
-  templateUrl: './timetable.component.html',
-  styleUrls: ['./timetable.component.scss'],
+  selector: "app-timetable",
+  templateUrl: "./timetable.component.html",
+  styleUrls: ["./timetable.component.scss"],
 })
 export class TimetableComponent implements OnInit {
   @Input() centerId: number | null = null;
@@ -33,10 +33,10 @@ export class TimetableComponent implements OnInit {
     }[];
   }[] = [];
   startHourTimestamp: number = new Date(
-    '2020-01-01 ' + START_HOUR.trim()
+    "2020-01-01 " + START_HOUR.trim()
   ).getTime();
   endHourTimestamp: number = new Date(
-    '2020-01-01 ' + END_HOUR.trim()
+    "2020-01-01 " + END_HOUR.trim()
   ).getTime();
   timetableHeight: string = `${Math.floor(
     ((this.endHourTimestamp - this.startHourTimestamp) / (1000 * 60 * 5)) *
@@ -60,13 +60,10 @@ export class TimetableComponent implements OnInit {
       this.service
         .getAppointmentsByCenterId(this.centerId)
         .subscribe((timetable) => {
-          console.log('ici');
-          console.log(timetable);
-
           this.timetable = timetable.days.map((day) => {
             const date = new Date(day.date);
             const startTimestamp = new Date(
-              day.date + ' ' + START_HOUR.trim()
+              day.date + " " + START_HOUR.trim()
             ).getTime();
 
             return {
@@ -74,13 +71,13 @@ export class TimetableComponent implements OnInit {
               dateTimestamp: date.getTime(),
 
               cleanDate:
-                this.dateService.getDayOfWeek(date.getDay(), 'short') +
-                ' ' +
+                this.dateService.getDayOfWeek(date.getDay(), "short") +
+                " " +
                 date.getDate().toString() +
-                ' ' +
-                this.dateService.getMonth(date.getMonth(), 'short'),
+                " " +
+                this.dateService.getMonth(date.getMonth(), "short"),
               appointments: day.appointments.map((appointment) => {
-                const date = new Date(day.date + ' ' + appointment.time);
+                const date = new Date(day.date + " " + appointment.time);
                 const timestamp = date.getTime();
 
                 return {
@@ -101,10 +98,10 @@ export class TimetableComponent implements OnInit {
           });
 
           this.startHourTimestamp = new Date(
-            '2020-01-01 ' + timetable.startTime.trim() // dummy day
+            "2020-01-01 " + timetable.startTime.trim() // dummy day
           ).getTime();
           this.endHourTimestamp = new Date(
-            '2020-01-01 ' + timetable.closeTime.trim() // dummy day
+            "2020-01-01 " + timetable.closeTime.trim() // dummy day
           ).getTime();
         });
     }
@@ -119,9 +116,9 @@ export class TimetableComponent implements OnInit {
     ) {
       const date = new Date(i);
       yLabels.push(
-        ('0' + date.getHours()).slice(-2) +
-          ':' +
-          ('0' + date.getMinutes()).slice(-2)
+        ("0" + date.getHours()).slice(-2) +
+          ":" +
+          ("0" + date.getMinutes()).slice(-2)
       );
     }
     return yLabels;

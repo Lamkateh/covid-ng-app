@@ -42,6 +42,9 @@
     </mat-form-field>
   </div>
   <div class="actions-wrapper">
+    <button mat-button mat-dialog-close>
+      Annuler
+    </button>
     <button mat-raised-button color="warn" (click)="onDisableUser()"
       *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
       Désactiver

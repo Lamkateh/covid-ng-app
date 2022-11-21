@@ -9,7 +9,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
-  styleUrls: ['./delete-dialog.component.scss'],
+  styleUrls: ['../../common/css/dialog.scss', './delete-dialog.component.scss'],
 })
 export class DeleteDialogComponent implements OnInit {
   color: string = '';

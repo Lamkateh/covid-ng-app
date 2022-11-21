@@ -29,6 +29,9 @@
   <div class="actions-wrapper">
     <mat-icon class="manage-user-button" color="primary" (click)="onManageUser()" *ngIf="!data['isAddDialog']">group
     </mat-icon>
+    <button mat-button mat-dialog-close>
+      Annuler
+    </button>
     <button mat-raised-button (click)="onAddCenter()">
       Créer
     </button>

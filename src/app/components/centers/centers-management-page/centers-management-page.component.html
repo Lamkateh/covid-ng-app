@@ -1,10 +1,10 @@
 <div class="centers-management-page">
   <form class="search-center-form" (submit)="onSearchCity()">
-    <div class="title" [ngStyle]="{'color': color}">Ajoutez un nouveau centre de vaccination ?</div>
+    <div class="title">Ajoutez un nouveau centre de vaccination ?</div>
     <button mat-raised-button (click)="onNewCenter()">
       Nouveau centre
     </button>
-    <div class="title" [ngStyle]="{'color': color}">Filtrez les centres de vaccination</div>
+    <div class="title">Filtrez les centres de vaccination</div>
     <mat-form-field [style.width]="'90%'">
       <mat-label>Dans quelle ville ?</mat-label>
       <input name="search_item" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy">
@@ -14,7 +14,7 @@
   </form>
   <img src="/assets/flat-hand-drawn-doctor-injecting-vaccine-patient.jpg" alt="Gestion" />
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
-  <button mat-raised-button [style.margin]="'auto'" *ngIf="!this.listLoading" (click)="onMoreRequest()">
+  <button mat-raised-button color="primary" [style.margin]="'auto'" *ngIf="!this.listLoading" (click)="onMoreRequest()">
     Afficher plus
   </button>
 </div>

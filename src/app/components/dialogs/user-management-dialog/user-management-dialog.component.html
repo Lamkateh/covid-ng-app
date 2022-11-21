@@ -1,5 +1,5 @@
 <div class="header">
-  <h1 class="title" [ngStyle]="{ color: color }" mat-dialog-title>
+  <h1 class="title" mat-dialog-title>
     {{ data["title"] }}
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
@@ -42,10 +42,11 @@
     </mat-form-field>
   </div>
   <div class="actions-wrapper">
-    <button mat-raised-button (click)="onDisableUser()" *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
+    <button mat-raised-button color="warn" (click)="onDisableUser()"
+      *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
       Désactiver
     </button>
-    <button mat-raised-button (click)="onSaveUser()">
+    <button mat-raised-button color="primary" (click)="onSaveUser()">
       Enregistrer
     </button>
   </div>

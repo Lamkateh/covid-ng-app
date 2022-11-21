@@ -1,6 +1,6 @@
 <div class="homepage">
   <form class="search-center-form" (submit)="onSearchCity()">
-    <div class="title" [ngStyle]="{'color': color}">Trouvez un centre de vaccination près de chez vous</div>
+    <div class="title">Trouvez un centre de vaccination près de chez vous</div>
     <mat-form-field [style.width]="'90%'">
       <mat-label>Dans quelle ville ?</mat-label>
       <input name="search_item" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy">

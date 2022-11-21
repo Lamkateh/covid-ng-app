@@ -1,5 +1,5 @@
 <div class="header">
-  <h1 class="title" [ngStyle]="{'color': color}" mat-dialog-title>{{ data['title'] }}</h1>
+  <h1 class="title" mat-dialog-title>{{ data['title'] }}</h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <form class="form" mat-dialog-content>
@@ -27,7 +27,7 @@
     <mat-icon matSuffix>phone</mat-icon>
   </mat-form-field>
   <div class="actions-wrapper">
-    <mat-icon class="manage-user-button" (click)="onManageUser()" *ngIf="!data['isAddDialog']">group
+    <mat-icon class="manage-user-button" color="primary" (click)="onManageUser()" *ngIf="!data['isAddDialog']">group
     </mat-icon>
     <button mat-raised-button (click)="onAddCenter()">
       Créer

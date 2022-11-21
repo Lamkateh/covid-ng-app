@@ -4,15 +4,15 @@ import {
   MatDialog,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { Role } from '../../models/role';
-import { VaccinationCenter } from '../../models/vaccination-center';
-import { AuthService } from '../../services/auth.service';
+import { Role } from '../../../models/role';
+import { VaccinationCenter } from '../../../models/vaccination-center';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-management-dialog',
   templateUrl: './user-management-dialog.component.html',
   styleUrls: [
-    '../common/css/dialog.scss',
+    '../../common/css/dialog.scss',
     './user-management-dialog.component.scss',
   ],
 })
@@ -57,11 +57,11 @@ export class UserManagementDialogComponent implements OnInit {
     this.centerTerm = this.data.center;
   }
 
-  getRoles() {}
+  getRoles() { }
 
-  getCenters() {}
+  getCenters() { }
 
-  onDisableUser() {}
+  onDisableUser() { }
 
-  onSaveUser() {}
+  onSaveUser() { }
 }

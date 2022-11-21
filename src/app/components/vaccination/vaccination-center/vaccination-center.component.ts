@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { VaccinationCenter } from '../../models/vaccination-center';
-import { VaccinationCenterService } from '../../services/vaccination-center.service';
+import { VaccinationCenter } from '../../../models/vaccination-center';
+import { VaccinationCenterService } from '../../../services/vaccination-center.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class VaccinationCenterComponent implements OnInit {
   constructor(
     private service: VaccinationCenterService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.id) {

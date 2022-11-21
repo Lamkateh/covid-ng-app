@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateService } from 'src/app/services/date.service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-appointment-dialog',
@@ -21,9 +21,9 @@ export class AppointmentDialogComponent implements OnInit {
       date: string;
       time: string;
     }
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getTime() {
     return this.data.time;

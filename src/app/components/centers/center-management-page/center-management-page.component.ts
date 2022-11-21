@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
+import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-center-management-page',
@@ -40,7 +40,7 @@ export class CenterManagementPageComponent implements OnInit {
     this.getResult();
   }
 
-  getResult() {}
+  getResult() { }
 
   isLoading() {
     if (this.listLoading) return true;

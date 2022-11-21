@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CenterManagementDialogComponent } from '../center-management-dialog/center-management-dialog.component';
-import { User } from '../../models/user';
-import { AuthService } from '../../services/auth.service';
+import { User } from '../../../models/user';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-users-management-dialog',
   templateUrl: './users-management-dialog.component.html',
   styleUrls: [
-    '../common/css/dialog.scss',
+    '../../common/css/dialog.scss',
     './users-management-dialog.component.scss',
   ],
 })
@@ -95,7 +95,7 @@ export class UsersManagementDialogComponent implements OnInit {
     this.getResult();
   }
 
-  getResult() {}
+  getResult() { }
 
   /*isLoading() {
     if (this.listLoading) return true;

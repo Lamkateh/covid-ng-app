@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { VaccinationCenterService } from '../../services/vaccination-center.service';
-import { VaccinationCenter } from '../../models/vaccination-center';
-import { CenterManagementDialogComponent } from '../center-management-dialog/center-management-dialog.component';
+import { AuthService } from '../../../services/auth.service';
+import { VaccinationCenterService } from '../../../services/vaccination-center.service';
+import { VaccinationCenter } from '../../../models/vaccination-center';
+import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

@@ -4,14 +4,14 @@ import {
   MatDialog,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { UsersManagementDialogComponent } from '../users-management-dialog/users-management-dialog.component';
 
 @Component({
   selector: 'app-center-management-dialog',
   templateUrl: './center-management-dialog.component.html',
   styleUrls: [
-    '../common/css/dialog.scss',
+    '../../common/css/dialog.scss',
     './center-management-dialog.component.scss',
   ],
 })
@@ -61,5 +61,5 @@ export class CenterManagementDialogComponent implements OnInit {
     });
   }
 
-  onAddCenter() {} //TODO
+  onAddCenter() { } //TODO
 }

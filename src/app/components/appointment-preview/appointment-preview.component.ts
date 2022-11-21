@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AppointmentDialogComponent } from '../appointment-dialog/appointment-dialog.component';
+import { AppointmentDialogComponent } from '../dialogs/appointment-dialog/appointment-dialog.component';
 
 @Component({
   selector: 'app-appointment-preview',
@@ -13,7 +13,7 @@ export class AppointmentPreviewComponent implements OnInit {
   @Input() height: string;
   @Input() top: string;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.time = this.time.slice(0, 5);

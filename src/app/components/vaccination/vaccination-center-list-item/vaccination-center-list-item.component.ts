@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CenterManagementDialogComponent } from '../center-management-dialog/center-management-dialog.component';
-import { UsersManagementDialogComponent } from '../users-management-dialog/users-management-dialog.component';
+import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
+import { UsersManagementDialogComponent } from '../../dialogs/users-management-dialog/users-management-dialog.component';
 
 @Component({
   selector: 'app-vaccination-center-list-item',

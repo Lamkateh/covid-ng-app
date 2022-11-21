@@ -4,7 +4,7 @@ import {
   MatDialog,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -27,7 +27,7 @@ export class DeleteDialogComponent implements OnInit {
     this.color = this.authService.getColorTheme();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  onConfirmDelete() {} //TODO
+  onConfirmDelete() { } //TODO
 }

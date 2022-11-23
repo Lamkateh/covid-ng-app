@@ -12,10 +12,9 @@ export class AppComponent {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService
-      .getUserInfo()
-      .subscribe(
-        (response: {
+    this.authService.getUserInfo().subscribe(
+      (response: {
+        data: {
           id: number;
           name: string;
           first_name: string;
@@ -25,19 +24,20 @@ export class AppComponent {
           birth_date: string;
           roles: string[];
           center: string | null;
-        }) => {
-          this.authService.setAuthUser({
-            id: response.id,
-            email: response.email,
-            roles: response.roles,
-            first_name: response.first_name,
-            last_name: response.last_name,
-            phone_number: response.phone,
-            birth_date: response.birth_date,
-            center: response.center,
-          });
-        }
-      ),
+        };
+      }) => {
+        this.authService.setAuthUser({
+          id: response.data.id,
+          email: response.data.email,
+          roles: response.data.roles,
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
+          phone_number: response.data.phone,
+          birth_date: response.data.birth_date,
+          center: response.data.center,
+        });
+      }
+    ),
       (error: any) => {
         console.log(error);
       };

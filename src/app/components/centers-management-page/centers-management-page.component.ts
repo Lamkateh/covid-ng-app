@@ -59,15 +59,15 @@ export class CentersManagementPageComponent implements OnInit {
     if (this.citySearched === '') {
       this.vaccinationCenterService
         .getAllVaccinationCenters(this.page)
-        .subscribe((centers: { content: VaccinationCenter[] }) => {
-          this.centers.push(...centers.content);
+        .subscribe((centers: { data: { content: VaccinationCenter[] } }) => {
+          this.centers.push(...centers.data.content);
           this.listLoading = false;
         });
     } else {
       this.vaccinationCenterService
         .getVaccinationCentersByCity(this.citySearched, this.page)
-        .subscribe((centers: { content: VaccinationCenter[] }) => {
-          this.centers.push(...centers.content);
+        .subscribe((centers: { data: { content: VaccinationCenter[] } }) => {
+          this.centers.push(...centers.data.content);
           this.listLoading = false;
         });
     }

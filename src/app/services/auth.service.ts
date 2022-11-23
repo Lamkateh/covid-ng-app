@@ -95,6 +95,8 @@ export class AuthService {
       return '#3791D8';
     }
 
+    console.log(this.user);
+
     if (this.user.roles.includes('SUPERADMIN')) return '#D24848';
     else if (this.user.roles.includes('ADMIN')) return '#E59C01';
     else if (this.user.roles.includes('DOCTOR')) return '#84B56C';

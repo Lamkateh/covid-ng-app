@@ -37,15 +37,15 @@ export class CentersManagementPageComponent implements OnInit {
     if (this.citySearched === '') {
       this.vaccinationCenterService
         .getAllVaccinationCenters(this.page)
-        .subscribe((centers: { content: VaccinationCenter[] }) => {
-          this.centers.push(...centers.content);
+        .subscribe((centers: { data: { content: VaccinationCenter[] } }) => {
+          this.centers.push(...centers.data.content);
           this.listLoading = false;
         });
     } else {
       this.vaccinationCenterService
         .getVaccinationCentersByCity(this.citySearched, this.page)
-        .subscribe((centers: { content: VaccinationCenter[] }) => {
-          this.centers.push(...centers.content);
+        .subscribe((centers: { data: { content: VaccinationCenter[] } }) => {
+          this.centers.push(...centers.data.content);
           this.listLoading = false;
         });
     }
@@ -55,8 +55,11 @@ export class CentersManagementPageComponent implements OnInit {
     this.color = this.authService.getColorTheme();
   }
 
-  constructor(private vaccinationCenterService: VaccinationCenterService, public dialog: MatDialog, private authService: AuthService) { }
-
+  constructor(
+    private vaccinationCenterService: VaccinationCenterService,
+    public dialog: MatDialog,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getColor();
@@ -68,8 +71,8 @@ export class CentersManagementPageComponent implements OnInit {
       width: '60%',
       data: {
         isAddDialog: true,
-        title: 'Ajout d\'un nouveau centre de vaccination'
-      }
+        title: "Ajout d'un nouveau centre de vaccination",
+      },
     });
   }
 }

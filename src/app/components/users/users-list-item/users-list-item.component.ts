@@ -46,5 +46,4 @@ export class UsersListItemComponent implements OnInit {
       autoFocus: false
     });
   }
-
 }

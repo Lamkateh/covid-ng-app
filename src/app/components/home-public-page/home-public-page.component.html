@@ -10,7 +10,7 @@
   </form>
   <img src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
-  <button mat-raised-button [style.margin]="'auto'" *ngIf="!this.lastPage" [disabled]="this.listLoading"
+  <button mat-raised-button [style.margin]="'auto'" color="primary" *ngIf="!this.lastPage" [disabled]="this.listLoading"
     (click)="onMoreRequest()">
     Afficher plus
   </button>

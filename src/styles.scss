@@ -149,3 +149,29 @@ body {
     }
   }
 }
+
+button {
+  .mat-spinner {
+    display: none;
+  }
+
+  &.loading {
+
+    .mat-button-wrapper {
+      color: transparent;
+    }
+
+    .mat-spinner {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .mat-progress-spinner circle,
+    .mat-spinner circle {
+      stroke: #fff !important;
+    }
+  }
+}

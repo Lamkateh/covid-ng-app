@@ -8,7 +8,7 @@ import { VaccinationCenter } from '../models/vaccination-center';
   providedIn: 'root',
 })
 export class VaccinationCenterService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getVaccinationCenterById(id: number): Observable<VaccinationCenter> {
     return this.httpClient.get<VaccinationCenter>('/public/centers/' + id);
@@ -75,4 +75,23 @@ export class VaccinationCenterService {
   getDoctorsFromCenterByName(id: number, name: string) {
     //TODO
   }
+
+  storeVaccinationCenter(
+    center: VaccinationCenter
+  ): Observable<any> {
+    return this.httpClient.post('/private/centers', center);
+  }
+
+  updateVaccinationCenter(
+    center: VaccinationCenter
+  ): Observable<any> {
+    return this.httpClient.put('/private/centers/' + center.id, center);
+  }
+
+  deleteVaccinationCenter(
+    centerId: number
+  ): Observable<any> {
+    return this.httpClient.delete('/private/centers/' + centerId);
+  }
+
 }

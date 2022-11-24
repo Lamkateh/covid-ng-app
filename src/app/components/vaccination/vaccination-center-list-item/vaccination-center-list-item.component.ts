@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { VaccinationCenter } from 'src/app/models/vaccination-center';
 import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
 import { UsersManagementDialogComponent } from '../../dialogs/users-management-dialog/users-management-dialog.component';
 
@@ -36,16 +37,29 @@ export class VaccinationCenterListItemComponent implements OnInit {
   }
 
   onEditClick() {
+    let center: VaccinationCenter = {
+      id: this.id,
+      name: this.name,
+      address: this.address,
+      zipCode: this.zipCode,
+      city: this.city,
+      phone: this.phone,
+      email: ''
+    };
+
     this.dialog.open(CenterManagementDialogComponent, {
       width: '60%',
       data: {
-        title: 'Modification du centre de vaccination',
-        name: this.name,
-        address: this.address,
-        zipCode: this.zipCode,
-        city: this.city,
-        phone: this.phone,
-        centerId: this.id
+        type: "update",
+        center: center,
+      }
+    }).afterClosed().subscribe((result: VaccinationCenter) => {
+      if (result) {
+        this.name = result.name;
+        this.address = result.address;
+        this.zipCode = result.zipCode;
+        this.city = result.city;
+        this.phone = result.phone;
       }
     });
   }

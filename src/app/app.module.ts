@@ -29,6 +29,8 @@ import { UsersManagementDialogComponent } from './components/dialogs/users-manag
 import { UserManagementDialogComponent } from './components/dialogs/user-management-dialog/user-management-dialog.component';
 import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
 import { httpInterceptorProviders } from './http-interceptors';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,9 @@ import { httpInterceptorProviders } from './http-interceptors';
     VaccinationCenterModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

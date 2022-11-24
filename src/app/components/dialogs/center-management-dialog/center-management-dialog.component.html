@@ -1,0 +1,39 @@
+<div class="header">
+  <h1 class="title" mat-dialog-title>{{ data['title'] }}</h1>
+  <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
+</div>
+<form class="form" mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input name="name_item" matInput [(ngModel)]="nameTerm" placeholder="Ex: CHU Nancy">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Adresse</mat-label>
+    <input name="address_item" matInput [(ngModel)]="addressTerm" placeholder="Ex: 10 Boulevard des Aiguillettes">
+  </mat-form-field>
+  <div class="city-wrapper">
+    <mat-form-field appearance="outline">
+      <mat-label>Code postal</mat-label>
+      <input name="zip_code_item" matInput [(ngModel)]="zipCodeTerm" placeholder="Ex: 54000">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Ville</mat-label>
+      <input name="city_item" matInput [(ngModel)]="cityTerm" placeholder="Ex: Nancy">
+    </mat-form-field>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Téléphone</mat-label>
+    <input name="phone_item" matInput [(ngModel)]="phoneTerm" placeholder="Ex: +33 3 82 83 70 10">
+    <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field>
+  <div class="actions-wrapper">
+    <mat-icon class="manage-user-button" color="primary" (click)="onManageUser()" *ngIf="!data['isAddDialog']">group
+    </mat-icon>
+    <button mat-button mat-dialog-close>
+      Annuler
+    </button>
+    <button mat-raised-button (click)="onAddCenter()">
+      Créer
+    </button>
+  </div>
+</form>

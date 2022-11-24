@@ -1,24 +1,24 @@
-.homepage {
+.centers-management-page {
   padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   position: relative;
 
-  .search-center-form {
+  .search-center {
     height: 25rem;
     width: 40%;
-    padding: 6rem 0 0 5%;
+    padding-left: 5%;
 
     .title {
       font-size: 30px;
       font-weight: bold;
-      color: var(--blue);
-      padding-bottom: 20px;
+      padding: 50px 0 20px 0;
       white-space: nowrap;
+      color: var(--blue);
     }
 
     .loader {
-      margin: 3rem 0 0 40%;
+      margin: 5px 0 0 40%;
     }
   }
 

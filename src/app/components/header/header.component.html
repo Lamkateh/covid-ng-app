@@ -1,31 +1,20 @@
-<div class="header" [ngStyle]="{ 'background-color': color }">
+<div class="header">
   <a class="title" routerLink="/centers">{{ title }}</a>
   <ul>
     <li>
-      <a
-        routerLink="/centers"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >Accueil</a
-      >
+      <a routerLink="/centers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
     </li>
     <li *ngIf="this.authService.user === null">
       <a routerLink="/login" routerLinkActive="active">Se connecter</a>
     </li>
     <!-- superadmin only -->
     <li *ngIf="this.authService.user !== null">
-      <a
-        routerLink="/management/centers"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >Gestion des centres</a
-      >
+      <a routerLink="/management/centers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Gestion
+        des centres</a>
     </li>
     <!-- admins only -->
     <li *ngIf="this.authService.user !== null">
-      <a routerLink="/management/centers/{{ id }}" routerLinkActive="active"
-        >Gestion de mon centre</a
-      >
+      <a routerLink="/management/centers/{{ id }}" routerLinkActive="active">Gestion de mon centre</a>
     </li>
     <!-- admins and doctors only -->
     <li *ngIf="this.authService.user !== null">

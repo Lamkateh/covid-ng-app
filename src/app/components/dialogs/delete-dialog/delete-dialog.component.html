@@ -1,0 +1,16 @@
+<div class="header">
+  <h1 class="title" mat-dialog-title>Suppression de l'utilisateur</h1>
+  <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
+</div>
+<div mat-dialog-content>
+  Etes-vous sûr de vouloir supprimer l'utilisateur {{ data['lastName'] | uppercase }} {{ data['firstName'] | titlecase
+  }} ?
+  <div class="actions-wrapper">
+    <button mat-button mat-dialog-close>
+      Annuler
+    </button>
+    <button mat-raised-button (click)="onConfirmDelete()">
+      Confirmer
+    </button>
+  </div>
+</div>

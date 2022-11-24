@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { ActivatedRoute } from "@angular/router";
-import { AppointmentDialogComponent } from "../appointment-dialog/appointment-dialog.component";
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AppointmentDialogComponent } from '../dialogs/appointment-dialog/appointment-dialog.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-appointment-preview",
@@ -14,7 +14,7 @@ export class AppointmentPreviewComponent implements OnInit {
   @Input() height: string;
   @Input() top: string;
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
+  constructor(public dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.time = this.time.slice(0, 5);

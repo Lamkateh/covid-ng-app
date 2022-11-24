@@ -1,5 +1,7 @@
 <div class="header">
-  <h1 class="title" mat-dialog-title>{{ data['title'] }}</h1>
+  <h1 class="title" mat-dialog-title>
+    Gestion des admins et médecins du centre
+  </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <div class="content">
@@ -15,8 +17,8 @@
       </mat-form-field>
     </form>
     <div class="doctors-list">
-      <app-users-list [list]="admins" role="Administrateurs"></app-users-list>
-      <app-users-list [list]="doctors" role="Médecins"></app-users-list>
+      <app-users-list [list]="admins" [role]="roles[1]" [center]="data.center"></app-users-list>
+      <app-users-list [list]="doctors" [role]="roles[2]" [center]="data.center"></app-users-list>
     </div>
     <!--<mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>-->
   </div>

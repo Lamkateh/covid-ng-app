@@ -13,17 +13,12 @@ import { UsersManagementDialogComponent } from '../../dialogs/users-management-d
 export class VaccinationCenterListItemComponent implements OnInit {
   constructor(private router: Router, public dialog: MatDialog) { }
 
-  @Input() id: number;
-  @Input() name: string = '';
-  @Input() zipCode: string = '';
-  @Input() city: string = '';
-  @Input() address: string = '';
-  @Input() phone: string = '';
+  @Input() center: VaccinationCenter;
   @Input() lastChild: boolean = false;
 
   onAppointementClick() {
     // navigate to appointement page
-    this.router.navigateByUrl('/centers/' + this.id);
+    this.router.navigateByUrl('/centers/' + this.center.id);
   }
 
   isHomePage(): boolean {
@@ -37,29 +32,19 @@ export class VaccinationCenterListItemComponent implements OnInit {
   }
 
   onEditClick() {
-    let center: VaccinationCenter = {
-      id: this.id,
-      name: this.name,
-      address: this.address,
-      zipCode: this.zipCode,
-      city: this.city,
-      phone: this.phone,
-      email: ''
-    };
-
     this.dialog.open(CenterManagementDialogComponent, {
       width: '60%',
       data: {
         type: "update",
-        center: center,
+        center: this.center,
       }
     }).afterClosed().subscribe((result: VaccinationCenter) => {
       if (result) {
-        this.name = result.name;
-        this.address = result.address;
-        this.zipCode = result.zipCode;
-        this.city = result.city;
-        this.phone = result.phone;
+        this.center.name = result.name;
+        this.center.address = result.address;
+        this.center.zipCode = result.zipCode;
+        this.center.city = result.city;
+        this.center.phone = result.phone;
       }
     });
   }
@@ -69,8 +54,7 @@ export class VaccinationCenterListItemComponent implements OnInit {
       width: '80%',
       height: '80%',
       data: {
-        title: 'Gestion des admins et médecins du centre',
-        centerId: this.id
+        center: this.center
       },
       autoFocus: false
     });

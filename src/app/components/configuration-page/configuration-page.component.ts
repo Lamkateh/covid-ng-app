@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { VaccinationCenterService } from '../../services/vaccination-center.service';
 import { User } from '../../models/user';
+import { Role } from 'src/app/models/role';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-configuration-page',
@@ -14,8 +13,9 @@ export class ConfigurationPageComponent implements OnInit {
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
+  role: Role = this.roleService.roles[0];
 
-  constructor(private authService: AuthService) {
+  constructor(private roleService: RoleService) {
   }
 
   ngOnInit(): void {

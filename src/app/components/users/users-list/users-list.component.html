@@ -1,6 +1,8 @@
 <div class="user-list">
   <div class="header">
-    <div class="title">{{ role }}</div>
+    <div class="title">
+      {{ role.name }}s
+    </div>
     <mat-icon (click)="onAddClick()">add</mat-icon>
   </div>
   <div *ngFor="let aUser of list; let last = last" class="list">

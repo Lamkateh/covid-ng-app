@@ -8,16 +8,11 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, filter, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
 import { Role } from '../../../models/role';
 import { VaccinationCenter } from '../../../models/vaccination-center';
-
-const ROLES = [
-  { name: 'Superadmin', id: 1 },
-  { name: 'Admin', id: 2 },
-  { name: 'Doctor', id: 3 },
-];
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -39,14 +34,16 @@ export class UserManagementDialogComponent implements OnInit {
   ]);
 
   storeLoading: boolean = false;
-  roleList: Role[] = ROLES;
+  roleList: Role[] = this.roleService.roles;
   userCenterServerSideCtrl: UntypedFormControl = new UntypedFormControl();
   centerList: ReplaySubject<VaccinationCenter[]> = new ReplaySubject<VaccinationCenter[]>(1);
   centerListLoading: boolean = false;
   _onDestroy = new Subject<void>();
+  hide = true;
 
   constructor(
     private userService: UserService,
+    private roleService: RoleService,
     private centerService: VaccinationCenterService,
     public dialogRef: MatDialogRef<UserManagementDialogComponent>,
     public dialog: MatDialog,
@@ -54,6 +51,8 @@ export class UserManagementDialogComponent implements OnInit {
     public data: {
       type: "creation" | "update";
       user?: User;
+      role?: Role;
+      center?: VaccinationCenter;
     },
     private _snackBar: MatSnackBar,
   ) {
@@ -68,6 +67,12 @@ export class UserManagementDialogComponent implements OnInit {
       this.userRoleFC.setValue(this.data.user.role);
       this.userRoleFC.enable();
       this.userCenterFC.setValue(this.data.user.center);
+    } else {
+      this.userRoleFC.setValue(this.data.role.id);
+    }
+
+    if (this.data.type === "creation" && this.data.role.id !== 1) {
+      this.userCenterFC.setValue(this.data.center);
     }
 
     this.userCenterServerSideCtrl.valueChanges
@@ -138,6 +143,8 @@ export class UserManagementDialogComponent implements OnInit {
     if (!this.formIsValid()) {
       return;
     }
+    console.log(this.userCenterFC.value);
+
 
     let user: User = {
       id: this.data.user?.id,

@@ -12,14 +12,8 @@ export class VaccinationCenterComponent implements OnInit {
   center?: VaccinationCenter;
   @Input() id: number;
 
-  getCenter(id: number) {
-    this.service.getVaccinationCenterById(id).subscribe((result) => {
-      this.center = result;
-    });
-  }
-
   constructor(
-    private service: VaccinationCenterService,
+    private centerService: VaccinationCenterService,
     private route: ActivatedRoute
   ) { }
 
@@ -28,5 +22,12 @@ export class VaccinationCenterComponent implements OnInit {
       this.id = Number(this.route.snapshot.paramMap.get('id'));
     }
     this.getCenter(this.id);
+  }
+
+  getCenter(id: number) {
+    this.centerService.getVaccinationCenterById(10)
+      .subscribe((center: { data: VaccinationCenter }) => {
+        this.center = center.data;
+      });
   }
 }

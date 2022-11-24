@@ -12,7 +12,7 @@
       </mat-form-field>
     </form>
     <div class="doctors-list">
-      <app-users-list [list]="doctors" role="Médecins"></app-users-list>
+      <app-users-list [list]="doctors" [role]="role" [center]="center"></app-users-list>
     </div>
     <mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>
   </div>

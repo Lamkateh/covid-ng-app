@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VaccinationCenterListComponent } from './components/vaccination/vaccination-center-list/vaccination-center-list.component';
@@ -9,7 +8,6 @@ import { VaccinationCenterListItemComponent } from './components/vaccination/vac
 import { HomePublicPageComponent } from './components/home-public-page/home-public-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { VaccinationCenterModule } from './components/vaccination/vaccination-center/vaccination-center.module';
 import { SharedModule } from './shared-modules/shared.module';
 import { LoginPageComponent } from './components/login-page/login-page.component';

@@ -10,8 +10,8 @@ import { VaccinationCenter } from '../models/vaccination-center';
 export class VaccinationCenterService {
   constructor(private httpClient: HttpClient) { }
 
-  getVaccinationCenterById(id: number): Observable<VaccinationCenter> {
-    return this.httpClient.get<VaccinationCenter>('/public/centers/' + id);
+  getVaccinationCenterById(id: number): Observable<{ data: VaccinationCenter }> {
+    return this.httpClient.get<{ data: VaccinationCenter }>('/public/centers/' + id);
   }
 
   getVaccinationCentersByCity(

@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CenterManagementDialogComponent } from '../center-management-dialog/center-management-dialog.component';
 import { User } from '../../../models/user';
-import { AuthService } from '../../../services/auth.service';
+import { Role } from 'src/app/models/role';
+import { RoleService } from 'src/app/services/role.service';
+import { VaccinationCenter } from 'src/app/models/vaccination-center';
 
 @Component({
   selector: 'app-users-management-dialog',
@@ -15,18 +17,17 @@ import { AuthService } from '../../../services/auth.service';
 export class UsersManagementDialogComponent implements OnInit {
   doctors?: User[];
   admins?: User[];
-  centerId: number;
   nameSearchTerm: string = '';
   nameSearched: string = '';
   //listLoading: boolean = false;
+  roles: Role[] = this.roleService.roles;
 
   constructor(
-    private authService: AuthService,
+    private roleService: RoleService,
     public dialogRef: MatDialogRef<CenterManagementDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      title: string;
-      centerId: number;
+      center: VaccinationCenter;
     }
   ) {
   }

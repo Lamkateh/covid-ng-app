@@ -20,7 +20,7 @@ export class UsersListComponent implements OnInit {
     this.dialog.open(UserManagementDialogComponent, {
       width: '60%',
       data: {
-        title: "Ajout d'un utilisateur",
+        type: 'creation',
       },
     });
   }

@@ -8,24 +8,7 @@ import { User } from '../../../models/user';
   styleUrls: ['./center-management-page.component.scss'],
 })
 export class CenterManagementPageComponent implements OnInit {
-  doctors?: User[] = [
-    {
-      id: 1,
-      firstName: 'Gaëtan',
-      lastName: 'Nousse',
-      email: 'gaetannousse@gmail.com',
-      password: 'azerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-  ];
+  doctors?: User[];
   centerId: number;
   nameSearchTerm: string = '';
   nameSearched: string = '';

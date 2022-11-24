@@ -13,66 +13,8 @@ import { AuthService } from '../../../services/auth.service';
   ],
 })
 export class UsersManagementDialogComponent implements OnInit {
-  doctors?: User[] = [
-    {
-      id: 1,
-      firstName: 'Gaëtan',
-      lastName: 'Nousse',
-      email: 'gaetannousse@gmail.com',
-      password: 'azerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-  ];
-  admins?: User[] = [
-    {
-      id: 1,
-      firstName: 'Gaëtan',
-      lastName: 'Nousse',
-      email: 'gaetannousse@gmail.com',
-      password: 'azerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-  ];
+  doctors?: User[];
+  admins?: User[];
   centerId: number;
   nameSearchTerm: string = '';
   nameSearched: string = '';
@@ -104,4 +46,27 @@ export class UsersManagementDialogComponent implements OnInit {
     this.nameSearched = this.nameSearchTerm;
     this.getResult();
   }
+
+  /*deleteUser() {
+    this.storeLoading = true;
+    this.userService
+      .deleteUser(this.data.user.id)
+      .subscribe(
+        (res) => {
+          this.storeLoading = false;
+          this.dialogRef.close(this.data.user);
+          this._snackBar.open('Utilisateur supprimé avec succès', '', {
+            duration: 2000,
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.storeLoading = false;
+          this._snackBar.open("Une erreur s'est produite", '', {
+            panelClass: 'snackbar-error',
+            duration: 2000,
+          });
+        }
+      );
+  }*/
 }

@@ -1,6 +1,8 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
-    {{ data["title"] }}
+    {{ this.data.type === "creation"
+    ? "Ajout d'un nouvel utilisateur"
+    : "Modification de l'utilisateur" }}
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
@@ -8,34 +10,35 @@
   <div class="form-field-row">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Nom</mat-label>
-      <input name="last_name_item" matInput [(ngModel)]="lastNameTerm" placeholder="Ex: RAOULT">
+      <input name="last_name" matInput [formControl]="this.userLastNameFC" placeholder="Ex: RAOULT">
+      <mat-error *ngIf="this.userLastNameFC.hasError('required')">
+        Le nom de l'utilisateur est <strong>requis</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Prénom</mat-label>
-      <input name="first_name_item" matInput [(ngModel)]="firstNameTerm" placeholder="Ex: Didier">
+      <input name="first_name" matInput [formControl]="this.userFirstNameFC" placeholder="Ex: Didier">
+      <mat-error *ngIf="this.userFirstNameFC.hasError('required')">
+        Le prénom de l'utilisateur est <strong>requis</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
-    <input name="email_item" matInput [(ngModel)]="emailTerm" placeholder="Ex: didierraoult@gmail.com">
+    <input name="email" matInput [formControl]="this.userEmailFC" placeholder="Ex: didierraoult@gmail.com">
+    <mat-error *ngIf="this.userEmailFC.hasError('required')">
+      L'email de l'utilisateur est <strong>requis</strong>
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input name="password_item" matInput [(ngModel)]="passwordTerm" placeholder="Ex: *******">
+    <input name="password_item" matInput [formControl]="this.userPasswordFC" placeholder="Ex: *******">
   </mat-form-field>
   <div class="form-field-row">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Rôle</mat-label>
-      <mat-select [(ngModel)]="roleTerm" name="role">
-        <mat-option *ngFor="let element of this.roles" [value]="element.id">
-          {{ element.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" [style.width]="'100%'">
-      <mat-label>Centre de rattachement</mat-label>
-      <mat-select [(ngModel)]="centerTerm" name="center">
-        <mat-option *ngFor="let element of this.centers" [value]="element.id">
+      <mat-select [formControl]="this.userRoleFC" name="role">
+        <mat-option *ngFor="let element of this.roleList" [value]="element.id">
           {{ element.name }}
         </mat-option>
       </mat-select>
@@ -45,12 +48,13 @@
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button color="warn" (click)="onDisableUser()"
-      *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
+    <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'">
       Désactiver
     </button>
-    <button mat-raised-button color="primary" (click)="onSaveUser()">
-      Enregistrer
+    <button mat-raised-button type="submit" color="primary" [disabled]="storeLoading || !formIsValid()"
+      (click)="this.storeUser()" [ngClass]="{ loading: storeLoading }">
+      {{ this.data.type === "creation" ? "Ajouter" : "Modifier" }}
+      <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>
   </div>
 </form>

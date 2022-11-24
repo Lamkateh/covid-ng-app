@@ -1,12 +1,18 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
 import {
   MatDialogRef,
   MatDialog,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { debounceTime, filter, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { RoleService } from 'src/app/services/role.service';
+import { UserService } from 'src/app/services/user.service';
+import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
 import { Role } from '../../../models/role';
 import { VaccinationCenter } from '../../../models/vaccination-center';
-import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -17,49 +23,169 @@ import { AuthService } from '../../../services/auth.service';
   ],
 })
 export class UserManagementDialogComponent implements OnInit {
-  lastNameTerm: string = '';
-  firstNameTerm: string = '';
-  emailTerm: string = '';
-  passwordTerm: string = '';
-  //roleTerm: string = '';
-  roleTerm = 3;
-  centerTerm: string = '';
-  roles: Role[] = [];
-  centers: VaccinationCenter[] = [];
+
+  userLastNameFC = new FormControl('', [Validators.required]);
+  userFirstNameFC = new FormControl('', [Validators.required]);
+  userEmailFC = new FormControl('', [Validators.required, Validators.email]);
+  userPasswordFC = new FormControl('', [Validators.required]);
+  userRoleFC = new FormControl({ value: null, disabled: true }, [Validators.required]);
+  userCenterFC: UntypedFormControl = new UntypedFormControl(null, [
+    Validators.required,
+  ]);
+
+  storeLoading: boolean = false;
+  roleList: Role[] = [];
+  roleListLoading: boolean = true;
+  userCenterServerSideCtrl: UntypedFormControl = new UntypedFormControl();
+  centerList: ReplaySubject<VaccinationCenter[]> = new ReplaySubject<VaccinationCenter[]>(1);
+  centerListLoading: boolean = false;
+  _onDestroy = new Subject<void>();
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
+    private roleService: RoleService,
+    private centerService: VaccinationCenterService,
     public dialogRef: MatDialogRef<UserManagementDialogComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      title: string;
-      lastName: string;
-      firstName: string;
-      email: string;
-      password: string;
-      role: string;
-      center: string;
-    }
+      type: "creation" | "update";
+      user?: User;
+    },
+    private _snackBar: MatSnackBar,
   ) {
   }
 
   ngOnInit(): void {
-    this.getRoles();
-    this.getCenters();
-    this.lastNameTerm = this.data.lastName;
-    this.firstNameTerm = this.data.firstName;
-    this.emailTerm = this.data.email;
-    //this.roleTerm = this.data.role;
-    this.passwordTerm = this.data.password;
-    this.centerTerm = this.data.center;
+    if (this.data.type === "update" && this.data.user !== null) {
+      this.userLastNameFC.setValue(this.data.user.lastName);
+      this.userFirstNameFC.setValue(this.data.user.firstName);
+      this.userEmailFC.setValue(this.data.user.email);
+      this.userPasswordFC.setValue(this.data.user.password);
+      this.userRoleFC.setValue(this.data.user.role);
+      this.userRoleFC.enable();
+      this.userCenterFC.setValue(this.data.user.center);
+    }
+
+    this.userCenterServerSideCtrl.valueChanges
+      .pipe(
+        filter((search) => !!search),
+        tap(() => (this.centerListLoading = true)),
+        takeUntil(this._onDestroy),
+        debounceTime(1000),
+        takeUntil(this._onDestroy)
+      )
+      .subscribe({
+        next: (response) => {
+          this.centerService.getCentersByName(response).subscribe({
+            next: (response) => {
+              this.centerList.next(response.data);
+              this.centerListLoading = false;
+            },
+            error: (error) => {
+              console.log(error);
+              this.centerListLoading = false;
+            },
+          });
+        },
+        error: (error) => {
+          console.log(error);
+          this.centerListLoading = false;
+        },
+      });
   }
 
-  getRoles() { }
+  formIsValid() {
+    return (
+      this.userLastNameFC.valid &&
+      this.userFirstNameFC.valid &&
+      this.userEmailFC.valid &&
+      this.userPasswordFC.valid &&
+      this.userRoleFC.valid
+    );
+  }
 
-  getCenters() { }
+  updateUser(user: User) {
+    this.storeLoading = true;
+    this.userService
+      .updateUser(
+        user
+      )
+      .subscribe(
+        (res) => {
+          this.storeLoading = false;
+          this.dialogRef.close(user);
+          this._snackBar.open('Utilisateur modifié avec succès', '', {
+            duration: 2000,
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.storeLoading = false;
+          this._snackBar.open("Une erreur s'est produite", '', {
+            panelClass: 'snackbar-error',
+            duration: 2000,
+          });
+        }
+      );
+  }
 
-  onDisableUser() { }
+  storeUser() {
+    if (!this.formIsValid()) {
+      return;
+    }
 
-  onSaveUser() { }
+    let user: User = {
+      id: this.data.user?.id,
+      lastName: this.userLastNameFC.value,
+      firstName: this.userFirstNameFC.value,
+      email: this.userEmailFC.value,
+      password: this.userPasswordFC.value,
+      role: this.userRoleFC.value,
+      center: this.data.user?.center,
+      disabled: this.data.user?.disabled,
+    };
+
+    if (this.data.type === "update") {
+      this.updateUser(user);
+      return;
+    }
+
+    this.storeLoading = true;
+    this.userService
+      .storeUser(
+        user
+      )
+      .subscribe(
+        (res) => {
+          this.storeLoading = false;
+          this.dialogRef.close(user);
+          this._snackBar.open('Utilisateur ajouté avec succès', '', {
+            duration: 2000,
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.storeLoading = false;
+          this._snackBar.open("Une erreur s'est produite", '', {
+            panelClass: 'snackbar-error',
+            duration: 2000,
+          });
+        }
+      );
+  }
+
+  disableUser() {
+    let user: User = {
+      id: this.data.user?.id,
+      lastName: this.userLastNameFC.value,
+      firstName: this.userFirstNameFC.value,
+      email: this.userEmailFC.value,
+      password: this.userPasswordFC.value,
+      role: this.userRoleFC.value,
+      center: this.data.user?.center,
+      disabled: true,
+    };
+    this.updateUser(user);
+  }
 }

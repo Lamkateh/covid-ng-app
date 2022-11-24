@@ -16,6 +16,8 @@ export class UsersListItemComponent implements OnInit {
   @Input() email: string = '';
   @Input() password: string = '';
   @Input() role: string = '';
+  @Input() center: number = null;
+  @Input() disabled: boolean = false;
   @Input() lastChild: boolean = false;
 
   constructor(public dialog: MatDialog) { }

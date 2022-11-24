@@ -46,6 +46,18 @@ export class VaccinationCenterService {
     );
   }
 
+  getCentersByName(
+    name: string
+  ): Observable<any> {
+    name = btoa(name)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/\=+$/, '');
+    return this.httpClient.get<any>(
+      '/public/centers/name/' + name
+    );
+  }
+
   getAppointmentsByCenterId(id: number): Observable<{
     data: {
       days: {
@@ -68,14 +80,6 @@ export class VaccinationCenterService {
     }>('/public/center/' + id + '/appointments');
   }
 
-  getAllDoctorsFromCenter(id: number) {
-    //TODO
-  }
-
-  getDoctorsFromCenterByName(id: number, name: string) {
-    //TODO
-  }
-
   storeVaccinationCenter(
     center: VaccinationCenter
   ): Observable<any> {
@@ -93,5 +97,4 @@ export class VaccinationCenterService {
   ): Observable<any> {
     return this.httpClient.delete('/private/centers/' + centerId);
   }
-
 }

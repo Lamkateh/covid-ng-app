@@ -10,24 +10,7 @@ import { User } from '../../models/user';
   styleUrls: ['./configuration-page.component.scss'],
 })
 export class ConfigurationPageComponent implements OnInit {
-  superadmins?: User[] = [
-    {
-      id: 1,
-      firstName: 'Gaëtan',
-      lastName: 'Nousse',
-      email: 'gaetannousse@gmail.com',
-      password: 'azerty',
-      role: 'Superadmin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Superadmin',
-    },
-  ];
+  superadmins?: User[];
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;

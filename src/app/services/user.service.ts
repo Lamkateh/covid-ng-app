@@ -21,6 +21,8 @@ export class UserService {
   storeUser(
     user: User
   ): Observable<any> {
+    console.log(user);
+
     return this.httpClient.post<any>('/private/users', user);
   }
 

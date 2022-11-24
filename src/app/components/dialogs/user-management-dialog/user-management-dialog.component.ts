@@ -8,11 +8,16 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, filter, ReplaySubject, Subject, takeUntil, tap } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
 import { Role } from '../../../models/role';
 import { VaccinationCenter } from '../../../models/vaccination-center';
+
+const ROLES = [
+  { name: 'Superadmin', id: 1 },
+  { name: 'Admin', id: 2 },
+  { name: 'Doctor', id: 3 },
+];
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -28,14 +33,13 @@ export class UserManagementDialogComponent implements OnInit {
   userFirstNameFC = new FormControl('', [Validators.required]);
   userEmailFC = new FormControl('', [Validators.required, Validators.email]);
   userPasswordFC = new FormControl('', [Validators.required]);
-  userRoleFC = new FormControl({ value: null, disabled: true }, [Validators.required]);
+  userRoleFC = new FormControl(null, [Validators.required]);
   userCenterFC: UntypedFormControl = new UntypedFormControl(null, [
     Validators.required,
   ]);
 
   storeLoading: boolean = false;
-  roleList: Role[] = [];
-  roleListLoading: boolean = true;
+  roleList: Role[] = ROLES;
   userCenterServerSideCtrl: UntypedFormControl = new UntypedFormControl();
   centerList: ReplaySubject<VaccinationCenter[]> = new ReplaySubject<VaccinationCenter[]>(1);
   centerListLoading: boolean = false;
@@ -43,7 +47,6 @@ export class UserManagementDialogComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private roleService: RoleService,
     private centerService: VaccinationCenterService,
     public dialogRef: MatDialogRef<UserManagementDialogComponent>,
     public dialog: MatDialog,
@@ -101,7 +104,8 @@ export class UserManagementDialogComponent implements OnInit {
       this.userFirstNameFC.valid &&
       this.userEmailFC.valid &&
       this.userPasswordFC.valid &&
-      this.userRoleFC.valid
+      this.userRoleFC.valid &&
+      this.userCenterFC.valid
     );
   }
 
@@ -142,7 +146,7 @@ export class UserManagementDialogComponent implements OnInit {
       email: this.userEmailFC.value,
       password: this.userPasswordFC.value,
       role: this.userRoleFC.value,
-      center: this.data.user?.center,
+      center: this.userCenterFC.value.id,
       disabled: this.data.user?.disabled,
     };
 
@@ -183,7 +187,7 @@ export class UserManagementDialogComponent implements OnInit {
       email: this.userEmailFC.value,
       password: this.userPasswordFC.value,
       role: this.userRoleFC.value,
-      center: this.data.user?.center,
+      center: this.userCenterFC.value.id,
       disabled: true,
     };
     this.updateUser(user);

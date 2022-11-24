@@ -15,6 +15,7 @@ export class CentersManagementPageComponent implements OnInit {
   citySearched: string = '';
   listLoading: boolean = false;
   page: number = 0;
+  lastPage: boolean = false;
 
   constructor(
     private vaccinationCenterService: VaccinationCenterService,
@@ -58,16 +59,18 @@ export class CentersManagementPageComponent implements OnInit {
     if (this.citySearched === '') {
       this.vaccinationCenterService
         .getAllVaccinationCenters(this.page)
-        .subscribe((centers: { data: { content: VaccinationCenter[] } }) => {
+        .subscribe((centers: { data: { content: VaccinationCenter[]; last: boolean } }) => {
           this.centers.push(...centers.data.content);
           this.listLoading = false;
+          this.lastPage = centers.data.last;
         });
     } else {
       this.vaccinationCenterService
         .getVaccinationCentersByCity(this.citySearched, this.page)
-        .subscribe((centers: { data: { content: VaccinationCenter[] } }) => {
+        .subscribe((centers: { data: { content: VaccinationCenter[]; last: boolean } }) => {
           this.centers.push(...centers.data.content);
           this.listLoading = false;
+          this.lastPage = centers.data.last;
         });
     }
   }

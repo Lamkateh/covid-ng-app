@@ -16,7 +16,8 @@
   </div>
   <img src="/assets/flat-hand-drawn-doctor-injecting-vaccine-patient.jpg" alt="Gestion" />
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
-  <button mat-raised-button color="primary" [style.margin]="'auto'" *ngIf="!this.listLoading" (click)="onMoreRequest()">
+  <button mat-raised-button color="primary" [style.margin]="'auto'" *ngIf="!this.lastPage" [disabled]="this.listLoading"
+    (click)="onMoreRequest()">
     Afficher plus
   </button>
 </div>

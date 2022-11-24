@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-schedule-page',
@@ -7,11 +6,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./schedule-page.component.scss'],
 })
 export class SchedulePageComponent implements OnInit {
-  color: string;
 
-  constructor(private authService: AuthService) {
-    this.color = this.authService.getColorTheme();
+  constructor() {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

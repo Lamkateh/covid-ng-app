@@ -31,17 +31,15 @@ export class ConfigurationPageComponent implements OnInit {
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
-  color: string;
 
   constructor(private authService: AuthService) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {
     this.getResult();
   }
 
-  getResult() {}
+  getResult() { }
 
   isLoading() {
     if (this.listLoading) return true;

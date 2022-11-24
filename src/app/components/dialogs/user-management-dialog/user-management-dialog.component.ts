@@ -24,7 +24,6 @@ export class UserManagementDialogComponent implements OnInit {
   //roleTerm: string = '';
   roleTerm = 3;
   centerTerm: string = '';
-  color: string;
   roles: Role[] = [];
   centers: VaccinationCenter[] = [];
 
@@ -43,7 +42,6 @@ export class UserManagementDialogComponent implements OnInit {
       center: string;
     }
   ) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

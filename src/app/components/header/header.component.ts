@@ -8,11 +8,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   @Input() title!: string;
-  color: string;
   id: number;
 
   constructor(public authService: AuthService) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

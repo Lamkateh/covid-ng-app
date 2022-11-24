@@ -1,23 +1,13 @@
 <div class="login-page">
-  <div class="title" [ngStyle]="{ color: color }">Connexion</div>
+  <div class="title">Connexion</div>
   <form class="login-form" (submit)="login()">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input
-        name="email"
-        matInput
-        [(ngModel)]="emailAddress"
-        placeholder="Entrez votre adresse mail"
-      />
+      <input name="email" matInput [(ngModel)]="emailAddress" placeholder="Entrez votre adresse mail" />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Mot de passe</mat-label>
-      <input
-        name="password"
-        matInput
-        [(ngModel)]="password"
-        placeholder="Entrez votre mot de passe"
-      />
+      <input name="password" matInput [(ngModel)]="password" placeholder="Entrez votre mot de passe" />
     </mat-form-field>
     <button mat-raised-button class="login-button" type="submit">
       Se connecter

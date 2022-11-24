@@ -77,7 +77,6 @@ export class UsersManagementDialogComponent implements OnInit {
   nameSearchTerm: string = '';
   nameSearched: string = '';
   //listLoading: boolean = false;
-  color: string;
 
   constructor(
     private authService: AuthService,
@@ -88,7 +87,6 @@ export class UsersManagementDialogComponent implements OnInit {
       centerId: number;
     }
   ) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

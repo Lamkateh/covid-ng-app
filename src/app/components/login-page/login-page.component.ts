@@ -10,13 +10,11 @@ import { AuthService } from "../../services/auth.service";
 export class LoginPageComponent implements OnInit {
   @Input() emailAddress?: string;
   @Input() password?: string;
-  color: string;
 
   constructor(private router: Router, private authService: AuthService) {
-    this.color = this.authService.getColorTheme();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   login() {
     this.authService.signin(this.emailAddress, this.password).subscribe({

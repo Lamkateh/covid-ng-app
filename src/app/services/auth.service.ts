@@ -17,7 +17,7 @@ export class AuthService {
     roles: string[];
   } | null = null;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   signin(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(
@@ -89,16 +89,5 @@ export class AuthService {
   logout() {
     localStorage.removeItem('rdvaccination-token');
     this.user = null;
-  }
-
-  getColorTheme() {
-    if (this.user === null) {
-      return '#3791D8';
-    }
-
-    if (this.user.roles.includes('SUPERADMIN')) return '#D24848';
-    else if (this.user.roles.includes('ADMIN')) return '#E59C01';
-    else if (this.user.roles.includes('DOCTOR')) return '#84B56C';
-    else return '#3791D8';
   }
 }

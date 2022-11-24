@@ -16,14 +16,12 @@ export class CentersManagementPageComponent implements OnInit {
   citySearched: string = '';
   listLoading: boolean = false;
   page: number = 0;
-  color: string;
 
   constructor(
     private vaccinationCenterService: VaccinationCenterService,
     public dialog: MatDialog,
     private authService: AuthService
   ) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

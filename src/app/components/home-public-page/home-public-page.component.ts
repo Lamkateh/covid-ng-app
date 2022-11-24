@@ -15,13 +15,11 @@ export class HomePublicPageComponent implements OnInit {
   listLoading: boolean = false;
   page: number = 0;
   lastPage: boolean = false;
-  color: string;
 
   constructor(
     private vaccinationCenterService: VaccinationCenterService,
     private authService: AuthService
   ) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

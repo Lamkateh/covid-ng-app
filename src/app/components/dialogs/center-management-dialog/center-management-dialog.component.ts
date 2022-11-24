@@ -21,7 +21,6 @@ export class CenterManagementDialogComponent implements OnInit {
   zipCodeTerm: string = '';
   cityTerm: string = '';
   phoneTerm: string = '';
-  color: string;
 
   constructor(
     private authService: AuthService,
@@ -39,7 +38,6 @@ export class CenterManagementDialogComponent implements OnInit {
       centerId: string;
     }
   ) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

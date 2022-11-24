@@ -30,10 +30,8 @@ export class CenterManagementPageComponent implements OnInit {
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
-  color: string;
 
   constructor(private authService: AuthService) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void {

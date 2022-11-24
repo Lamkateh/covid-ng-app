@@ -12,7 +12,6 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['../../common/css/dialog.scss', './delete-dialog.component.scss'],
 })
 export class DeleteDialogComponent implements OnInit {
-  color: string = '';
 
   constructor(
     private authService: AuthService,
@@ -24,7 +23,6 @@ export class DeleteDialogComponent implements OnInit {
       firstName: string;
     }
   ) {
-    this.color = this.authService.getColorTheme();
   }
 
   ngOnInit(): void { }

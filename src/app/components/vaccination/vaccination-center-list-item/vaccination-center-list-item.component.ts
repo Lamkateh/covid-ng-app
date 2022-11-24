@@ -71,7 +71,8 @@ export class VaccinationCenterListItemComponent implements OnInit {
       data: {
         title: 'Gestion des admins et médecins du centre',
         centerId: this.id
-      }
+      },
+      autoFocus: false
     });
   }
 

@@ -42,7 +42,8 @@ export class UsersListItemComponent implements OnInit {
       data: {
         lastName: this.lastName,
         firstName: this.firstName
-      }
+      },
+      autoFocus: false
     });
   }
 

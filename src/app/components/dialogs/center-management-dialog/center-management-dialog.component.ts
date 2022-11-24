@@ -69,6 +69,7 @@ export class CenterManagementDialogComponent implements OnInit {
         title: 'Gestion des admins et médecins du centre',
         centerId: this.data.center.id,
       },
+      autoFocus: false
     });
   }
 

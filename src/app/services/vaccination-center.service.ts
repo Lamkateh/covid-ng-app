@@ -48,13 +48,18 @@ export class VaccinationCenterService {
 
   getCentersByName(
     name: string
-  ): Observable<any> {
+  ): Observable<{ data: { content: VaccinationCenter[] } }> {
     name = btoa(name)
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
       .replace(/\=+$/, '');
-    return this.httpClient.get<any>(
-      '/public/centers/name/' + name
+    return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
+      '/public/centers/name/' + name,
+      {
+        params: {
+          page: '1',
+        },
+      }
     );
   }
 

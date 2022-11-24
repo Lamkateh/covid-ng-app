@@ -31,6 +31,7 @@ import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete
 import { httpInterceptorProviders } from './http-interceptors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxMatSelectSearchModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

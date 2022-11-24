@@ -79,7 +79,7 @@ export class UserManagementDialogComponent implements OnInit {
         next: (response) => {
           this.centerService.getCentersByName(response).subscribe({
             next: (response) => {
-              this.centerList.next(response.data);
+              this.centerList.next(response.data.content);
               this.centerListLoading = false;
             },
             error: (error) => {

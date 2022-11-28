@@ -1,17 +1,21 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AppointmentPreview } from '../models/appointment-preview';
-import { VaccinationCenter } from '../models/vaccination-center';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { AppointmentPreview } from "../models/appointment-preview";
+import { VaccinationCenter } from "../models/vaccination-center";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class VaccinationCenterService {
   constructor(private httpClient: HttpClient) {}
 
-  getVaccinationCenterById(id: number): Observable<VaccinationCenter> {
-    return this.httpClient.get<VaccinationCenter>('/public/centers/' + id);
+  getVaccinationCenterById(
+    id: number
+  ): Observable<{ data: VaccinationCenter }> {
+    return this.httpClient.get<{ data: VaccinationCenter }>(
+      "/public/centers/" + id
+    );
   }
 
   getVaccinationCentersByCity(
@@ -20,11 +24,11 @@ export class VaccinationCenterService {
   ): Observable<{ data: { content: VaccinationCenter[] } }> {
     // encode to base64 to base64-url
     city = btoa(city)
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/\=+$/, '');
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/\=+$/, "");
     return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
-      '/public/centers/city/' + city,
+      "/public/centers/city/" + city,
       {
         params: {
           page: page.toString(),
@@ -37,7 +41,7 @@ export class VaccinationCenterService {
     page: number = 0
   ): Observable<{ data: { content: VaccinationCenter[] } }> {
     return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
-      '/public/centers',
+      "/public/centers",
       {
         params: {
           page: page.toString(),
@@ -65,7 +69,7 @@ export class VaccinationCenterService {
         startTime: string;
         closeTime: string;
       };
-    }>('/public/center/' + id + '/appointments');
+    }>("/public/centers/" + id + "/appointments");
   }
 
   getAllDoctorsFromCenter(id: number) {

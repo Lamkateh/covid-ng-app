@@ -13,10 +13,8 @@ export class AppointmentService {
     date: string,
     time: string
   ) {
-    console.log(center_id, user_id, date, time);
-
     return this.httpClient.post(
-      `/private/center/${center_id}/appointments`,
+      `/private/centers/${center_id}/appointments`,
       {
         patient_id: user_id.toString(),
         date: date,

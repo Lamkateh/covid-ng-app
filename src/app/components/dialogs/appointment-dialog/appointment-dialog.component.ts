@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { AppointmentService } from "src/app/services/appointment.service";
 import { DateService } from "src/app/services/date.service";
 import { AuthService } from "../../../services/auth.service";
@@ -8,8 +9,8 @@ import { AuthService } from "../../../services/auth.service";
   selector: "app-appointment-dialog",
   templateUrl: "./appointment-dialog.component.html",
   styleUrls: [
-    '../../common/css/dialog.scss',
-    './appointment-dialog.component.scss',
+    "../../common/css/dialog.scss",
+    "./appointment-dialog.component.scss",
   ],
 })
 export class AppointmentDialogComponent implements OnInit {
@@ -18,15 +19,16 @@ export class AppointmentDialogComponent implements OnInit {
     protected authService: AuthService,
     protected dateService: DateService,
     protected appointmentService: AppointmentService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA)
     protected data: {
       center_id: number;
       date: string;
       time: string;
     }
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   getTime() {
     return this.data.time;
@@ -55,8 +57,17 @@ export class AppointmentDialogComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.dialogRef.close();
+          this._snackBar.open("Rendez-vous pris avec succès !", "Close", {
+            duration: 2000,
+          });
         },
-        error: () => { },
+        error: (err) => {
+          if (err.status === 404) {
+            this._snackBar.open(err.error.message, "Close", {
+              duration: 2000,
+            });
+          }
+        },
       });
   }
 }

@@ -6,6 +6,7 @@ export interface User {
   lastName: string;
   birthDate: Date;
   email: string;
+  phone: string;
   role: Role;
   password: string;
   center?: number;

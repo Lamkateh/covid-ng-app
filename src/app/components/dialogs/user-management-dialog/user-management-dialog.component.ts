@@ -28,6 +28,7 @@ export class UserManagementDialogComponent implements OnInit {
   userFirstNameFC = new FormControl('', [Validators.required]);
   userBirthDateFC = new FormControl(null, [Validators.required]);
   userEmailFC = new FormControl('', [Validators.required, Validators.email]);
+  userPhoneFC = new FormControl('', [Validators.required]);
   userPasswordFC = new FormControl('', [Validators.required]);
   userRoleFC = new FormControl({ value: null, disabled: true }, [Validators.required]);
   userCenterFC: UntypedFormControl = new UntypedFormControl(null, [
@@ -41,6 +42,7 @@ export class UserManagementDialogComponent implements OnInit {
   centerListLoading: boolean = false;
   _onDestroy = new Subject<void>();
   hide = true;
+  maxDate: Date;
 
   constructor(
     private userService: UserService,
@@ -57,18 +59,22 @@ export class UserManagementDialogComponent implements OnInit {
     },
     private _snackBar: MatSnackBar,
   ) {
+    this.maxDate = new Date();
   }
 
   ngOnInit(): void {
     if (this.data.type === "update" && this.data.user !== null) {
       this.userLastNameFC.setValue(this.data.user.lastName);
       this.userFirstNameFC.setValue(this.data.user.firstName);
-      this.userBirthDateFC.setValue(this.data.user.birthDate);
+      this.userBirthDateFC.setValue(new Date(this.data.user.birthDate.getTime()));
       this.userEmailFC.setValue(this.data.user.email);
+      this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.role);
       this.userRoleFC.enable();
-      this.userCenterFC.setValue(this.data.user.center);
+      if (this.userRoleFC.value !== "superadmin") {
+        this.userCenterFC.setValue(this.data.user.center);
+      }
     } else {
       this.userRoleFC.setValue(this.data.role.value);
     }
@@ -110,15 +116,28 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   formIsValid() {
-    return (
-      this.userLastNameFC.valid &&
-      this.userFirstNameFC.valid &&
-      this.userBirthDateFC.valid &&
-      this.userEmailFC.valid &&
-      this.userPasswordFC.valid &&
-      this.userRoleFC.valid &&
-      this.userCenterFC.valid
-    );
+    if (this.userRoleFC.value === "superadmin") {
+      return (
+        this.userLastNameFC.valid &&
+        this.userFirstNameFC.valid &&
+        this.userBirthDateFC.valid &&
+        this.userEmailFC.valid &&
+        this.userPhoneFC.valid &&
+        this.userPasswordFC.valid &&
+        (this.userRoleFC.valid || this.userRoleFC.disable)
+      );
+    } else {
+      return (
+        this.userLastNameFC.valid &&
+        this.userFirstNameFC.valid &&
+        this.userBirthDateFC.valid &&
+        this.userEmailFC.valid &&
+        this.userPhoneFC.valid &&
+        this.userPasswordFC.valid &&
+        (this.userRoleFC.valid || this.userRoleFC.disable) &&
+        this.userCenterFC.valid
+      );
+    }
   }
 
   updateUser(user: User) {
@@ -150,8 +169,6 @@ export class UserManagementDialogComponent implements OnInit {
     if (!this.formIsValid()) {
       return;
     }
-    console.log(this.userCenterFC.value);
-
 
     let user: User = {
       id: this.data.user?.id,
@@ -159,9 +176,10 @@ export class UserManagementDialogComponent implements OnInit {
       firstName: this.userFirstNameFC.value,
       birthDate: this.userBirthDateFC.value,
       email: this.userEmailFC.value,
+      phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
       role: this.userRoleFC.value,
-      center: this.userCenterFC.value.id,
+      center: this.userCenterFC.value?.id,
       disabled: this.data.user?.disabled,
     };
 
@@ -201,6 +219,7 @@ export class UserManagementDialogComponent implements OnInit {
       firstName: this.userFirstNameFC.value,
       birthDate: this.userBirthDateFC.value,
       email: this.userEmailFC.value,
+      phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
       role: this.userRoleFC.value,
       center: this.userCenterFC.value.id,

@@ -30,6 +30,8 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { registerLocaleData } from "@angular/common";
+import localeFr from "@angular/common/locales/fr";
 
 @NgModule({
   declarations: [
@@ -67,7 +69,13 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatSnackBarModule,
     NgxMatSelectSearchModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeFr, "fr");
+  }
+}

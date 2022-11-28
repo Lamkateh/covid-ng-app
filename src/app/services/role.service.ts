@@ -7,9 +7,9 @@ import { Role } from '../models/role';
 export class RoleService {
 
   roles: Role[] = [
-    { name: 'Superadmin', id: 1 },
-    { name: 'Administrateur', id: 2 },
-    { name: 'Médecin', id: 3 },
+    { name: 'Superadmin', value: 'superadmin' },
+    { name: 'Administrateur', value: 'admin' },
+    { name: 'Médecin', value: 'doctor' },
   ]
 
   constructor() { }

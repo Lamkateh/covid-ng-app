@@ -26,9 +26,10 @@ export class UserManagementDialogComponent implements OnInit {
 
   userLastNameFC = new FormControl('', [Validators.required]);
   userFirstNameFC = new FormControl('', [Validators.required]);
+  userBirthDateFC = new FormControl(null, [Validators.required]);
   userEmailFC = new FormControl('', [Validators.required, Validators.email]);
   userPasswordFC = new FormControl('', [Validators.required]);
-  userRoleFC = new FormControl(null, [Validators.required]);
+  userRoleFC = new FormControl({ value: null, disabled: true }, [Validators.required]);
   userCenterFC: UntypedFormControl = new UntypedFormControl(null, [
     Validators.required,
   ]);
@@ -62,17 +63,22 @@ export class UserManagementDialogComponent implements OnInit {
     if (this.data.type === "update" && this.data.user !== null) {
       this.userLastNameFC.setValue(this.data.user.lastName);
       this.userFirstNameFC.setValue(this.data.user.firstName);
+      this.userBirthDateFC.setValue(this.data.user.birthDate);
       this.userEmailFC.setValue(this.data.user.email);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.role);
       this.userRoleFC.enable();
       this.userCenterFC.setValue(this.data.user.center);
     } else {
-      this.userRoleFC.setValue(this.data.role.id);
+      this.userRoleFC.setValue(this.data.role.value);
     }
 
-    if (this.data.type === "creation" && this.data.role.id !== 1) {
+    if (this.data.type === "creation" && this.data.role.value !== 'superadmin') {
       this.userCenterFC.setValue(this.data.center);
+    }
+
+    if (!this.data.role) {
+      this.userRoleFC.enable();
     }
 
     this.userCenterServerSideCtrl.valueChanges
@@ -107,6 +113,7 @@ export class UserManagementDialogComponent implements OnInit {
     return (
       this.userLastNameFC.valid &&
       this.userFirstNameFC.valid &&
+      this.userBirthDateFC.valid &&
       this.userEmailFC.valid &&
       this.userPasswordFC.valid &&
       this.userRoleFC.valid &&
@@ -150,6 +157,7 @@ export class UserManagementDialogComponent implements OnInit {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
+      birthDate: this.userBirthDateFC.value,
       email: this.userEmailFC.value,
       password: this.userPasswordFC.value,
       role: this.userRoleFC.value,
@@ -191,6 +199,7 @@ export class UserManagementDialogComponent implements OnInit {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
+      birthDate: this.userBirthDateFC.value,
       email: this.userEmailFC.value,
       password: this.userPasswordFC.value,
       role: this.userRoleFC.value,

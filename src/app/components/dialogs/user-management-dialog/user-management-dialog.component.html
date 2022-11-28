@@ -1,6 +1,6 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
-    {{ this.data.role.id === 2
+    {{ this.data.role.value === 'admin'
     ? ( this.data.type === "creation"
     ? "Ajout d'un nouvel administrateur"
     : "Modification de l'administrateur")
@@ -29,6 +29,13 @@
       </mat-error>
     </mat-form-field>
   </div>
+  <mat-form-field appearance="outline" [style.width]="'100%'">
+    <mat-label>Date de naissance</mat-label>
+    <input name="bith_date" matInput [formControl]="this.userBirthDateFC">
+    <mat-error *ngIf="this.userBirthDateFC.hasError('required')">
+      Le date de naissance de l'utilisateur est <strong>requise</strong>
+    </mat-error>
+  </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
     <input name="email" matInput [formControl]="this.userEmailFC" placeholder="Ex: didierraoult@gmail.com">
@@ -53,8 +60,8 @@
   <div class="form-field-row">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Rôle</mat-label>
-      <mat-select [formControl]="this.userRoleFC" name="role" [disabled]="this.data.role ? true : false">
-        <mat-option *ngFor="let role of this.roleList" [value]="role.id">
+      <mat-select [formControl]="this.userRoleFC" name="role">
+        <mat-option *ngFor="let role of this.roleList" [value]="role.value">
           {{ role.name }}
         </mat-option>
       </mat-select>

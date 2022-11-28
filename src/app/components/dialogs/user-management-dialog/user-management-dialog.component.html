@@ -53,7 +53,7 @@
   <div class="form-field-row">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Rôle</mat-label>
-      <mat-select [formControl]="this.userRoleFC" name="role">
+      <mat-select [formControl]="this.userRoleFC" name="role" [disabled]="this.data.role ? true : false">
         <mat-option *ngFor="let role of this.roleList" [value]="role.id">
           {{ role.name }}
         </mat-option>
@@ -62,7 +62,7 @@
         Le role de l'utilisateur est <strong>requis</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline" [style.width]="'100%'" *ngIf="this.data.center">
+    <mat-form-field appearance="outline" [style.width]="'100%'" *ngIf="this.userRoleFC.value !== 1">
       <mat-label>Centre de rattachement</mat-label>
       <mat-select [formControl]="this.userCenterFC" placeholder="Centre de rattachement" name="center">
         <mat-option>

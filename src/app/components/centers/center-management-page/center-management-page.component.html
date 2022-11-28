@@ -7,13 +7,13 @@
       <div class="title">Gérez les médecins de votre centre</div>
       <mat-form-field>
         <mat-label>Filtrez par nom</mat-label>
-        <input name="search_item" matInput [(ngModel)]="nameSearchTerm">
+        <input name="search_item" matInput [(ngModel)]="nameSearchTerm" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </form>
     <div class="doctors-list">
       <app-users-list [list]="doctors" role="Médecins"></app-users-list>
     </div>
-    <mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>
+    <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </div>
 </div>

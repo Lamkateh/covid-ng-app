@@ -1,48 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../models/user';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../../services/auth.service";
+import { User } from "../../../models/user";
+import { UserService } from "src/app/services/user.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'app-center-management-page',
-  templateUrl: './center-management-page.component.html',
-  styleUrls: ['./center-management-page.component.scss'],
+  selector: "app-center-management-page",
+  templateUrl: "./center-management-page.component.html",
+  styleUrls: ["./center-management-page.component.scss"],
 })
 export class CenterManagementPageComponent implements OnInit {
-  doctors?: User[] = [
-    {
-      id: 1,
-      firstName: 'Gaëtan',
-      lastName: 'Nousse',
-      email: 'gaetannousse@gmail.com',
-      password: 'azerty',
-      role: 'Médecin',
-    },
-    {
-      id: 2,
-      firstName: 'Bruno',
-      lastName: 'Di Livio',
-      email: 'brunodilivio@gmail.com',
-      password: 'qwerty',
-      role: 'Médecin',
-    },
-  ];
+  doctors?: User[] = [];
   centerId: number;
-  nameSearchTerm: string = '';
-  nameSearched: string = '';
+  nameSearchTerm: string = "";
+  nameSearched: string = "";
   listLoading: boolean = false;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getResult();
+    this.centerId = Number(this.route.snapshot.paramMap.get("id"));
+    this.getDoctors();
   }
 
-  getResult() { }
+  getDoctors() {
+    this.userService.getDoctors(this.centerId).subscribe({
+      next: (data) => {
+        this.doctors = data.data;
+      },
+      error: (err) => {},
+    });
+  }
 
-  isLoading() {
-    if (this.listLoading) return true;
-    else return false;
+  getResult() {
+    return this.doctors.filter((doctor) => {
+      return doctor.firstName
+        .toLowerCase()
+        .includes(this.nameSearchTerm.toLowerCase());
+    });
   }
 
   onSearchName() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Role } from 'src/app/models/role';
 import { RoleService } from 'src/app/services/role.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-configuration-page',
@@ -15,18 +16,27 @@ export class ConfigurationPageComponent implements OnInit {
   listLoading: boolean = false;
   role: Role = this.roleService.roles[0];
 
-  constructor(private roleService: RoleService) {
-  }
+  constructor(private roleService: RoleService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.getResult();
+    this.getSuperadmins();
   }
 
-  getResult() { }
+  getSuperadmins() {
+    this.userService.getSuperadmins().subscribe({
+      next: (data) => {
+        this.superadmins = data.data;
+      },
+      error: (err) => { },
+    });
+  }
 
-  isLoading() {
-    if (this.listLoading) return true;
-    else return false;
+  getResult() {
+    return this.superadmins.filter((superadmins) => {
+      return superadmins.firstName
+        .toLowerCase()
+        .includes(this.nameSearchTerm.toLowerCase());
+    });
   }
 
   onSearchName() {

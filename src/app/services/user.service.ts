@@ -30,6 +30,12 @@ export class UserService {
     );
   }
 
+  getSuperadmins(): Observable<{ data: User[] }> {
+    return this.httpClient.get<{ data: User[] }>(
+      "/private/superadmins"
+    );
+  }
+
   storeUser(
     user: User
   ): Observable<any> {

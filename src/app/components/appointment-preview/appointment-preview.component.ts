@@ -14,7 +14,7 @@ export class AppointmentPreviewComponent implements OnInit {
   @Input() height: string;
   @Input() top: string;
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
+  constructor(public dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.time = this.time.slice(0, 5);

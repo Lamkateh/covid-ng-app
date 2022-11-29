@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { DateService } from "src/app/services/date.service";
-import { VaccinationCenterService } from "../../services/vaccination-center.service";
+import { CenterService } from "../../services/center.service";
 
 const COLUMN_WIDTH = 300;
 const ROW_HEIGHT = 10;
@@ -40,15 +40,15 @@ export class TimetableComponent implements OnInit {
   ).getTime();
   timetableHeight: string = `${Math.floor(
     ((this.endHourTimestamp - this.startHourTimestamp) / (1000 * 60 * 5)) *
-      ROW_HEIGHT +
-      50 +
-      10
+    ROW_HEIGHT +
+    50 +
+    10
   )}px`;
 
   constructor(
-    private service: VaccinationCenterService,
+    private centerService: CenterService,
     protected dateService: DateService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAppointments();
@@ -57,7 +57,7 @@ export class TimetableComponent implements OnInit {
   // TODO : Review after fix in back-end
   getAppointments() {
     if (this.centerId) {
-      this.service
+      this.centerService
         .getAppointmentsByCenterId(this.centerId)
         .subscribe((timetable) => {
           this.timetable = timetable.data.days.map((day) => {
@@ -85,11 +85,10 @@ export class TimetableComponent implements OnInit {
                   timestamp: timestamp,
                   width: `${COLUMN_WIDTH - 4}px`,
                   height: `${Math.floor(DURATION / 5) * ROW_HEIGHT - 4}px`,
-                  top: `${
-                    Math.floor((timestamp - startTimestamp) / (1000 * 60 * 5)) *
-                      ROW_HEIGHT +
+                  top: `${Math.floor((timestamp - startTimestamp) / (1000 * 60 * 5)) *
+                    ROW_HEIGHT +
                     5
-                  }px`,
+                    }px`,
                   available: true,
                   duration: 15,
                 };
@@ -117,8 +116,8 @@ export class TimetableComponent implements OnInit {
       const date = new Date(i);
       yLabels.push(
         ("0" + date.getHours()).slice(-2) +
-          ":" +
-          ("0" + date.getMinutes()).slice(-2)
+        ":" +
+        ("0" + date.getMinutes()).slice(-2)
       );
     }
     return yLabels;

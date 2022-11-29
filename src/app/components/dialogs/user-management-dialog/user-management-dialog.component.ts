@@ -10,9 +10,9 @@ import { debounceTime, filter, ReplaySubject, Subject, takeUntil, tap } from 'rx
 import { User } from 'src/app/models/user';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
-import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
+import { CenterService } from 'src/app/services/center.service';
 import { Role } from '../../../models/role';
-import { VaccinationCenter } from '../../../models/vaccination-center';
+import { Center } from '../../../models/center';
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -38,7 +38,7 @@ export class UserManagementDialogComponent implements OnInit {
   storeLoading: boolean = false;
   roleList: Role[] = this.roleService.roles;
   userCenterServerSideCtrl: UntypedFormControl = new UntypedFormControl();
-  centerList: ReplaySubject<VaccinationCenter[]> = new ReplaySubject<VaccinationCenter[]>(1);
+  centerList: ReplaySubject<Center[]> = new ReplaySubject<Center[]>(1);
   centerListLoading: boolean = false;
   _onDestroy = new Subject<void>();
   hide = true;
@@ -47,7 +47,7 @@ export class UserManagementDialogComponent implements OnInit {
   constructor(
     private userService: UserService,
     private roleService: RoleService,
-    private centerService: VaccinationCenterService,
+    private centerService: CenterService,
     public dialogRef: MatDialogRef<UserManagementDialogComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA)
@@ -55,7 +55,7 @@ export class UserManagementDialogComponent implements OnInit {
       type: "creation" | "update";
       user?: User;
       role?: Role;
-      center?: VaccinationCenter;
+      center?: Center;
     },
     private _snackBar: MatSnackBar,
   ) {

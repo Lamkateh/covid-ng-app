@@ -1,4 +1,4 @@
-export interface VaccinationCenter {
+export interface Center {
   id: number;
   name: string;
   address: string;

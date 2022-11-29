@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user';
 import { RoleService } from 'src/app/services/role.service';
 import { Role } from 'src/app/models/role';
-import { VaccinationCenter } from 'src/app/models/vaccination-center';
-import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
+import { Center } from 'src/app/models/center';
+import { CenterService } from 'src/app/services/center.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,14 +14,14 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CenterManagementPageComponent implements OnInit {
   doctors?: User[];
-  center: VaccinationCenter;
+  center: Center;
   centerId: number;
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
   role: Role = this.roleService.roles[2];
 
-  constructor(private roleService: RoleService, private centerService: VaccinationCenterService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.centerId = Number(this.route.snapshot.paramMap.get("id"));
@@ -30,8 +30,8 @@ export class CenterManagementPageComponent implements OnInit {
   }
 
   getCenter() {
-    this.centerService.getVaccinationCenterById(this.centerId)
-      .subscribe((center: { data: VaccinationCenter }) => {
+    this.centerService.getCenterById(this.centerId)
+      .subscribe((center: { data: Center }) => {
         this.center = center.data;
       });
   }

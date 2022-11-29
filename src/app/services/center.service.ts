@@ -2,32 +2,32 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AppointmentPreview } from "../models/appointment-preview";
-import { VaccinationCenter } from "../models/vaccination-center";
+import { Center } from "../models/center";
 
 @Injectable({
   providedIn: "root",
 })
-export class VaccinationCenterService {
+export class CenterService {
   constructor(private httpClient: HttpClient) { }
 
-  getVaccinationCenterById(
+  getCenterById(
     id: number
-  ): Observable<{ data: VaccinationCenter }> {
-    return this.httpClient.get<{ data: VaccinationCenter }>(
+  ): Observable<{ data: Center }> {
+    return this.httpClient.get<{ data: Center }>(
       "/public/centers/" + id
     );
   }
 
-  getVaccinationCentersByCity(
+  getCentersByCity(
     city: string,
     page: number = 0
-  ): Observable<{ data: { content: VaccinationCenter[] } }> {
+  ): Observable<{ data: { content: Center[] } }> {
     // encode to base64 to base64-url
     city = btoa(city)
       .replace(/\+/g, "-")
       .replace(/\//g, "_")
       .replace(/\=+$/, "");
-    return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
+    return this.httpClient.get<{ data: { content: Center[] } }>(
       "/public/centers/city/" + city,
       {
         params: {
@@ -37,10 +37,10 @@ export class VaccinationCenterService {
     );
   }
 
-  getAllVaccinationCenters(
+  getAllCenters(
     page: number = 0
-  ): Observable<{ data: { content: VaccinationCenter[] } }> {
-    return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
+  ): Observable<{ data: { content: Center[] } }> {
+    return this.httpClient.get<{ data: { content: Center[] } }>(
       "/public/centers",
       {
         params: {
@@ -52,12 +52,12 @@ export class VaccinationCenterService {
 
   getCentersByName(
     name: string
-  ): Observable<{ data: { content: VaccinationCenter[] } }> {
+  ): Observable<{ data: { content: Center[] } }> {
     name = btoa(name)
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
       .replace(/\=+$/, '');
-    return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
+    return this.httpClient.get<{ data: { content: Center[] } }>(
       '/public/centers/name/' + name,
       {
         params: {
@@ -89,19 +89,19 @@ export class VaccinationCenterService {
     }>("/public/centers/" + id + "/appointments");
   }
 
-  storeVaccinationCenter(
-    center: VaccinationCenter
+  storeCenter(
+    center: Center
   ): Observable<any> {
     return this.httpClient.post('/private/centers', center);
   }
 
-  updateVaccinationCenter(
-    center: VaccinationCenter
+  updateCenter(
+    center: Center
   ): Observable<any> {
     return this.httpClient.put('/private/centers/' + center.id, center);
   }
 
-  deleteVaccinationCenter(
+  deleteCenter(
     centerId: number
   ): Observable<any> {
     return this.httpClient.delete('/private/centers/' + centerId);

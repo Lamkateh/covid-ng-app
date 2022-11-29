@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsersListComponent } from './users-list.component';
+import { CenterPageComponent } from './center-page.component';
 
-describe('UsersListComponent', () => {
-  let component: UsersListComponent;
-  let fixture: ComponentFixture<UsersListComponent>;
+describe('CenterPageComponent', () => {
+  let component: CenterPageComponent;
+  let fixture: ComponentFixture<CenterPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UsersListComponent]
+      declarations: [CenterPageComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(UsersListComponent);
+    fixture = TestBed.createComponent(CenterPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

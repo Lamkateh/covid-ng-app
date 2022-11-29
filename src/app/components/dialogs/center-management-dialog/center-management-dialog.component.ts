@@ -5,10 +5,10 @@ import {
   MatDialog,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { VaccinationCenter } from 'src/app/models/vaccination-center';
+import { Center } from 'src/app/models/center';
 import { UsersManagementDialogComponent } from '../users-management-dialog/users-management-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
+import { CenterService } from 'src/app/services/center.service';
 
 @Component({
   selector: 'app-center-management-dialog',
@@ -29,13 +29,13 @@ export class CenterManagementDialogComponent implements OnInit {
   storeLoading: boolean = false;
 
   constructor(
-    private centerService: VaccinationCenterService,
+    private centerService: CenterService,
     public dialogRef: MatDialogRef<CenterManagementDialogComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       type: "creation" | "update";
-      center?: VaccinationCenter;
+      center?: Center;
     },
     private _snackBar: MatSnackBar,
   ) {
@@ -73,10 +73,10 @@ export class CenterManagementDialogComponent implements OnInit {
     });
   }
 
-  updateCenter(center: VaccinationCenter) {
+  updateCenter(center: Center) {
     this.storeLoading = true;
     this.centerService
-      .updateVaccinationCenter(
+      .updateCenter(
         center
       )
       .subscribe(
@@ -103,7 +103,7 @@ export class CenterManagementDialogComponent implements OnInit {
       return;
     }
 
-    let center: VaccinationCenter = {
+    let center: Center = {
       id: this.data.center?.id,
       name: this.centerNameFC.value,
       address: this.centerAddressFC.value,
@@ -120,7 +120,7 @@ export class CenterManagementDialogComponent implements OnInit {
 
     this.storeLoading = true;
     this.centerService
-      .storeVaccinationCenter(
+      .storeCenter(
         center
       )
       .subscribe(
@@ -145,7 +145,7 @@ export class CenterManagementDialogComponent implements OnInit {
   deleteCenter() {
     this.storeLoading = true;
     this.centerService
-      .deleteVaccinationCenter(this.data.center.id)
+      .deleteCenter(this.data.center.id)
       .subscribe(
         (res) => {
           this.storeLoading = false;

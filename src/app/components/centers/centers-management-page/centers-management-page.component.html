@@ -15,7 +15,7 @@
     <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </div>
   <img src="/assets/flat-hand-drawn-doctor-injecting-vaccine-patient.jpg" alt="Gestion" />
-  <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
+  <app-centers-list [list]="centers"></app-centers-list>
   <button mat-raised-button color="primary" [style.margin]="'auto'" *ngIf="!this.lastPage" [disabled]="this.listLoading"
     (click)="onMoreRequest()">
     Afficher plus

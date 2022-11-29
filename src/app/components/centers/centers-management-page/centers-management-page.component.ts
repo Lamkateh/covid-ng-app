@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VaccinationCenterService } from '../../../services/vaccination-center.service';
-import { VaccinationCenter } from '../../../models/vaccination-center';
+import { CenterService } from '../../../services/center.service';
+import { Center } from '../../../models/center';
 import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./centers-management-page.component.scss'],
 })
 export class CentersManagementPageComponent implements OnInit {
-  centers?: VaccinationCenter[] = [];
+  centers?: Center[] = [];
   citySearchTerm: string = '';
   citySearched: string = '';
   listLoading: boolean = false;
@@ -18,7 +18,7 @@ export class CentersManagementPageComponent implements OnInit {
   lastPage: boolean = false;
 
   constructor(
-    private vaccinationCenterService: VaccinationCenterService,
+    private centerService: CenterService,
     public dialog: MatDialog,
   ) {
   }
@@ -33,7 +33,7 @@ export class CentersManagementPageComponent implements OnInit {
       data: {
         type: "creation",
       },
-    }).afterClosed().subscribe((result: VaccinationCenter) => {
+    }).afterClosed().subscribe((result: Center) => {
       if (result) {
         this.getResult();
       }
@@ -57,17 +57,17 @@ export class CentersManagementPageComponent implements OnInit {
       this.centers = [];
     }
     if (this.citySearched === '') {
-      this.vaccinationCenterService
-        .getAllVaccinationCenters(this.page)
-        .subscribe((centers: { data: { content: VaccinationCenter[]; last: boolean } }) => {
+      this.centerService
+        .getAllCenters(this.page)
+        .subscribe((centers: { data: { content: Center[]; last: boolean } }) => {
           this.centers.push(...centers.data.content);
           this.listLoading = false;
           this.lastPage = centers.data.last;
         });
     } else {
-      this.vaccinationCenterService
-        .getVaccinationCentersByCity(this.citySearched, this.page)
-        .subscribe((centers: { data: { content: VaccinationCenter[]; last: boolean } }) => {
+      this.centerService
+        .getCentersByCity(this.citySearched, this.page)
+        .subscribe((centers: { data: { content: Center[]; last: boolean } }) => {
           this.centers.push(...centers.data.content);
           this.listLoading = false;
           this.lastPage = centers.data.last;

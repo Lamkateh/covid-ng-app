@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-vaccination-center-page',
-  templateUrl: './vaccination-center-page.component.html',
-  styleUrls: ['./vaccination-center-page.component.scss'],
+  selector: 'app-center-page',
+  templateUrl: './center-page.component.html',
+  styleUrls: ['./center-page.component.scss'],
 })
-export class VaccinationCenterPageComponent implements OnInit {
+export class CenterPageComponent implements OnInit {
   centerId: number;
 
   constructor(private route: ActivatedRoute) { }

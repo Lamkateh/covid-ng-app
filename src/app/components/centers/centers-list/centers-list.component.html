@@ -1,5 +1,5 @@
 <div *ngFor="let aCenter of list; let last = last">
-  <app-vaccination-center-list-item [ngClass]="{ 'last-child': last }" [center]="aCenter"
+  <app-centers-list-item [ngClass]="{ 'last-child': last }" [center]="aCenter"
     [available_appointments]="aCenter.availableAppointments" [lastChild]="last">
-  </app-vaccination-center-list-item>
+  </app-centers-list-item>
 </div>

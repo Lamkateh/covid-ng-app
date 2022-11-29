@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
-import { VaccinationCenterService } from "../../services/vaccination-center.service";
-import { VaccinationCenter } from "../../models/vaccination-center";
+import { CenterService } from "../../services/center.service";
+import { Center } from "../../models/center";
 
 @Component({
   selector: "app-home-public-page",
@@ -9,7 +9,7 @@ import { VaccinationCenter } from "../../models/vaccination-center";
   styleUrls: ["./home-public-page.component.scss"],
 })
 export class HomePublicPageComponent implements OnInit {
-  centers?: VaccinationCenter[] = [];
+  centers?: Center[] = [];
   citySearchTerm: string = "";
   citySearched: string = "";
   listLoading: boolean = false;
@@ -17,9 +17,8 @@ export class HomePublicPageComponent implements OnInit {
   lastPage: boolean = false;
 
   constructor(
-    private vaccinationCenterService: VaccinationCenterService,
-    private authService: AuthService
-  ) {}
+    private centerService: CenterService
+  ) { }
 
   ngOnInit(): void {
     this.getResult();
@@ -42,11 +41,11 @@ export class HomePublicPageComponent implements OnInit {
       this.centers = [];
     }
     if (this.citySearched === "") {
-      this.vaccinationCenterService
-        .getAllVaccinationCenters(this.page)
+      this.centerService
+        .getAllCenters(this.page)
         .subscribe(
           (centers: {
-            data: { content: VaccinationCenter[]; last: boolean };
+            data: { content: Center[]; last: boolean };
           }) => {
             this.centers.push(...centers.data.content);
             this.listLoading = false;
@@ -54,11 +53,11 @@ export class HomePublicPageComponent implements OnInit {
           }
         );
     } else {
-      this.vaccinationCenterService
-        .getVaccinationCentersByCity(this.citySearched, this.page)
+      this.centerService
+        .getCentersByCity(this.citySearched, this.page)
         .subscribe(
           (centers: {
-            data: { content: VaccinationCenter[]; last: boolean };
+            data: { content: Center[]; last: boolean };
           }) => {
             this.centers.push(...centers.data.content);
             this.listLoading = false;

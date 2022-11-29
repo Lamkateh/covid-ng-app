@@ -9,7 +9,7 @@
     <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </form>
   <img src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
-  <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
+  <app-centers-list [list]="centers"></app-centers-list>
   <button mat-raised-button [style.margin]="'auto'" color="primary" *ngIf="!this.lastPage" [disabled]="this.listLoading"
     (click)="onMoreRequest()">
     Afficher plus

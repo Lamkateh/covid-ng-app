@@ -3,7 +3,7 @@ import { User } from '../../../models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { UserManagementDialogComponent } from '../../dialogs/user-management-dialog/user-management-dialog.component';
 import { Role } from 'src/app/models/role';
-import { VaccinationCenter } from 'src/app/models/vaccination-center';
+import { Center } from 'src/app/models/center';
 
 @Component({
   selector: 'app-users-list',
@@ -13,7 +13,7 @@ import { VaccinationCenter } from 'src/app/models/vaccination-center';
 export class UsersListComponent implements OnInit {
   @Input() list: User[] = [];
   @Input() role: Role;
-  @Input() center: VaccinationCenter;
+  @Input() center: Center;
 
   constructor(public dialog: MatDialog) { }
 

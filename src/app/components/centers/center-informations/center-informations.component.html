@@ -1,7 +1,6 @@
-<div class="vaccination-center">
-  <h1 [title]="center?.name">{{ center?.name | uppercase }}</h1>
-
-  <section *ngIf="center?.city || center?.address || center?.zipCode">
+<div class="center">
+  <h1 class="title" [title]="center?.name">{{ center?.name | uppercase }}</h1>
+  <section class="group" *ngIf="center?.city || center?.address || center?.zipCode">
     <h2>Adresse</h2>
     <div>
       <span>{{ center?.address }}</span>
@@ -10,7 +9,7 @@
       <span>{{ center?.zipCode }} {{ center?.city }}</span>
     </div>
   </section>
-  <section *ngIf="center?.phone || center?.email">
+  <section class="group" *ngIf="center?.phone || center?.email">
     <h2>Contact</h2>
     <div *ngIf="center.phone !== null">
       <span>Téléphone : </span><span>{{ center.phone }}</span>

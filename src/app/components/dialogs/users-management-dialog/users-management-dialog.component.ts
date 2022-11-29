@@ -5,7 +5,7 @@ import { User } from '../../../models/user';
 import { Role } from 'src/app/models/role';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
-import { VaccinationCenter } from 'src/app/models/vaccination-center';
+import { Center } from 'src/app/models/center';
 
 @Component({
   selector: "app-users-management-dialog",
@@ -29,7 +29,7 @@ export class UsersManagementDialogComponent implements OnInit {
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      center: VaccinationCenter;
+      center: Center;
     }
   ) { }
 

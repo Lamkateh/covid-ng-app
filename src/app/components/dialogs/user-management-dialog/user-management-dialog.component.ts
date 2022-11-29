@@ -70,10 +70,10 @@ export class UserManagementDialogComponent implements OnInit {
       this.userEmailFC.setValue(this.data.user.email);
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
-      this.userRoleFC.setValue(this.data.user.role);
+      this.userRoleFC.setValue(this.data.user.roles[0]);
       this.userRoleFC.enable();
       if (this.userRoleFC.value !== "superadmin") {
-        this.userCenterFC.setValue(this.data.user.center);
+        this.userCenterFC.setValue(this.data.user.centerId);
       }
     } else {
       this.userRoleFC.setValue(this.data.role.value);
@@ -178,8 +178,8 @@ export class UserManagementDialogComponent implements OnInit {
       email: this.userEmailFC.value,
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
-      role: this.userRoleFC.value,
-      center: this.userCenterFC.value?.id,
+      roles: [this.userRoleFC.value],
+      centerId: this.userCenterFC.value?.id,
       disabled: this.data.user?.disabled,
     };
 
@@ -221,8 +221,8 @@ export class UserManagementDialogComponent implements OnInit {
       email: this.userEmailFC.value,
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
-      role: this.userRoleFC.value,
-      center: this.userCenterFC.value.id,
+      roles: [this.userRoleFC.value],
+      centerId: this.userCenterFC.value.id,
       disabled: true,
     };
     this.updateUser(user);

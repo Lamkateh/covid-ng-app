@@ -7,8 +7,8 @@
   </div>
   <div *ngFor="let aUser of list; let last = last" class="list">
     <app-users-list-item [ngClass]="{ 'last-child': last }" [id]="aUser.id" [firstName]="aUser.firstName"
-      [lastName]="aUser.lastName" [email]="aUser.email" [role]="aUser.role.name" [password]="aUser.password"
-      [center]="aUser.center" [disabled]="aUser.disabled" [lastChild]="last">
+      [lastName]="aUser.lastName" [email]="aUser.email" [role]="aUser.roles[0].name" [password]="aUser.password"
+      [center]="aUser.centerId" [disabled]="aUser.disabled" [lastChild]="last">
     </app-users-list-item>
   </div>
 </div>

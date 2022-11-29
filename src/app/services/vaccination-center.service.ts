@@ -8,7 +8,7 @@ import { VaccinationCenter } from "../models/vaccination-center";
   providedIn: "root",
 })
 export class VaccinationCenterService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getVaccinationCenterById(
     id: number
@@ -50,6 +50,23 @@ export class VaccinationCenterService {
     );
   }
 
+  getCentersByName(
+    name: string
+  ): Observable<{ data: { content: VaccinationCenter[] } }> {
+    name = btoa(name)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/\=+$/, '');
+    return this.httpClient.get<{ data: { content: VaccinationCenter[] } }>(
+      '/public/centers/name/' + name,
+      {
+        params: {
+          page: '1',
+        },
+      }
+    );
+  }
+
   getAppointmentsByCenterId(id: number): Observable<{
     data: {
       days: {
@@ -72,11 +89,21 @@ export class VaccinationCenterService {
     }>("/public/centers/" + id + "/appointments");
   }
 
-  getAllDoctorsFromCenter(id: number) {
-    //TODO
+  storeVaccinationCenter(
+    center: VaccinationCenter
+  ): Observable<any> {
+    return this.httpClient.post('/private/centers', center);
   }
 
-  getDoctorsFromCenterByName(id: number, name: string) {
-    //TODO
+  updateVaccinationCenter(
+    center: VaccinationCenter
+  ): Observable<any> {
+    return this.httpClient.put('/private/centers/' + center.id, center);
+  }
+
+  deleteVaccinationCenter(
+    centerId: number
+  ): Observable<any> {
+    return this.httpClient.delete('/private/centers/' + centerId);
   }
 }

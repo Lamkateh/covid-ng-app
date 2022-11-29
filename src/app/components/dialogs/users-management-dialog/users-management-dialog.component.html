@@ -1,10 +1,12 @@
 <div class="header">
-  <h1 class="title" mat-dialog-title>{{ data["title"] }}</h1>
+  <h1 class="title" mat-dialog-title>
+    Gestion des admins et médecins du centre
+  </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <div class="content">
   <div class="information-wrapper">
-    <app-vaccination-center [id]="data['centerId']"></app-vaccination-center>
+    <app-vaccination-center [centerId]="data['center'].id"></app-vaccination-center>
   </div>
   <div class="management-wrapper">
     <form class="search-doctor-form">
@@ -15,14 +17,8 @@
       </mat-form-field>
     </form>
     <div class="doctors-list">
-      <app-users-list
-        [list]="this.getDoctorsList()"
-        role="Administrateurs"
-      ></app-users-list>
-      <app-users-list
-        [list]="this.getAdminsList()"
-        role="Médecins"
-      ></app-users-list>
+      <app-users-list [list]="this.getAdminsList()" [role]="roles[1]" [center]="data.center"></app-users-list>
+      <app-users-list [list]="this.getDoctorsList()" [role]="roles[2]" [center]="data.center"></app-users-list>
     </div>
     <!--<mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>-->
   </div>

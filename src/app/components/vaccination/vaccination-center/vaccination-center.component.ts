@@ -10,23 +10,24 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class VaccinationCenterComponent implements OnInit {
   center?: VaccinationCenter;
-  @Input() id: number;
-
-  getCenter(id: number) {
-    this.service.getVaccinationCenterById(id).subscribe((result) => {
-      this.center = result.data;
-    });
-  }
+  @Input() centerId: number;
 
   constructor(
-    private service: VaccinationCenterService,
+    private centerService: VaccinationCenterService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if (!this.id) {
-      this.id = Number(this.route.snapshot.paramMap.get("id"));
+    if (!this.centerId) {
+      this.centerId = Number(this.route.snapshot.paramMap.get("id"));
     }
-    this.getCenter(this.id);
+    this.getCenter(this.centerId);
+  }
+
+  getCenter(id: number) {
+    this.centerService.getVaccinationCenterById(id)
+      .subscribe((center: { data: VaccinationCenter }) => {
+        this.center = center.data;
+      });
   }
 }

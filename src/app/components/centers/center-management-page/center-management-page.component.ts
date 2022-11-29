@@ -1,8 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../../services/auth.service";
-import { User } from "../../../models/user";
-import { UserService } from "src/app/services/user.service";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../../models/user';
+import { RoleService } from 'src/app/services/role.service';
+import { Role } from 'src/app/models/role';
+import { VaccinationCenter } from 'src/app/models/vaccination-center';
+import { VaccinationCenterService } from 'src/app/services/vaccination-center.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: "app-center-management-page",
@@ -10,21 +13,27 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./center-management-page.component.scss"],
 })
 export class CenterManagementPageComponent implements OnInit {
-  doctors?: User[] = [];
+  doctors?: User[];
+  center: VaccinationCenter;
   centerId: number;
-  nameSearchTerm: string = "";
-  nameSearched: string = "";
+  nameSearchTerm: string = '';
+  nameSearched: string = '';
   listLoading: boolean = false;
+  role: Role = this.roleService.roles[2];
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private roleService: RoleService, private centerService: VaccinationCenterService, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.centerId = Number(this.route.snapshot.paramMap.get("id"));
+    this.getCenter();
     this.getDoctors();
+  }
+
+  getCenter() {
+    this.centerService.getVaccinationCenterById(this.centerId)
+      .subscribe((center: { data: VaccinationCenter }) => {
+        this.center = center.data;
+      });
   }
 
   getDoctors() {
@@ -32,7 +41,7 @@ export class CenterManagementPageComponent implements OnInit {
       next: (data) => {
         this.doctors = data.data;
       },
-      error: (err) => {},
+      error: (err) => { },
     });
   }
 

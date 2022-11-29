@@ -1,6 +1,14 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
-    {{ data["title"] }}
+    {{ this.data.role.value === 'admin'
+    ? ( this.data.type === "creation"
+    ? "Ajout d'un nouvel administrateur"
+    : "Modification de l'administrateur")
+    : (
+    this.data.type === "creation"
+    ? "Ajout d'un nouveau " + (this.data.role.name | lowercase)
+    : "Modification du " + (this.data.role.name | lowercase)
+    ) }}
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
@@ -8,49 +16,103 @@
   <div class="form-field-row">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Nom</mat-label>
-      <input name="last_name_item" matInput [(ngModel)]="lastNameTerm" placeholder="Ex: RAOULT">
+      <input name="last_name" matInput [formControl]="this.userLastNameFC" placeholder="Ex: RAOULT">
+      <mat-error *ngIf="this.userLastNameFC.hasError('required')">
+        Le nom de l'utilisateur est <strong>requis</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Prénom</mat-label>
-      <input name="first_name_item" matInput [(ngModel)]="firstNameTerm" placeholder="Ex: Didier">
+      <input name="first_name" matInput [formControl]="this.userFirstNameFC" placeholder="Ex: Didier">
+      <mat-error *ngIf="this.userFirstNameFC.hasError('required')">
+        Le prénom de l'utilisateur est <strong>requis</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-field-row">
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Date de naissance</mat-label>
+      <input matInput [matDatepicker]="picker" [max]="maxDate" name="bith_date" [formControl]="this.userBirthDateFC" />
+      <mat-hint>JJ/MM/AAAA</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="this.userBirthDateFC.hasError('required')">
+        Le date de naissance de l'utilisateur est <strong>requise</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Téléphone</mat-label>
+      <input name="phone" matInput [formControl]="this.userPhoneFC" placeholder="Ex: Ex: +33 7 82 83 70 10">
+      <mat-error *ngIf="this.userPhoneFC.hasError('required')">
+        Le téléphone de l'utilisateur est <strong>requis</strong>
+      </mat-error>
+      <mat-error *ngIf="this.userEmailFC.hasError('email')">
+        Le champ doit être un <strong>email</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
-    <input name="email_item" matInput [(ngModel)]="emailTerm" placeholder="Ex: didierraoult@gmail.com">
+    <input name="email" matInput [formControl]="this.userEmailFC" placeholder="Ex: didierraoult@gmail.com">
+    <mat-error *ngIf="this.userEmailFC.hasError('required')">
+      L'email de l'utilisateur est <strong>requis</strong>
+    </mat-error>
+    <mat-error *ngIf="this.userEmailFC.hasError('email')">
+      Le champ doit être un <strong>email</strong>
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input name="password_item" matInput [(ngModel)]="passwordTerm" placeholder="Ex: *******">
+    <input name="password_item" [type]="hide ? 'password' : 'text'" matInput [formControl]="this.userPasswordFC">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="this.userPasswordFC.hasError('required')">
+      Le mot de passe de l'utilisateur est <strong>requis</strong>
+    </mat-error>
   </mat-form-field>
   <div class="form-field-row">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Rôle</mat-label>
-      <mat-select [(ngModel)]="roleTerm" name="role">
-        <mat-option *ngFor="let element of this.roles" [value]="element.id">
-          {{ element.name }}
+      <mat-select [formControl]="this.userRoleFC" name="role">
+        <mat-option *ngFor="let role of this.roleList" [value]="role.value">
+          {{ role.name }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="this.userRoleFC.hasError('required')">
+        Le role de l'utilisateur est <strong>requis</strong>
+      </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline" [style.width]="'100%'">
+    <mat-form-field appearance="outline" [style.width]="'100%'" *ngIf="this.userRoleFC.value !== 'superadmin'">
       <mat-label>Centre de rattachement</mat-label>
-      <mat-select [(ngModel)]="centerTerm" name="center">
-        <mat-option *ngFor="let element of this.centers" [value]="element.id">
-          {{ element.name }}
+      <mat-select [formControl]="this.userCenterFC" placeholder="Centre de rattachement" name="center">
+        <mat-option>
+          <ngx-mat-select-search placeholderLabel="Recherchez un centre" noEntriesFoundLabel="Aucun centre trouvé"
+            [formControl]="this.userCenterServerSideCtrl" [searching]="this.centerListLoading"></ngx-mat-select-search>
         </mat-option>
+        <mat-option *ngFor="let center of centerList | async" [value]="center">
+          {{ center.name }}
+        </mat-option>
+        <mat-option *ngIf="this.data.center" [value]="this.userCenterFC.value" selected>
+          {{ this.userCenterFC.value.name }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="this.userCenterFC.hasError('required')">
+        Le centre de rattachement est <strong>requis</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="actions-wrapper">
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button color="warn" (click)="onDisableUser()"
-      *ngIf="data['title'] !== 'Ajout d\'un utilisateur'">
+    <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'">
       Désactiver
     </button>
-    <button mat-raised-button color="primary" (click)="onSaveUser()">
-      Enregistrer
+    <button mat-raised-button type="submit" color="primary" [disabled]="storeLoading || !formIsValid()"
+      (click)="this.storeUser()" [ngClass]="{ loading: storeLoading }">
+      {{ this.data.type === "creation" ? "Ajouter" : "Modifier" }}
+      <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>
   </div>
 </form>

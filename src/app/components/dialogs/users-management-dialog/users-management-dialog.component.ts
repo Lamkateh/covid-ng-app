@@ -1,9 +1,11 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { CenterManagementDialogComponent } from "../center-management-dialog/center-management-dialog.component";
-import { User } from "../../../models/user";
-import { AuthService } from "../../../services/auth.service";
-import { UserService } from "src/app/services/user.service";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CenterManagementDialogComponent } from '../center-management-dialog/center-management-dialog.component';
+import { User } from '../../../models/user';
+import { Role } from 'src/app/models/role';
+import { RoleService } from 'src/app/services/role.service';
+import { UserService } from 'src/app/services/user.service';
+import { VaccinationCenter } from 'src/app/models/vaccination-center';
 
 @Component({
   selector: "app-users-management-dialog",
@@ -16,21 +18,20 @@ import { UserService } from "src/app/services/user.service";
 export class UsersManagementDialogComponent implements OnInit {
   doctors?: User[] = [];
   admins?: User[] = [];
-  centerId: number;
   nameSearchTerm: string = "";
   nameSearched: string = "";
   //listLoading: boolean = false;
+  roles: Role[] = this.roleService.roles;
 
   constructor(
-    private authService: AuthService,
+    private roleService: RoleService,
     public dialogRef: MatDialogRef<CenterManagementDialogComponent>,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      title: string;
-      centerId: number;
+      center: VaccinationCenter;
     }
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDoctors();
@@ -38,20 +39,20 @@ export class UsersManagementDialogComponent implements OnInit {
   }
 
   getDoctors() {
-    this.userService.getDoctors(this.data.centerId).subscribe({
+    this.userService.getDoctors(this.data.center.id).subscribe({
       next: (data) => {
         this.doctors = data.data;
       },
-      error: (err) => {},
+      error: (err) => { },
     });
   }
 
   getAdmins() {
-    this.userService.getAdmins(this.data.centerId).subscribe({
+    this.userService.getAdmins(this.data.center.id).subscribe({
       next: (data) => {
         this.admins = data.data;
       },
-      error: (err) => {},
+      error: (err) => { },
     });
   }
 
@@ -86,4 +87,27 @@ export class UsersManagementDialogComponent implements OnInit {
   onSearchName() {
     this.nameSearched = this.nameSearchTerm;
   }
+
+  /*deleteUser() {
+    this.storeLoading = true;
+    this.userService
+      .deleteUser(this.data.user.id)
+      .subscribe(
+        (res) => {
+          this.storeLoading = false;
+          this.dialogRef.close(this.data.user);
+          this._snackBar.open('Utilisateur supprimé avec succès', '', {
+            duration: 2000,
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.storeLoading = false;
+          this._snackBar.open("Une erreur s'est produite", '', {
+            panelClass: 'snackbar-error',
+            duration: 2000,
+          });
+        }
+      );
+  }*/
 }

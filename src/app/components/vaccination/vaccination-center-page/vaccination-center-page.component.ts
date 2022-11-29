@@ -7,9 +7,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./vaccination-center-page.component.scss'],
 })
 export class VaccinationCenterPageComponent implements OnInit {
-  centerId: number | null = null;
+  centerId: number;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.centerId = Number(this.route.snapshot.paramMap.get('id'));

@@ -3,25 +3,15 @@
     <div class="title">Trouvez un centre de vaccination près de chez vous</div>
     <mat-form-field [style.width]="'90%'">
       <mat-label>Dans quelle ville ?</mat-label>
-      <input
-        name="search_item"
-        matInput
-        [(ngModel)]="citySearchTerm"
-        placeholder="Ex: Nancy"
-      />
+      <input name="search_item" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy" />
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </form>
   <img src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
   <app-vaccination-center-list [list]="centers"></app-vaccination-center-list>
-  <button
-    mat-raised-button
-    [style.margin]="'auto'"
-    *ngIf="!this.lastPage"
-    [disabled]="this.listLoading"
-    (click)="onMoreRequest()"
-  >
+  <button mat-raised-button [style.margin]="'auto'" color="primary" *ngIf="!this.lastPage" [disabled]="this.listLoading"
+    (click)="onMoreRequest()">
     Afficher plus
   </button>
 </div>

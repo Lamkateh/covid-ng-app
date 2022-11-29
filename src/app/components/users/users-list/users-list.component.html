@@ -1,19 +1,14 @@
 <div class="user-list">
   <div class="header">
-    <div class="title">{{ role }}</div>
+    <div class="title">
+      {{ role.name }}s
+    </div>
     <mat-icon (click)="onAddClick()">add</mat-icon>
   </div>
-  <div *ngFor="let aDoctor of list; let last = last" class="list">
-    <app-users-list-item
-      [ngClass]="{ 'last-child': last }"
-      [id]="aDoctor.id"
-      [firstName]="aDoctor.firstName"
-      [lastName]="aDoctor.lastName"
-      [email]="aDoctor.email"
-      [role]="aDoctor.role"
-      [password]="aDoctor.password"
-      [lastChild]="last"
-    >
+  <div *ngFor="let aUser of list; let last = last" class="list">
+    <app-users-list-item [ngClass]="{ 'last-child': last }" [id]="aUser.id" [firstName]="aUser.firstName"
+      [lastName]="aUser.lastName" [email]="aUser.email" [role]="aUser.roles[0].name" [password]="aUser.password"
+      [center]="aUser.centerId" [disabled]="aUser.disabled" [lastChild]="last">
     </app-users-list-item>
   </div>
 </div>

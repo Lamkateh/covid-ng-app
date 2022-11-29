@@ -1,11 +1,14 @@
-import { VaccinationCenter } from "./vaccination-center";
+import { Role } from "./role";
 
 export interface User {
   id: number;
   firstName: string;
   lastName: string;
+  birthDate: Date;
   email: string;
-  role: string;
+  phone: string;
+  roles: Role[];
   password: string;
-  center?: VaccinationCenter;
+  centerId?: number;
+  disabled: boolean;
 }

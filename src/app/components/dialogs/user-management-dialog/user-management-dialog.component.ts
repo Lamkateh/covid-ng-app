@@ -72,14 +72,14 @@ export class UserManagementDialogComponent implements OnInit {
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
       this.userRoleFC.enable();
-      if (this.userRoleFC.value !== "superadmin") {
+      if (this.userRoleFC.value !== "SUPERADMIN") {
         this.userCenterFC.setValue(this.data.user.centerId);
       }
     } else {
       this.userRoleFC.setValue(this.data.role.value);
     }
 
-    if (this.data.type === "creation" && this.data.role.value !== 'superadmin') {
+    if (this.data.type === "creation" && this.data.role.value !== 'SUPERADMIN') {
       this.userCenterFC.setValue(this.data.center);
     }
 
@@ -116,7 +116,7 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   formIsValid() {
-    if (this.userRoleFC.value === "superadmin") {
+    if (this.userRoleFC.value === "SUPERADMIN") {
       return (
         this.userLastNameFC.valid &&
         this.userFirstNameFC.valid &&

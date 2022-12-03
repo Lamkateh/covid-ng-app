@@ -10,6 +10,7 @@ import { AuthService } from "../../services/auth.service";
 export class LoginPageComponent implements OnInit {
   @Input() emailAddress?: string;
   @Input() password?: string;
+  hide: boolean = true;
 
   constructor(private router: Router, private authService: AuthService) {
   }

@@ -1,13 +1,18 @@
 <div class="login-page">
   <div class="title">Connexion</div>
   <form class="login-form" (submit)="login()">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Email</mat-label>
       <input name="email" matInput [(ngModel)]="emailAddress" placeholder="Entrez votre adresse mail" />
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Mot de passe</mat-label>
-      <input name="password" matInput [(ngModel)]="password" placeholder="Entrez votre mot de passe" />
+      <input name="password" matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'"
+        placeholder="Entrez votre mot de passe" />
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
     </mat-form-field>
     <button mat-raised-button class="login-button" type="submit">
       Se connecter

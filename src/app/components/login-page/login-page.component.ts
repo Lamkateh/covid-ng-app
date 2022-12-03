@@ -21,16 +21,7 @@ export class LoginPageComponent implements OnInit {
     this.authService.signin(this.emailAddress, this.password).subscribe({
       next: (response: any) => {
         this.authService.storeToken(this.emailAddress, this.password);
-        this.authService.setAuthUser({
-          id: response.data.id,
-          first_name: response.data.firstName,
-          last_name: response.data.lastName,
-          email: response.data.email,
-          birth_date: response.data.birth_date,
-          phone_number: response.data.phone_number,
-          center: response.data.center,
-          roles: response.data.roles,
-        });
+        this.authService.setAuthUser(response.data);
         this.router.navigate(["/centers"]);
       },
       error: (error: any) => {

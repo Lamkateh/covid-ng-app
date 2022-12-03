@@ -1,21 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Center } from '../models/center';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public user: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    birth_date: string | null;
-    phone_number: string | null;
-    center: string | null;
-    roles: string[];
-  } | null = null;
+  public user: User | null = null;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -69,17 +62,9 @@ export class AuthService {
     localStorage.setItem('rdvaccination-token', token);
   }
 
-  setAuthUser(user: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    birth_date: string | null;
-    phone_number: string | null;
-    center: string | null;
-    roles: string[];
-  }) {
+  setAuthUser(user: User) {
     this.user = user;
+
   }
 
   getUserInfo(): Observable<any> {

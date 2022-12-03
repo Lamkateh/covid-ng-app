@@ -19,7 +19,7 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onUserDeleted(id) {
+  onUserDeleted(id: number) {
     this.list = this.list.filter((user) => user.id !== id);
   }
 

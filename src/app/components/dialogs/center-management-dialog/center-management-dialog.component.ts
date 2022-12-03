@@ -66,7 +66,6 @@ export class CenterManagementDialogComponent implements OnInit {
       width: '80%',
       height: '80%',
       data: {
-        type: 'update',
         center: this.data.center
       },
       autoFocus: false

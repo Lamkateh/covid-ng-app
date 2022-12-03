@@ -28,7 +28,7 @@ export class CentersListItemComponent implements OnInit {
     this.router.navigateByUrl('/centers/' + this.center.id);
   }
 
-  onEditClick() {
+  onCenterEditClick() {
     this.dialog.open(CenterManagementDialogComponent, {
       width: "60%",
       data: {
@@ -46,7 +46,7 @@ export class CentersListItemComponent implements OnInit {
     });
   }
 
-  onAdminAndMedecinClick() {
+  onAdminAndDoctorEditClick() {
     this.dialog.open(UsersManagementDialogComponent, {
       width: "80%",
       height: "80%",

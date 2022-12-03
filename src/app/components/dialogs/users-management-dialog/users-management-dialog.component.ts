@@ -83,27 +83,4 @@ export class UsersManagementDialogComponent implements OnInit {
       );
     });
   }
-
-  /*deleteUser() {
-    this.storeLoading = true;
-    this.userService
-      .deleteUser(this.data.user.id)
-      .subscribe(
-        (res) => {
-          this.storeLoading = false;
-          this.dialogRef.close(this.data.user);
-          this._snackBar.open('Utilisateur supprimé avec succès', '', {
-            duration: 2000,
-          });
-        },
-        (err) => {
-          console.log(err);
-          this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
-            panelClass: 'snackbar-error',
-            duration: 2000,
-          });
-        }
-      );
-  }*/
 }

@@ -15,7 +15,7 @@
     <mat-icon *ngIf="isHomePage && !available_appointments" class="green-check-icon">close</mat-icon>
     <span *ngIf="isHomePage && available_appointments">Rendez-vous disponible(s)</span>
     <span *ngIf="isHomePage && !available_appointments">Aucun rendez-vous</span>
-    <button mat-raised-button *ngIf="!isHomePage" (click)="onEditClick()">
+    <button mat-raised-button *ngIf="!isHomePage" (click)="onCenterEditClick()">
       Modifier le centre
     </button>
   </div>
@@ -23,7 +23,7 @@
     <button mat-raised-button *ngIf="isHomePage" (click)="onAppointementClick()">
       Prendre RDV
     </button>
-    <button mat-raised-button *ngIf="!isHomePage" (click)="onAdminAndMedecinClick()">
+    <button mat-raised-button *ngIf="!isHomePage" (click)="onAdminAndDoctorEditClick()">
       Voir les admins et médecins rattachés
     </button>
   </div>

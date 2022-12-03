@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../../models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { UserManagementDialogComponent } from '../../dialogs/user-management-dialog/user-management-dialog.component';
@@ -14,10 +14,15 @@ export class UsersListComponent implements OnInit {
   @Input() list: User[] = [];
   @Input() role: Role;
   @Input() center: Center;
+  @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void { }
+
+  onUserEdited(user: User) {
+    this.userEdited.emit(user);
+  }
 
   onUserDeleted(id: number) {
     this.list = this.list.filter((user) => user.id !== id);

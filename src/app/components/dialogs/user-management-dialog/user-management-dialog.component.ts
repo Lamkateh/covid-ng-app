@@ -176,7 +176,6 @@ export class UserManagementDialogComponent implements OnInit {
       .subscribe(
         (response) => {
           this.storeLoading = false;
-          console.log(response.data);
           this.dialogRef.close(response.data);
           this._snackBar.open('Utilisateur modifié avec succès', '', {
             duration: 2000,

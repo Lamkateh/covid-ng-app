@@ -7,7 +7,7 @@
   </div>
   <div *ngFor="let aUser of list; let last = last" class="list">
     <app-users-list-item [ngClass]="{ 'last-child': last }" [user]="aUser" [role]="role" [lastChild]="last"
-      (userId)="onUserDeleted($event)">
+      (userDeleted)="onUserDeleted($event)" (userEdited)="onUserEdited($event)">
     </app-users-list-item>
   </div>
 </div>

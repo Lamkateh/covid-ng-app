@@ -44,4 +44,13 @@ export class ConfigurationPageComponent implements OnInit {
       );
     });
   }
+
+  onUserEdited(user: User) {
+    this.superadmins = this.superadmins.map((superadmin) => {
+      if (superadmin.id === user.id) {
+        return user;
+      }
+      return superadmin;
+    });
+  }
 }

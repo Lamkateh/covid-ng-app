@@ -83,4 +83,22 @@ export class UsersManagementDialogComponent implements OnInit {
       );
     });
   }
+
+  onAdminEdited(user: User) {
+    this.admins = this.admins.map((admin) => {
+      if (admin.id === user.id) {
+        return user;
+      }
+      return admin;
+    });
+  }
+
+  onDoctorEdited(user: User) {
+    this.doctors = this.doctors.map((doctor) => {
+      if (doctor.id === user.id) {
+        return user;
+      }
+      return doctor;
+    });
+  }
 }

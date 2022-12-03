@@ -58,4 +58,13 @@ export class CenterManagementPageComponent implements OnInit {
       );
     });
   }
+
+  onUserEdited(user: User) {
+    this.doctors = this.doctors.map((doctor) => {
+      if (doctor.id === user.id) {
+        return user;
+      }
+      return doctor;
+    });
+  }
 }

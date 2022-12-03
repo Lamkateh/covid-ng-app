@@ -15,7 +15,8 @@ export class UsersListItemComponent implements OnInit {
   @Input() user: User;
   @Input() role: Role;
   @Input() lastChild: boolean = false;
-  @Output() userId: EventEmitter<number> = new EventEmitter<number>();
+  @Output() userDeleted: EventEmitter<number> = new EventEmitter<number>();
+  @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
 
   constructor(public dialog: MatDialog) { }
 
@@ -32,6 +33,7 @@ export class UsersListItemComponent implements OnInit {
     }).afterClosed().subscribe((response) => {
       if (response) {
         this.user = response;
+        this.userEdited.emit(response);
       }
     });
   }
@@ -45,7 +47,7 @@ export class UsersListItemComponent implements OnInit {
       autoFocus: false
     }).afterClosed().subscribe((response) => {
       if (response) {
-        this.userId.emit(response);
+        this.userDeleted.emit(response);
       }
     });
   }

@@ -12,7 +12,8 @@
       </mat-form-field>
     </form>
     <div class="doctors-list">
-      <app-users-list [list]="this.getDoctorsList()" [role]="this.role" [center]="this.center"></app-users-list>
+      <app-users-list [list]="this.getDoctorsList()" [role]="this.role" [center]="this.center"
+        (userEdited)="onUserEdited($event)"></app-users-list>
     </div>
     <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </div>

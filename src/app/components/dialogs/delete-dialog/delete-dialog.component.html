@@ -1,15 +1,33 @@
 <div class="header">
-  <h1 class="title" mat-dialog-title>Suppression de l'utilisateur</h1>
+  <h1 class="title" mat-dialog-title>
+    {{ this.data.user?.roles[0].toString() === 'SUPERADMIN'
+    ? "Suppression du superadministrateur"
+    : (this.data.user?.roles[0].toString() === 'ADMIN'
+    ? "Suppression de l'administrateur"
+    : (this.data.user?.roles[0].toString() === 'DOCTOR'
+    ? "Suppression du médecin"
+    : "Suppression du centre"))
+    }}
+  </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
 <div mat-dialog-content>
-  Etes-vous sûr de vouloir supprimer l'utilisateur {{ data['lastName'] | uppercase }} {{ data['firstName'] | titlecase
-  }} ?
+  Etes-vous sûr de vouloir supprimer
+  {{ this.data.user?.roles[0].toString() === 'SUPERADMIN'
+  ? "le superadministrateur"
+  : (this.data.user?.roles[0].toString() === 'ADMIN'
+  ? "l'administrateur"
+  : (this.data.user?.roles[0].toString() === 'DOCTOR'
+  ? "le médecin"
+  : "le centre"))
+  }}
+  <strong>{{ this.data.user?.lastName | uppercase }} {{ this.data.user?.firstName | titlecase }}{{
+    this.data.center?.name | titlecase }}</strong> ?
   <div class="actions-wrapper">
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button (click)="onConfirmDelete()">
+    <button mat-raised-button color="primary" (click)="this.onConfirmDelete()">
       Confirmer
     </button>
   </div>

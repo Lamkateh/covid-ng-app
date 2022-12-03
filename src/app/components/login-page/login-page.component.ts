@@ -19,7 +19,6 @@ export class LoginPageComponent implements OnInit {
   login() {
     this.authService.signin(this.emailAddress, this.password).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.authService.storeToken(this.emailAddress, this.password);
         this.authService.setAuthUser({
           id: response.data.id,

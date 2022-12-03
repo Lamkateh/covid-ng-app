@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ["./center-management-page.component.scss"],
 })
 export class CenterManagementPageComponent implements OnInit {
-  doctors?: User[];
+  doctors?: User[] = [];
   center: Center;
   centerId: number;
   nameSearchTerm: string = '';
@@ -45,16 +45,17 @@ export class CenterManagementPageComponent implements OnInit {
     });
   }
 
-  getResult() {
+  getDoctorsList() {
+    if (!this.nameSearchTerm && this.doctors.length > 0) {
+      return this.doctors;
+    }
     return this.doctors.filter((doctor) => {
-      return doctor.firstName
-        .toLowerCase()
-        .includes(this.nameSearchTerm.toLowerCase());
+      return (
+        doctor.lastName !== null &&
+        doctor.lastName
+          .toLowerCase()
+          .includes(this.nameSearchTerm.toLowerCase())
+      );
     });
-  }
-
-  onSearchName() {
-    this.nameSearched = this.nameSearchTerm;
-    this.getResult();
   }
 }

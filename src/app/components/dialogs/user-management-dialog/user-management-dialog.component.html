@@ -63,12 +63,8 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input name="password_item" [type]="hide ? 'password' : 'text'" matInput [formControl]="this.userPasswordFC">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <mat-error *ngIf="this.userPasswordFC.hasError('required')">
+    <input name="password" matInput [formControl]="this.userPasswordFC">
+    <mat-error *ngIf="this.userPasswordFC.hasError('required') && this.data.type === 'creation'">
       Le mot de passe de l'utilisateur est <strong>requis</strong>
     </mat-error>
   </mat-form-field>
@@ -94,7 +90,7 @@
         <mat-option *ngFor="let center of centerList | async" [value]="center">
           {{ center.name }}
         </mat-option>
-        <mat-option *ngIf="this.data.center" [value]="this.userCenterFC.value" selected>
+        <mat-option *ngIf="this.data.center || this.data.user['center']" [value]="this.userCenterFC.value" selected>
           {{ this.userCenterFC.value.name }}</mat-option>
       </mat-select>
       <mat-error *ngIf="this.userCenterFC.hasError('required')">
@@ -107,7 +103,7 @@
       Annuler
     </button>
     <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'">
-      Désactiver
+      {{ this.data.user.disabled ? 'Réactiver' : 'Désactiver' }}
     </button>
     <button mat-raised-button type="submit" color="primary" [disabled]="storeLoading || !formIsValid()"
       (click)="this.storeUser()" [ngClass]="{ loading: storeLoading }">

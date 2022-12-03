@@ -29,9 +29,9 @@ export class UserManagementDialogComponent implements OnInit {
   userBirthDateFC = new FormControl(null, [Validators.required]);
   userEmailFC = new FormControl('', [Validators.required, Validators.email]);
   userPhoneFC = new FormControl('', [Validators.required]);
-  userPasswordFC = new FormControl('', [Validators.required]);
+  userPasswordFC = new FormControl('');
   userRoleFC = new FormControl({ value: null, disabled: true }, [Validators.required]);
-  userCenterFC: UntypedFormControl = new UntypedFormControl(null, [
+  userCenterFC: UntypedFormControl = new UntypedFormControl({ value: null, disabled: true }, [
     Validators.required,
   ]);
 
@@ -41,7 +41,6 @@ export class UserManagementDialogComponent implements OnInit {
   centerList: ReplaySubject<Center[]> = new ReplaySubject<Center[]>(1);
   centerListLoading: boolean = false;
   _onDestroy = new Subject<void>();
-  hide = true;
   maxDate: Date;
 
   constructor(
@@ -66,14 +65,14 @@ export class UserManagementDialogComponent implements OnInit {
     if (this.data.type === "update" && this.data.user !== null) {
       this.userLastNameFC.setValue(this.data.user.lastName);
       this.userFirstNameFC.setValue(this.data.user.firstName);
-      this.userBirthDateFC.setValue(new Date(this.data.user.birthDate.getTime()));
+      this.userBirthDateFC.setValue(new Date(this.data.user.birthDate));
       this.userEmailFC.setValue(this.data.user.email);
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
-      this.userRoleFC.enable();
+      //this.userRoleFC.enable();
       if (this.userRoleFC.value !== "SUPERADMIN") {
-        this.userCenterFC.setValue(this.data.user.centerId);
+        this.userCenterFC.setValue(this.data.user['center']);
       }
     } else {
       this.userRoleFC.setValue(this.data.role.value);
@@ -83,9 +82,13 @@ export class UserManagementDialogComponent implements OnInit {
       this.userCenterFC.setValue(this.data.center);
     }
 
-    if (!this.data.role) {
-      this.userRoleFC.enable();
+    if (this.data.type === "creation") {
+      this.userPasswordFC.setValidators([Validators.required]);
     }
+
+    //if (!this.data.role) {
+    //  this.userRoleFC.enable();
+    //}
 
     this.userCenterServerSideCtrl.valueChanges
       .pipe(
@@ -115,28 +118,52 @@ export class UserManagementDialogComponent implements OnInit {
       });
   }
 
+  //TODO : factoriser
   formIsValid() {
-    if (this.userRoleFC.value === "SUPERADMIN") {
-      return (
-        this.userLastNameFC.valid &&
-        this.userFirstNameFC.valid &&
-        this.userBirthDateFC.valid &&
-        this.userEmailFC.valid &&
-        this.userPhoneFC.valid &&
-        this.userPasswordFC.valid &&
-        (this.userRoleFC.valid || this.userRoleFC.disable)
-      );
+    if (this.data.type === "creation") {
+      if (this.userRoleFC.value === "SUPERADMIN") {
+        return (
+          this.userLastNameFC.valid &&
+          this.userFirstNameFC.valid &&
+          this.userBirthDateFC.valid &&
+          this.userEmailFC.valid &&
+          this.userPhoneFC.valid &&
+          this.userPasswordFC.valid &&
+          (this.userRoleFC.valid || this.userRoleFC.disable)
+        );
+      } else {
+        return (
+          this.userLastNameFC.valid &&
+          this.userFirstNameFC.valid &&
+          this.userBirthDateFC.valid &&
+          this.userEmailFC.valid &&
+          this.userPhoneFC.valid &&
+          this.userPasswordFC.valid &&
+          (this.userRoleFC.valid || this.userRoleFC.disable) &&
+          (this.userCenterFC.valid || this.userCenterFC.disable)
+        );
+      }
     } else {
-      return (
-        this.userLastNameFC.valid &&
-        this.userFirstNameFC.valid &&
-        this.userBirthDateFC.valid &&
-        this.userEmailFC.valid &&
-        this.userPhoneFC.valid &&
-        this.userPasswordFC.valid &&
-        (this.userRoleFC.valid || this.userRoleFC.disable) &&
-        this.userCenterFC.valid
-      );
+      if (this.userRoleFC.value === "SUPERADMIN") {
+        return (
+          this.userLastNameFC.valid &&
+          this.userFirstNameFC.valid &&
+          this.userBirthDateFC.valid &&
+          this.userEmailFC.valid &&
+          this.userPhoneFC.valid &&
+          (this.userRoleFC.valid || this.userRoleFC.disable)
+        );
+      } else {
+        return (
+          this.userLastNameFC.valid &&
+          this.userFirstNameFC.valid &&
+          this.userBirthDateFC.valid &&
+          this.userEmailFC.valid &&
+          this.userPhoneFC.valid &&
+          (this.userRoleFC.valid || this.userRoleFC.disable) &&
+          (this.userCenterFC.valid || this.userCenterFC.disable)
+        );
+      }
     }
   }
 
@@ -147,9 +174,10 @@ export class UserManagementDialogComponent implements OnInit {
         user
       )
       .subscribe(
-        (res) => {
+        (response) => {
           this.storeLoading = false;
-          this.dialogRef.close(user);
+          console.log(response.data);
+          this.dialogRef.close(response.data);
           this._snackBar.open('Utilisateur modifié avec succès', '', {
             duration: 2000,
           });
@@ -194,7 +222,7 @@ export class UserManagementDialogComponent implements OnInit {
         user
       )
       .subscribe(
-        (res) => {
+        (user) => {
           this.storeLoading = false;
           this.dialogRef.close(user);
           this._snackBar.open('Utilisateur ajouté avec succès', '', {
@@ -223,7 +251,7 @@ export class UserManagementDialogComponent implements OnInit {
       password: this.userPasswordFC.value,
       roles: [this.userRoleFC.value],
       centerId: this.userCenterFC.value.id,
-      disabled: true,
+      disabled: this.data.user.disabled ? false : true,
     };
     this.updateUser(user);
   }

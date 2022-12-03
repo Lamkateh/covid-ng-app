@@ -1,6 +1,6 @@
 <div class="user-list-item" [ngClass]="lastChild ? 'last-child' : ''">
-  <span>{{ id }}</span>
-  <span>{{ lastName | uppercase }} {{ firstName | titlecase }}</span>
+  <span>{{ user.id }}</span>
+  <span>{{ user.lastName | uppercase }} {{ user.firstName | titlecase }}</span>
   <div class="buttons">
     <mat-icon (click)="onEditClick()">edit</mat-icon>
     <mat-icon (click)="onDeleteClick()">delete</mat-icon>

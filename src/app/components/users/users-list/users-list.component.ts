@@ -19,6 +19,10 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  onUserDeleted(id) {
+    this.list = this.list.filter((user) => user.id !== id);
+  }
+
   onAddClick() {
     this.dialog.open(UserManagementDialogComponent, {
       width: '60%',
@@ -27,6 +31,10 @@ export class UsersListComponent implements OnInit {
         role: this.role,
         center: this.center,
       },
+    }).afterClosed().subscribe((response) => {
+      if (response) {
+        this.list.push(response.data);
+      }
     });
   }
 }

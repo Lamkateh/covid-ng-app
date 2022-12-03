@@ -8,13 +8,12 @@ import { environment } from "src/environments/environment";
 
 @Injectable()
 export class ProdInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // filter public routes
     if (environment.production) {
       const url = new URL(environment.apiUrl + req.url).toString();
-      console.log("ProdInterceptor: " + url);
       const apiReq = req.clone({
         url: url,
       });

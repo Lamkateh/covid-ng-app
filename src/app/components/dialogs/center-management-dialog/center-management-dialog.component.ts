@@ -66,8 +66,8 @@ export class CenterManagementDialogComponent implements OnInit {
       width: '80%',
       height: '80%',
       data: {
-        title: 'Gestion des admins et médecins du centre',
-        centerId: this.data.center.id,
+        type: 'update',
+        center: this.data.center
       },
       autoFocus: false
     });

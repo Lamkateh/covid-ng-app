@@ -62,8 +62,8 @@ export class UsersManagementDialogComponent implements OnInit {
     }
     return this.doctors.filter((doctor) => {
       return (
-        doctor.firstName !== null &&
-        doctor.firstName
+        doctor.lastName !== null &&
+        doctor.lastName
           .toLowerCase()
           .includes(this.nameSearchTerm.toLowerCase())
       );
@@ -76,16 +76,12 @@ export class UsersManagementDialogComponent implements OnInit {
     }
     return this.admins.filter((admin) => {
       return (
-        admin.firstName !== null &&
-        admin.firstName
+        admin.lastName !== null &&
+        admin.lastName
           .toLowerCase()
           .includes(this.nameSearchTerm.toLowerCase())
       );
     });
-  }
-
-  onSearchName() {
-    this.nameSearched = this.nameSearchTerm;
   }
 
   /*deleteUser() {

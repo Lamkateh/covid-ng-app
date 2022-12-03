@@ -45,6 +45,7 @@ export class UserService {
   updateUser(
     user: User
   ): Observable<any> {
+    console.log(user);
     return this.httpClient.put<any>('/private/users/' + user.id, user);
   }
 

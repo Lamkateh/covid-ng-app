@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./configuration-page.component.scss'],
 })
 export class ConfigurationPageComponent implements OnInit {
-  superadmins?: User[];
+  superadmins?: User[] = [];
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
@@ -31,16 +31,17 @@ export class ConfigurationPageComponent implements OnInit {
     });
   }
 
-  getResult() {
-    return this.superadmins.filter((superadmins) => {
-      return superadmins.firstName
-        .toLowerCase()
-        .includes(this.nameSearchTerm.toLowerCase());
+  getSuperadminsList() {
+    if (!this.nameSearchTerm && this.superadmins.length > 0) {
+      return this.superadmins;
+    }
+    return this.superadmins.filter((superadmin) => {
+      return (
+        superadmin.lastName !== null &&
+        superadmin.lastName
+          .toLowerCase()
+          .includes(this.nameSearchTerm.toLowerCase())
+      );
     });
-  }
-
-  onSearchName() {
-    this.nameSearched = this.nameSearchTerm;
-    this.getResult();
   }
 }

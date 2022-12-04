@@ -1,3 +1,4 @@
+import { Center } from "./center";
 import { Role } from "./role";
 
 export interface User {
@@ -9,6 +10,6 @@ export interface User {
   phone: string;
   roles: Role[];
   password: string;
-  centerId?: number;
+  center?: Center;
   disabled: boolean;
 }

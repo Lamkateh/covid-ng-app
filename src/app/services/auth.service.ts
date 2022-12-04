@@ -64,7 +64,6 @@ export class AuthService {
 
   setAuthUser(user: User) {
     this.user = user;
-
   }
 
   getUserInfo(): Observable<any> {

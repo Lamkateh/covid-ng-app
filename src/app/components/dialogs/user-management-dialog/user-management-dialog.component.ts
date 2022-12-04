@@ -197,7 +197,7 @@ export class UserManagementDialogComponent implements OnInit {
       return;
     }
 
-    let user: User = {
+    let user = {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
@@ -240,7 +240,7 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   disableUser() {
-    let user: User = {
+    let user = {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
@@ -249,7 +249,7 @@ export class UserManagementDialogComponent implements OnInit {
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
       roles: [this.userRoleFC.value],
-      centerId: this.userCenterFC.value.id,
+      centerId: this.userCenterFC.value?.id,
       disabled: this.data.user.disabled ? false : true,
     };
     this.updateUser(user);

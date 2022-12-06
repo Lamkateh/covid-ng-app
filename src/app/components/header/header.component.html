@@ -15,7 +15,7 @@
     </li>
     <!-- admins only -->
     <li *ngIf="this.authService.user !== null">
-      <a routerLink="/management/centers/{{ this.authService.user.centerId }}" routerLinkActive="active">
+      <a routerLink="/management/centers/{{ this.authService.user.center.id }}" routerLinkActive="active">
         Gestion de mon centre</a>
     </li>
     <!-- admins and doctors only -->

@@ -5,9 +5,9 @@
     </div>
     <mat-icon (click)="onAddClick()">add</mat-icon>
   </div>
-  <div *ngFor="let aUser of list; let last = last" class="list">
-    <app-users-list-item [ngClass]="{ 'last-child': last }" [user]="aUser" [role]="role" [lastChild]="last"
-      (userDeleted)="onUserDeleted($event)" (userEdited)="onUserEdited($event)">
+  <div *ngFor="let aUser of list" class="list">
+    <app-users-list-item [user]="aUser" [role]="role" (userDeleted)="onUserDeleted($event)"
+      (userEdited)="onUserEdited($event)">
     </app-users-list-item>
   </div>
 </div>

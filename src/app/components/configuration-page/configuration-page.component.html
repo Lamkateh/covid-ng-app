@@ -8,7 +8,8 @@
     </mat-form-field>
   </form>
   <div class="doctors-list">
-    <app-users-list [list]="this.getSuperadminsList()" [role]="this.role" (userEdited)="onUserEdited($event)">
+    <app-users-list [list]="this.getSuperadminsList()" [role]="this.role" (userEdited)="onUserEdited($event)"
+      (userDeleted)="onUserDeleted($event)">
     </app-users-list>
   </div>
   <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>

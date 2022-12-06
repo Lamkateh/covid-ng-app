@@ -101,4 +101,16 @@ export class UsersManagementDialogComponent implements OnInit {
       return doctor;
     });
   }
+
+  onAdminDeleted(id: number) {
+    this.admins = this.admins.filter((admin) => {
+      return admin.id !== id;
+    });
+  }
+
+  onDoctorDeleted(id: number) {
+    this.doctors = this.doctors.filter((doctor) => {
+      return doctor.id !== id;
+    });
+  }
 }

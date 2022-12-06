@@ -18,9 +18,9 @@
     </form>
     <div class="doctors-list">
       <app-users-list [list]="this.getAdminsList()" [role]="roles[1]" [center]="data.center"
-        (userEdited)="onAdminEdited($event)"></app-users-list>
+        (userEdited)="onAdminEdited($event)" (userDeleted)="onAdminDeleted($event)"></app-users-list>
       <app-users-list [list]="this.getDoctorsList()" [role]="roles[2]" [center]="data.center"
-        (userEdited)="onDoctorEdited($event)"></app-users-list>
+        (userEdited)="onDoctorEdited($event)" (userDeleted)="onDoctorDeleted($event)"></app-users-list>
     </div>
     <!--<mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>-->
   </div>

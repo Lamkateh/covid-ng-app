@@ -15,6 +15,7 @@ export class UsersListComponent implements OnInit {
   @Input() role: Role;
   @Input() center: Center;
   @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
+  @Output() userDeleted: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(public dialog: MatDialog) { }
 
@@ -25,7 +26,7 @@ export class UsersListComponent implements OnInit {
   }
 
   onUserDeleted(id: number) {
-    this.list = this.list.filter((user) => user.id !== id);
+    this.userDeleted.emit(id);
   }
 
   onAddClick() {

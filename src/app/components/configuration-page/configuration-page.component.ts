@@ -53,4 +53,10 @@ export class ConfigurationPageComponent implements OnInit {
       return superadmin;
     });
   }
+
+  onUserDeleted(id: number) {
+    this.superadmins = this.superadmins.filter((superadmin) => {
+      return superadmin.id !== id;
+    });
+  }
 }

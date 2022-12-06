@@ -67,4 +67,10 @@ export class CenterManagementPageComponent implements OnInit {
       return doctor;
     });
   }
+
+  onUserDeleted(id: number) {
+    this.doctors = this.doctors.filter((doctor) => {
+      return doctor.id !== id;
+    });
+  }
 }

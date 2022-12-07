@@ -1,30 +1,42 @@
-<div class="centers-list-item" [ngClass]="lastChild ? 'last-child' : ''">
-  <div class="center-name">{{ center.name | titlecase }}</div>
-  <div class="center-infos">
-    <div class="center-city" *ngIf="center.city">
-      <mat-icon>home</mat-icon>
-      <div class="city-name">{{ center.city }}</div>
+<mat-card class="centers-list-card" [ngClass]="lastChild ? 'last-child' : ''">
+  <mat-card-header>
+    <mat-card-title class="nowrap">{{ center.name | titlecase }}</mat-card-title>
+    <mat-card-subtitle class="nowrap">
+      <div class="address" *ngIf="center.city || center.zipCode  || center.address">
+        <span *ngIf="center.address">{{ center.address | titlecase }}, </span>
+        <span *ngIf="center.zipCode">{{ center.zipCode }} </span>
+        <span *ngIf="center.city">{{ center.city }}</span>
+      </div>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="isHomePage">
+    <div class="appointment-availability" [ngClass]="available_appointments ? 'available' : ''">
+      <mat-icon *ngIf=" available_appointments" class="green-check-icon">check</mat-icon>
+      <mat-icon *ngIf="!available_appointments" class="green-check-icon">close</mat-icon>
+      <span *ngIf="available_appointments">Rendez-vous disponible(s)</span>
+      <span *ngIf="!available_appointments">Aucun rendez-vous</span>
     </div>
-    <div class="center-phone" *ngIf="center.phone">
-      <mat-icon>phone</mat-icon>
-      <div class="phone-number">{{ center.phone }}</div>
-    </div>
-  </div>
-  <div class="appointment-availability" [ngClass]="available_appointments ? 'available' : ''">
-    <mat-icon *ngIf="isHomePage && available_appointments" class="green-check-icon">check</mat-icon>
-    <mat-icon *ngIf="isHomePage && !available_appointments" class="green-check-icon">close</mat-icon>
-    <span *ngIf="isHomePage && available_appointments">Rendez-vous disponible(s)</span>
-    <span *ngIf="isHomePage && !available_appointments">Aucun rendez-vous</span>
-    <button mat-raised-button *ngIf="!isHomePage" (click)="onCenterEditClick()">
-      Modifier le centre
-    </button>
-  </div>
-  <div>
-    <button mat-raised-button *ngIf="isHomePage" (click)="onAppointementClick()">
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="action" mat-raised-button *ngIf="isHomePage" [disabled]="!available_appointments"
+      (click)="onAppointementClick()">
       Prendre RDV
     </button>
-    <button mat-raised-button *ngIf="!isHomePage" (click)="onAdminAndDoctorEditClick()">
-      Voir les admins et médecins rattachés
-    </button>
-  </div>
-</div>
+    <div *ngIf="!isHomePage" class="actions">
+      <div>
+        <button mat-stroked-button color="primary" (click)="onCenterEditClick()">
+          Modifier
+        </button>
+        <button mat-stroked-button color="warn" (click)="onCenterDeleteClick()">
+          Supprimer
+        </button>
+      </div>
+      <button class="admin-and-doctor-button" mat-stroked-button (click)="onAdminAndDoctorEditClick()">
+        Gérer les administrateurs et médecins
+      </button>
+      <button mat-icon-button class="admin-and-doctor-icon" (click)="onAdminAndDoctorEditClick()">
+        <mat-icon>group</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

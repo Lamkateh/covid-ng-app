@@ -211,12 +211,12 @@ button {
       background-color: #f5f5f5;
     }
 
-    .disabled>td>span {
+    .disabled td span {
       color: rgba(0, 0, 0, .26)
     }
 
     .mat-column-id {
-      width: 150px;
+      font-style: italic;
     }
 
     .mat-column-actions {
@@ -231,6 +231,26 @@ button {
 
     .no-data:hover {
       background-color: #fff;
+    }
+  }
+
+  .table-users-management {
+    .mat-column-id {
+      width: 50px;
+    }
+
+    .mat-column-name {
+      width: 150px;
+    }
+
+    .mat-column-phone {
+      width: 100px;
+    }
+  }
+
+  .table-hover {
+    .mat-column-id {
+      width: 150px;
     }
   }
 }

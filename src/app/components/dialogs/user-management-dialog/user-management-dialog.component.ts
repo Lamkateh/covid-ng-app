@@ -53,7 +53,7 @@ export class UserManagementDialogComponent implements OnInit {
     public data: {
       type: "creation" | "update";
       user?: User;
-      role?: Role;
+      roles?: Role[];
       center?: Center;
     },
     private _snackBar: MatSnackBar,
@@ -62,7 +62,7 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data.type === "update" && this.data.user !== null) {
+    if (this.data.type === "update" && this.data.user !== null && this.data.user !== undefined) {
       this.userLastNameFC.setValue(this.data.user.lastName);
       this.userFirstNameFC.setValue(this.data.user.firstName);
       this.userBirthDateFC.setValue(new Date(this.data.user.birthDate));
@@ -70,25 +70,26 @@ export class UserManagementDialogComponent implements OnInit {
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
-      //this.userRoleFC.enable();
+      if (this.data.roles.length > 1) {
+        this.userRoleFC.enable();
+      }
       if (this.userRoleFC.value !== "SUPERADMIN") {
-        this.userCenterFC.setValue(this.data.user['center']);
+        this.userCenterFC.setValue(this.data.user.center);
       }
     } else {
-      this.userRoleFC.setValue(this.data.role.value);
-    }
-
-    if (this.data.type === "creation" && this.data.role.value !== 'SUPERADMIN') {
-      this.userCenterFC.setValue(this.data.center);
-    }
-
-    if (this.data.type === "creation") {
       this.userPasswordFC.setValidators([Validators.required]);
+      if (this.data.roles.length === 1) {
+        this.userRoleFC.setValue(this.data.roles[0].value);
+      }
+      if (this.data.roles[0].value !== 'SUPERADMIN') {
+        this.userCenterFC.setValue(this.data.center);
+      }
     }
 
-    //if (!this.data.role) {
-    //  this.userRoleFC.enable();
-    //}
+    if (this.data.roles.length > 1) {
+      this.userRoleFC.enable();
+      this.roleList = this.data.roles;
+    }
 
     this.userCenterServerSideCtrl.valueChanges
       .pipe(
@@ -129,7 +130,7 @@ export class UserManagementDialogComponent implements OnInit {
           this.userEmailFC.valid &&
           this.userPhoneFC.valid &&
           this.userPasswordFC.valid &&
-          (this.userRoleFC.valid || this.userRoleFC.disable)
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED")
         );
       } else {
         return (
@@ -139,8 +140,8 @@ export class UserManagementDialogComponent implements OnInit {
           this.userEmailFC.valid &&
           this.userPhoneFC.valid &&
           this.userPasswordFC.valid &&
-          (this.userRoleFC.valid || this.userRoleFC.disable) &&
-          (this.userCenterFC.valid || this.userCenterFC.disable)
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED") &&
+          (this.userCenterFC.valid || this.userCenterFC.status === "DISABLED")
         );
       }
     } else {
@@ -151,7 +152,7 @@ export class UserManagementDialogComponent implements OnInit {
           this.userBirthDateFC.valid &&
           this.userEmailFC.valid &&
           this.userPhoneFC.valid &&
-          (this.userRoleFC.valid || this.userRoleFC.disable)
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED")
         );
       } else {
         return (
@@ -160,8 +161,8 @@ export class UserManagementDialogComponent implements OnInit {
           this.userBirthDateFC.valid &&
           this.userEmailFC.valid &&
           this.userPhoneFC.valid &&
-          (this.userRoleFC.valid || this.userRoleFC.disable) &&
-          (this.userCenterFC.valid || this.userCenterFC.disable)
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED") &&
+          (this.userCenterFC.valid || this.userCenterFC.status === "DISABLED")
         );
       }
     }

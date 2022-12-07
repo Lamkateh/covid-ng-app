@@ -60,7 +60,7 @@ export class ConfigurationPageComponent implements OnInit {
       width: '60%',
       data: {
         type: 'creation',
-        role: this.role
+        roles: [this.role]
       },
     }).afterClosed().subscribe((response) => {
       if (response) {
@@ -76,7 +76,7 @@ export class ConfigurationPageComponent implements OnInit {
       width: '60%',
       data: {
         type: 'update',
-        role: this.role,
+        roles: [this.role],
         user: superadmin
       }
     }).afterClosed().subscribe((userEdited) => {

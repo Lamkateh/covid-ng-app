@@ -1,14 +1,17 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
-    {{ this.data.role.value === 'ADMIN'
-    ? ( this.data.type === "creation"
+    {{ this.data.type === "creation"
+    ? (this.data.roles.length === 1
+    ? (this.data.roles[0].value === 'ADMIN'
     ? "Ajout d'un nouvel administrateur"
-    : "Modification de l'administrateur")
-    : (
-    this.data.type === "creation"
-    ? "Ajout d'un nouveau " + (this.data.role.name | lowercase)
-    : "Modification du " + (this.data.role.name | lowercase)
-    ) }}
+    : "Ajout d'un nouveau " + (this.data.roles[0].name | lowercase))
+    : "Ajout d'un nouvel utilisateur")
+    : (this.data.roles.length === 1
+    ? (this.data.roles[0].value === 'ADMIN'
+    ? "Modification de l'administrateur"
+    : "Modification du " + (this.data.roles[0].name | lowercase))
+    : "Modification de l'utilisateur")
+    }}
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
@@ -90,7 +93,7 @@
         <mat-option *ngFor="let center of centerList | async" [value]="center">
           {{ center.name }}
         </mat-option>
-        <mat-option *ngIf="this.data.center || this.data.user['center']" [value]="this.userCenterFC.value" selected>
+        <mat-option *ngIf="this.data.center || this.data.user.center" [value]="this.userCenterFC.value" selected>
           {{ this.userCenterFC.value.name }}</mat-option>
       </mat-select>
       <mat-error *ngIf="this.userCenterFC.hasError('required')">

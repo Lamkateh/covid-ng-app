@@ -74,7 +74,7 @@ export class CenterManagementPageComponent implements OnInit {
       width: '60%',
       data: {
         type: 'creation',
-        role: this.role,
+        roles: [this.role],
         center: this.center
       },
     }).afterClosed().subscribe((response) => {
@@ -91,7 +91,7 @@ export class CenterManagementPageComponent implements OnInit {
       width: '60%',
       data: {
         type: 'update',
-        role: this.role,
+        roles: [this.role],
         user: doctor
       }
     }).afterClosed().subscribe((userEdited) => {

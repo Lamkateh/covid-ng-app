@@ -65,7 +65,7 @@ export class ConfigurationPageComponent implements OnInit {
     }).afterClosed().subscribe((response) => {
       if (response) {
         const newList = [...this.superadmins];
-        newList.unshift(response.data);
+        newList.push(response.data);
         this.superadmins = newList;
       }
     });

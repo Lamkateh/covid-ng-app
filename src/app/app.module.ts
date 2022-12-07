@@ -19,8 +19,6 @@ import { SchedulePageComponent } from './components/schedule-page/schedule-page.
 import { ConfigurationPageComponent } from './components/configuration-page/configuration-page.component';
 import { AppointmentPreviewComponent } from './components/appointment-preview/appointment-preview.component';
 import { TimetableComponent } from './components/timetable/timetable.component';
-import { UsersListComponent } from './components/users/users-list/users-list.component';
-import { UsersListItemComponent } from './components/users/users-list-item/users-list-item.component';
 import { AppointmentDialogComponent } from './components/dialogs/appointment-dialog/appointment-dialog.component';
 import { CenterManagementDialogComponent } from './components/dialogs/center-management-dialog/center-management-dialog.component';
 import { UsersManagementDialogComponent } from './components/dialogs/users-management-dialog/users-management-dialog.component';
@@ -48,8 +46,6 @@ import localeFr from "@angular/common/locales/fr";
     ConfigurationPageComponent,
     AppointmentPreviewComponent,
     TimetableComponent,
-    UsersListComponent,
-    UsersListItemComponent,
     AppointmentDialogComponent,
     CenterManagementDialogComponent,
     UserManagementDialogComponent,

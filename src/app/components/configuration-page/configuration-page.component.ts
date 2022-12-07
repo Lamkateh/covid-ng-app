@@ -3,6 +3,9 @@ import { User } from '../../models/user';
 import { Role } from 'src/app/models/role';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserManagementDialogComponent } from '../dialogs/user-management-dialog/user-management-dialog.component';
+import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-configuration-page',
@@ -10,13 +13,20 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./configuration-page.component.scss'],
 })
 export class ConfigurationPageComponent implements OnInit {
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'email',
+    'phone',
+    'actions'
+  ];
   superadmins?: User[] = [];
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
   role: Role = this.roleService.roles[0];
 
-  constructor(private roleService: RoleService, private userService: UserService) { }
+  constructor(private roleService: RoleService, private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getSuperadmins();
@@ -45,18 +55,51 @@ export class ConfigurationPageComponent implements OnInit {
     });
   }
 
-  onUserEdited(user: User) {
-    this.superadmins = this.superadmins.map((superadmin) => {
-      if (superadmin.id === user.id) {
-        return user;
+  onAddClick() {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        type: 'creation',
+        role: this.role
+      },
+    }).afterClosed().subscribe((response) => {
+      if (response) {
+        const newList = [...this.superadmins];
+        newList.unshift(response.data);
+        this.superadmins = newList;
       }
-      return superadmin;
     });
   }
 
-  onUserDeleted(id: number) {
-    this.superadmins = this.superadmins.filter((superadmin) => {
-      return superadmin.id !== id;
+  onEditClick(superadmin: User) {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        type: 'update',
+        role: this.role,
+        user: superadmin
+      }
+    }).afterClosed().subscribe((userEdited) => {
+      this.superadmins = this.superadmins.map((superadmin) => {
+        if (superadmin.id === userEdited.id) {
+          return userEdited;
+        }
+        return superadmin;
+      });
+    });
+  }
+
+  onDeleteClick(superadmin: User) {
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        user: superadmin
+      },
+      autoFocus: false
+    }).afterClosed().subscribe((userEditedId) => {
+      this.superadmins = this.superadmins.filter((superadmin) => {
+        return superadmin.id !== userEditedId;
+      });
     });
   }
 }

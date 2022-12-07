@@ -175,3 +175,58 @@ button {
     }
   }
 }
+
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: var(--blue);
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    button {
+      margin: 10px 0;
+    }
+  }
+}
+
+.table-wrapper {
+  width: 100%;
+
+  .mat-table {
+    width: 100%;
+
+    .mat-row:hover {
+      background-color: #f5f5f5;
+    }
+
+    .mat-column-id {
+      width: 150px;
+    }
+
+    .mat-column-actions {
+      width: 50px;
+
+      .user-edit-menu {
+        .icon-menu {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .no-data:hover {
+      background-color: #fff;
+    }
+  }
+}

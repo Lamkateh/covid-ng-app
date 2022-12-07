@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from "@angular/material/input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
+import { MatTableModule } from "@angular/material/table";
+import { MatMenuModule } from "@angular/material/menu";
 
 @NgModule({
   exports: [
@@ -15,7 +17,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
     MatButtonModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule,
+    MatMenuModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: "fr-FR" },

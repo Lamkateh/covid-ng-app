@@ -6,6 +6,9 @@ import { Center } from 'src/app/models/center';
 import { CenterService } from 'src/app/services/center.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
+import { UserManagementDialogComponent } from '../../dialogs/user-management-dialog/user-management-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: "app-center-management-page",
@@ -13,6 +16,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ["./center-management-page.component.scss"],
 })
 export class CenterManagementPageComponent implements OnInit {
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'email',
+    'phone',
+    'actions'
+  ];
   doctors?: User[] = [];
   center: Center;
   centerId: number;
@@ -21,7 +31,7 @@ export class CenterManagementPageComponent implements OnInit {
   listLoading: boolean = false;
   role: Role = this.roleService.roles[2];
 
-  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.centerId = Number(this.route.snapshot.paramMap.get("id"));
@@ -59,18 +69,52 @@ export class CenterManagementPageComponent implements OnInit {
     });
   }
 
-  onUserEdited(user: User) {
-    this.doctors = this.doctors.map((doctor) => {
-      if (doctor.id === user.id) {
-        return user;
+  onAddClick() {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        type: 'creation',
+        role: this.role,
+        center: this.center
+      },
+    }).afterClosed().subscribe((response) => {
+      if (response) {
+        const newList = [...this.doctors];
+        newList.push(response.data);
+        this.doctors = newList;
       }
-      return doctor;
     });
   }
 
-  onUserDeleted(id: number) {
-    this.doctors = this.doctors.filter((doctor) => {
-      return doctor.id !== id;
+  onEditClick(doctor: User) {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        type: 'update',
+        role: this.role,
+        user: doctor
+      }
+    }).afterClosed().subscribe((userEdited) => {
+      this.doctors = this.doctors.map((doctor) => {
+        if (doctor.id === userEdited.id) {
+          return userEdited;
+        }
+        return doctor;
+      });
+    });
+  }
+
+  onDeleteClick(doctor: User) {
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        user: doctor
+      },
+      autoFocus: false
+    }).afterClosed().subscribe((userEditedId) => {
+      this.doctors = this.doctors.filter((doctor) => {
+        return doctor.id !== userEditedId;
+      });
     });
   }
 }

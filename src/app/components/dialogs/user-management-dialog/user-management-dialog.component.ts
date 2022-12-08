@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, UntypedFormControl, Validators } from '@angular/forms';
 import {
   MatDialogRef,
   MatDialog,
@@ -178,7 +178,7 @@ export class UserManagementDialogComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
+          this._snackBar.open(err.error.message, '', {
             panelClass: 'snackbar-error',
             duration: 2000,
           });
@@ -226,7 +226,7 @@ export class UserManagementDialogComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
+          this._snackBar.open(err.error.message, '', {
             panelClass: 'snackbar-error',
             duration: 2000,
           });

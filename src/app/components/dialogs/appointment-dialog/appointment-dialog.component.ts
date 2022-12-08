@@ -26,9 +26,9 @@ export class AppointmentDialogComponent implements OnInit {
       date: string;
       time: string;
     }
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getTime() {
     return this.data.time;
@@ -57,7 +57,7 @@ export class AppointmentDialogComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.dialogRef.close();
-          this._snackBar.open("Rendez-vous pris avec succès !", "Close", {
+          this._snackBar.open("Rendez-vous pris avec succès !", "", {
             duration: 2000,
           });
         },

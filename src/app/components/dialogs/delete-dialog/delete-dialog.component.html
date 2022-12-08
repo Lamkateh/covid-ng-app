@@ -1,7 +1,7 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
     {{ this.data.user?.roles[0].toString() === 'SUPERADMIN'
-    ? "Suppression du superadministrateur"
+    ? "Suppression du superadmin"
     : (this.data.user?.roles[0].toString() === 'ADMIN'
     ? "Suppression de l'administrateur"
     : (this.data.user?.roles[0].toString() === 'DOCTOR'
@@ -14,7 +14,7 @@
 <div mat-dialog-content>
   Etes-vous sûr de vouloir supprimer
   {{ this.data.user?.roles[0].toString() === 'SUPERADMIN'
-  ? "le superadministrateur"
+  ? "le superadmin"
   : (this.data.user?.roles[0].toString() === 'ADMIN'
   ? "l'administrateur"
   : (this.data.user?.roles[0].toString() === 'DOCTOR'

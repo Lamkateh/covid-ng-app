@@ -6,10 +6,25 @@
       <input name="search_item" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy" />
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-    <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </form>
   <img src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
-  <app-centers-list [list]="centers"></app-centers-list>
+  <app-centers-list *ngIf="!this.listLoading" [list]="centers"></app-centers-list>
+  <div *ngIf="this.listLoading" class="centers-loading">
+    <div class="centers-skeleton">
+      <ngx-skeleton-loader count="2" appearance="circle" [theme]="{
+        width: '47.5%',
+        height: '170px',
+        'border-radius': '10px'
+      }"></ngx-skeleton-loader>
+    </div>
+    <div class="centers-skeleton">
+      <ngx-skeleton-loader count="2" appearance="circle" [theme]="{
+        width: '47.5%',
+        height: '170px',
+        'border-radius': '10px'
+      }"></ngx-skeleton-loader>
+    </div>
+  </div>
   <button mat-raised-button [style.margin]="'auto'" color="primary" *ngIf="!this.lastPage" [disabled]="this.listLoading"
     (click)="onMoreRequest()">
     Afficher plus

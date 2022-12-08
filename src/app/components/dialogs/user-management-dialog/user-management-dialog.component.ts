@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, UntypedFormControl, Validators } from '@angular/forms';
 import {
   MatDialogRef,
   MatDialog,
@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 import { CenterService } from 'src/app/services/center.service';
 import { Role } from '../../../models/role';
 import { Center } from '../../../models/center';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -29,9 +30,9 @@ export class UserManagementDialogComponent implements OnInit {
   userBirthDateFC = new FormControl(null, [Validators.required]);
   userEmailFC = new FormControl('', [Validators.required, Validators.email]);
   userPhoneFC = new FormControl('', [Validators.required]);
-  userPasswordFC = new FormControl('', [Validators.required]);
+  userPasswordFC = new FormControl('');
   userRoleFC = new FormControl({ value: null, disabled: true }, [Validators.required]);
-  userCenterFC: UntypedFormControl = new UntypedFormControl(null, [
+  userCenterFC: UntypedFormControl = new UntypedFormControl({ value: null, disabled: true }, [
     Validators.required,
   ]);
 
@@ -41,10 +42,11 @@ export class UserManagementDialogComponent implements OnInit {
   centerList: ReplaySubject<Center[]> = new ReplaySubject<Center[]>(1);
   centerListLoading: boolean = false;
   _onDestroy = new Subject<void>();
-  hide = true;
   maxDate: Date;
+  errorMessage: string = "Une erreur s'est produite";
 
   constructor(
+    private authService: AuthService,
     private userService: UserService,
     private roleService: RoleService,
     private centerService: CenterService,
@@ -54,7 +56,7 @@ export class UserManagementDialogComponent implements OnInit {
     public data: {
       type: "creation" | "update";
       user?: User;
-      role?: Role;
+      roles?: Role[];
       center?: Center;
     },
     private _snackBar: MatSnackBar,
@@ -63,28 +65,34 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data.type === "update" && this.data.user !== null) {
+    if (this.data.type === "update" && this.data.user !== null && this.data.user !== undefined) {
       this.userLastNameFC.setValue(this.data.user.lastName);
       this.userFirstNameFC.setValue(this.data.user.firstName);
-      this.userBirthDateFC.setValue(new Date(this.data.user.birthDate.getTime()));
+      this.userBirthDateFC.setValue(new Date(this.data.user.birthDate));
       this.userEmailFC.setValue(this.data.user.email);
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
-      this.userRoleFC.enable();
+      if (this.authService.user.roles[0].toString() === "SUPERADMIN") {
+        this.userRoleFC.enable();
+        this.userCenterFC.enable();
+      }
       if (this.userRoleFC.value !== "SUPERADMIN") {
-        this.userCenterFC.setValue(this.data.user.centerId);
+        this.userCenterFC.setValue(this.data.user.center);
       }
     } else {
-      this.userRoleFC.setValue(this.data.role.value);
+      this.userPasswordFC.setValidators([Validators.required]);
+      if (this.data.roles.length === 1) {
+        this.userRoleFC.setValue(this.data.roles[0].value);
+      }
+      if (this.data.roles[0].value !== 'SUPERADMIN') {
+        this.userCenterFC.setValue(this.data.center);
+      }
     }
 
-    if (this.data.type === "creation" && this.data.role.value !== 'SUPERADMIN') {
-      this.userCenterFC.setValue(this.data.center);
-    }
-
-    if (!this.data.role) {
+    if (this.data.roles.length > 1) {
       this.userRoleFC.enable();
+      this.roleList = this.data.roles;
     }
 
     this.userCenterServerSideCtrl.valueChanges
@@ -116,65 +124,82 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   formIsValid() {
-    if (this.userRoleFC.value === "SUPERADMIN") {
-      return (
-        this.userLastNameFC.valid &&
-        this.userFirstNameFC.valid &&
-        this.userBirthDateFC.valid &&
-        this.userEmailFC.valid &&
-        this.userPhoneFC.valid &&
-        this.userPasswordFC.valid &&
-        (this.userRoleFC.valid || this.userRoleFC.disable)
-      );
+    let common = this.userLastNameFC.valid &&
+      this.userFirstNameFC.valid &&
+      this.userBirthDateFC.valid &&
+      this.userEmailFC.valid &&
+      this.userPhoneFC.valid;
+
+    if (this.data.type === "creation") {
+      if (this.userRoleFC.value === "SUPERADMIN") {
+        return (
+          common &&
+          this.userPasswordFC.valid &&
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED")
+        );
+      } else {
+        return (
+          common &&
+          this.userPasswordFC.valid &&
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED") &&
+          (this.userCenterFC.valid || this.userCenterFC.status === "DISABLED")
+        );
+      }
     } else {
-      return (
-        this.userLastNameFC.valid &&
-        this.userFirstNameFC.valid &&
-        this.userBirthDateFC.valid &&
-        this.userEmailFC.valid &&
-        this.userPhoneFC.valid &&
-        this.userPasswordFC.valid &&
-        (this.userRoleFC.valid || this.userRoleFC.disable) &&
-        this.userCenterFC.valid
-      );
+      if (this.userRoleFC.value === "SUPERADMIN") {
+        return (
+          common &&
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED")
+        );
+      } else {
+        return (
+          common &&
+          (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED") &&
+          (this.userCenterFC.valid || this.userCenterFC.status === "DISABLED")
+        );
+      }
     }
   }
 
   updateUser(user: User) {
     this.storeLoading = true;
-    this.userService
-      .updateUser(
-        user
-      )
-      .subscribe(
-        (res) => {
+    if (user.roles[0].toString() === "SUPERADMIN") {
+      user.center = null;
+      user.centerId = null;
+    }
+    this.userService.updateUser(user)
+      .subscribe({
+        next: (response) => {
           this.storeLoading = false;
-          this.dialogRef.close(user);
+          this.dialogRef.close(response.data);
           this._snackBar.open('Utilisateur modifié avec succès', '', {
             duration: 2000,
           });
         },
-        (err) => {
+        error: (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
+          if (err.error.message === "Error: Email is already taken!") {
+            this.errorMessage = "Cette adresse mail est déjà utilisée";
+          }
+          this._snackBar.open(this.errorMessage, '', {
             panelClass: 'snackbar-error',
             duration: 2000,
           });
         }
-      );
+      });
   }
 
   storeUser() {
     if (!this.formIsValid()) {
       return;
     }
-
-    let user: User = {
+    let formattedBirthDate = this.userBirthDateFC.value.getFullYear() + "-" + String(this.userBirthDateFC.value.getMonth() + 1).padStart(2, '0') + "-" + String(this.userBirthDateFC.value.getDate()).padStart(2, '0');
+    let user = {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
-      birthDate: this.userBirthDateFC.value,
+      birthDate: formattedBirthDate,
       email: this.userEmailFC.value,
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
@@ -193,37 +218,42 @@ export class UserManagementDialogComponent implements OnInit {
       .storeUser(
         user
       )
-      .subscribe(
-        (res) => {
-          this.storeLoading = false;
-          this.dialogRef.close(user);
-          this._snackBar.open('Utilisateur ajouté avec succès', '', {
-            duration: 2000,
-          });
-        },
-        (err) => {
+      .subscribe({
+        next:
+          (user) => {
+            this.storeLoading = false;
+            this.dialogRef.close(user);
+            this._snackBar.open('Utilisateur ajouté avec succès', '', {
+              duration: 2000,
+            });
+          },
+        error: (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
+          if (err.error.message === "Error: Email is already taken!") {
+            this.errorMessage = "Cette adresse mail est déjà utilisée";
+          }
+          this._snackBar.open(this.errorMessage, '', {
             panelClass: 'snackbar-error',
             duration: 2000,
           });
         }
-      );
+      });
   }
 
   disableUser() {
-    let user: User = {
+    let formattedBirthDate = this.userBirthDateFC.value.getFullYear() + "-" + String(this.userBirthDateFC.value.getMonth() + 1).padStart(2, '0') + "-" + String(this.userBirthDateFC.value.getDate()).padStart(2, '0');
+    let user = {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
-      birthDate: this.userBirthDateFC.value,
+      birthDate: formattedBirthDate,
       email: this.userEmailFC.value,
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
       roles: [this.userRoleFC.value],
-      centerId: this.userCenterFC.value.id,
-      disabled: true,
+      centerId: this.userCenterFC.value?.id,
+      disabled: this.data.user.disabled ? false : true,
     };
     this.updateUser(user);
   }

@@ -14,6 +14,8 @@ import { AuthService } from "../../../services/auth.service";
   ],
 })
 export class AppointmentDialogComponent implements OnInit {
+  storeLoading: boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<AppointmentDialogComponent>,
     protected authService: AuthService,
@@ -26,9 +28,9 @@ export class AppointmentDialogComponent implements OnInit {
       date: string;
       time: string;
     }
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getTime() {
     return this.data.time;
@@ -46,6 +48,7 @@ export class AppointmentDialogComponent implements OnInit {
   }
 
   registerAppointment() {
+    this.storeLoading = true;
     this.appointmentService
       .registerAppointment(
         this.data.center_id,
@@ -55,18 +58,19 @@ export class AppointmentDialogComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
-          this.dialogRef.close();
-          this._snackBar.open("Rendez-vous pris avec succès !", "Close", {
+          this.storeLoading = false;
+          this.dialogRef.close(res);
+          this._snackBar.open("Rendez-vous pris avec succès !", "", {
             duration: 2000,
           });
         },
         error: (err) => {
-          if (err.status === 404) {
-            this._snackBar.open(err.error.message, "Close", {
-              duration: 2000,
-            });
-          }
+          console.log(err);
+          this.storeLoading = false;
+          this._snackBar.open("Une erreur s'est produite", "", {
+            panelClass: "snackbar-error",
+            duration: 2000,
+          });
         },
       });
   }

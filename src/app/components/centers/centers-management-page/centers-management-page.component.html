@@ -12,10 +12,25 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </form>
-    <mat-spinner class="loader" *ngIf="this.listLoading"></mat-spinner>
   </div>
   <img src="/assets/flat-hand-drawn-doctor-injecting-vaccine-patient.jpg" alt="Gestion" />
-  <app-centers-list [list]="centers"></app-centers-list>
+  <app-centers-list *ngIf="!this.listLoading" [list]="centers"></app-centers-list>
+  <div *ngIf="this.listLoading" class="centers-loading">
+    <div class="centers-skeleton">
+      <ngx-skeleton-loader count="2" appearance="circle" [theme]="{
+        width: '47.5%',
+        height: '140px',
+        'border-radius': '10px'
+      }"></ngx-skeleton-loader>
+    </div>
+    <div class="centers-skeleton">
+      <ngx-skeleton-loader count="2" appearance="circle" [theme]="{
+        width: '47.5%',
+        height: '140px',
+        'border-radius': '10px'
+      }"></ngx-skeleton-loader>
+    </div>
+  </div>
   <button mat-raised-button color="primary" [style.margin]="'auto'" *ngIf="!this.lastPage" [disabled]="this.listLoading"
     (click)="onMoreRequest()">
     Afficher plus

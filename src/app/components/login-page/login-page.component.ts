@@ -1,6 +1,22 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormControl, FormGroupDirective, NgForm, Validators } from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
+  }
+}
 
 @Component({
   selector: "app-login-page",
@@ -8,33 +24,46 @@ import { AuthService } from "../../services/auth.service";
   styleUrls: ["./login-page.component.scss"],
 })
 export class LoginPageComponent implements OnInit {
-  @Input() emailAddress?: string;
-  @Input() password?: string;
+  emailAddressFC = new FormControl("", [Validators.required, Validators.email,]);
+  passwordFC = new FormControl("", [Validators.required]);
+  matcher = new MyErrorStateMatcher();
+  loginLoading: boolean = false;
+  errorMessage: string | null = null;
+  hide: boolean = true;
 
   constructor(private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void { }
 
+  formIsValid(): boolean {
+    return (
+      this.emailAddressFC.valid &&
+      this.passwordFC.valid &&
+      this.emailAddressFC.value !== "" &&
+      this.passwordFC.value !== "" &&
+      this.emailAddressFC.value !== null &&
+      this.passwordFC.value !== null
+    );
+  }
+
   login() {
-    this.authService.signin(this.emailAddress, this.password).subscribe({
+    if (!this.formIsValid()) {
+      return;
+    }
+    this.loginLoading = true;
+    this.errorMessage = null;
+    this.authService.signin(this.emailAddressFC.value, this.passwordFC.value).subscribe({
       next: (response: any) => {
-        console.log(response);
-        this.authService.storeToken(this.emailAddress, this.password);
-        this.authService.setAuthUser({
-          id: response.data.id,
-          first_name: response.data.firstName,
-          last_name: response.data.lastName,
-          email: response.data.email,
-          birth_date: response.data.birth_date,
-          phone_number: response.data.phone_number,
-          center: response.data.center,
-          roles: response.data.roles,
-        });
+        this.authService.storeToken(this.emailAddressFC.value, this.passwordFC.value);
+        this.authService.setAuthUser(response.data);
+        this.loginLoading = false;
         this.router.navigate(["/centers"]);
       },
-      error: (error: any) => {
-        console.log(error);
+      error: (err: any) => {
+        this.loginLoading = false;
+        this.errorMessage = err.error.message;
+        console.log(err);
       },
     });
   }

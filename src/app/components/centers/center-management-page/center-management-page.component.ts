@@ -6,6 +6,9 @@ import { Center } from 'src/app/models/center';
 import { CenterService } from 'src/app/services/center.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
+import { UserManagementDialogComponent } from '../../dialogs/user-management-dialog/user-management-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: "app-center-management-page",
@@ -13,7 +16,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ["./center-management-page.component.scss"],
 })
 export class CenterManagementPageComponent implements OnInit {
-  doctors?: User[];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'email',
+    'phone',
+    'actions'
+  ];
+  doctors?: User[] | {}[] = [{}];
   center: Center;
   centerId: number;
   nameSearchTerm: string = '';
@@ -21,7 +31,7 @@ export class CenterManagementPageComponent implements OnInit {
   listLoading: boolean = false;
   role: Role = this.roleService.roles[2];
 
-  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.centerId = Number(this.route.snapshot.paramMap.get("id"));
@@ -37,24 +47,81 @@ export class CenterManagementPageComponent implements OnInit {
   }
 
   getDoctors() {
+    this.listLoading = true;
     this.userService.getDoctors(this.centerId).subscribe({
       next: (data) => {
-        this.doctors = data.data;
+        this.doctors = data.data.sort((a, b) =>
+          a.id - b.id
+        );
+        this.listLoading = false;
       },
-      error: (err) => { },
+      error: (err) => {
+        this.listLoading = false;
+        console.log(err);
+      },
     });
   }
 
-  getResult() {
+  getDoctorsList() {
+    if (!this.nameSearchTerm && this.doctors.length > 0) {
+      return this.doctors;
+    }
     return this.doctors.filter((doctor) => {
-      return doctor.firstName
-        .toLowerCase()
-        .includes(this.nameSearchTerm.toLowerCase());
+      return (
+        doctor.lastName !== null &&
+        doctor.lastName
+          .toLowerCase()
+          .includes(this.nameSearchTerm.toLowerCase())
+      );
     });
   }
 
-  onSearchName() {
-    this.nameSearched = this.nameSearchTerm;
-    this.getResult();
+  onAddClick() {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        type: 'creation',
+        roles: [this.role],
+        center: this.center
+      },
+    }).afterClosed().subscribe((response) => {
+      if (response) {
+        const newList = [...this.doctors];
+        newList.push(response.data);
+        this.doctors = newList;
+      }
+    });
+  }
+
+  onEditClick(doctor: User) {
+    this.dialog.open(UserManagementDialogComponent, {
+      width: '60%',
+      data: {
+        type: 'update',
+        roles: [this.role],
+        user: doctor
+      }
+    }).afterClosed().subscribe((userEdited) => {
+      this.doctors = this.doctors.map((doctor) => {
+        if (doctor.id === userEdited.id) {
+          return userEdited;
+        }
+        return doctor;
+      });
+    });
+  }
+
+  onDeleteClick(doctor: User) {
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        user: doctor
+      },
+      autoFocus: false
+    }).afterClosed().subscribe((userEditedId) => {
+      this.doctors = this.doctors.filter((doctor) => {
+        return doctor.id !== userEditedId;
+      });
+    });
   }
 }

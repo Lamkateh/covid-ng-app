@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Center } from 'src/app/models/center';
 import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
+import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
 import { UsersManagementDialogComponent } from '../../dialogs/users-management-dialog/users-management-dialog.component';
 
 @Component({
@@ -15,6 +16,7 @@ export class CentersListItemComponent implements OnInit {
   @Input() center: Center;
   @Input() lastChild: boolean = false;
   @Input() available_appointments?: boolean;
+  @Output() centerDeletedId = new EventEmitter<number>();
   isHomePage: boolean;
 
   constructor(private router: Router, public dialog: MatDialog) { }
@@ -28,7 +30,7 @@ export class CentersListItemComponent implements OnInit {
     this.router.navigateByUrl('/centers/' + this.center.id);
   }
 
-  onEditClick() {
+  onCenterEditClick() {
     this.dialog.open(CenterManagementDialogComponent, {
       width: "60%",
       data: {
@@ -46,7 +48,21 @@ export class CentersListItemComponent implements OnInit {
     });
   }
 
-  onAdminAndMedecinClick() {
+  onCenterDeleteClick() {
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        center: this.center
+      },
+      autoFocus: false
+    }).afterClosed().subscribe((centerDeletedId) => {
+      if (centerDeletedId) {
+        this.centerDeletedId.emit(centerDeletedId);
+      }
+    });
+  }
+
+  onAdminAndDoctorEditClick() {
     this.dialog.open(UsersManagementDialogComponent, {
       width: "80%",
       height: "80%",

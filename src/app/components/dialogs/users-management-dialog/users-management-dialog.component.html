@@ -6,20 +6,167 @@
 </div>
 <div class="content">
   <div class="information-wrapper">
-    <app-center-informations [centerId]="data['center'].id"></app-center-informations>
+    <app-center-informations [centerId]="this.data.center.id"></app-center-informations>
   </div>
   <div class="management-wrapper">
     <form class="search-doctor-form">
+      <button mat-raised-button color="primary" (click)="this.onAddClick()">
+        Ajoutez un nouvel utilisateur
+      </button>
       <mat-form-field>
         <mat-label>Filtrez par nom</mat-label>
-        <input name="search_item" matInput [(ngModel)]="nameSearchTerm" />
+        <input name="search_item" matInput [(ngModel)]="this.nameSearchTerm" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </form>
-    <div class="doctors-list">
-      <app-users-list [list]="this.getAdminsList()" [role]="roles[1]" [center]="data.center"></app-users-list>
-      <app-users-list [list]="this.getDoctorsList()" [role]="roles[2]" [center]="data.center"></app-users-list>
+    <div class="table-wrapper" [style.margin-bottom]="'30px'">
+      <table class="table-users-management mat-elevation-z8" mat-table [dataSource]="this.getAdminsList()"
+        [fixedLayout]="true">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('id') && !this.adminLoading">{{ user.id }}</span>
+            <div *ngIf="!user.hasOwnProperty('id') || this.adminLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef><strong>Administrateurs</strong></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('lastName') && user.hasOwnProperty('firstName') && !this.adminLoading">
+              {{ user.lastName + ' ' + user.firstName }}
+            </span>
+            <div *ngIf="!user.hasOwnProperty('lastName') || !user.hasOwnProperty('firstName') || this.adminLoading"
+              class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('email') && !this.adminLoading">
+              {{ user.email }}
+            </span>
+            <div *ngIf="!user.hasOwnProperty('email') || this.adminLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('phone') && !this.adminLoading">
+              {{ user.phone }}
+            </span>
+            <div *ngIf="!user.hasOwnProperty('phone') || this.adminLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-icon-button class="user-edit-menu" [matMenuTriggerFor]="adminMenu" type="button"
+              *ngIf="!this.adminLoading">
+              <mat-icon class="icon-menu">more_vert</mat-icon>
+            </button>
+            <mat-menu #adminMenu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="this.onEditAdminClick(user)">
+                <mat-icon>edit</mat-icon>
+                <span>Modifier</span>
+              </button>
+              <button mat-menu-item (click)="this.onDeleteAdminClick(user)">
+                <mat-icon>delete</mat-icon>
+                <span>Supprimer</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let user; columns: displayedColumns" [ngClass]="user.disabled && 'disabled'"></tr>
+        <tr class="mat-row no-data" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            Aucun administrateur trouvé
+          </td>
+        </tr>
+      </table>
     </div>
-    <!--<mat-spinner class="loader" *ngIf="isLoading()"></mat-spinner>-->
+    <div class="table-wrapper">
+      <table class="table-users-management mat-elevation-z8" mat-table [dataSource]="this.getDoctorsList()"
+        [fixedLayout]="true">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('id') && !this.doctorLoading">{{ user.id }}</span>
+            <div *ngIf="!user.hasOwnProperty('id') || this.doctorLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef><strong>Médecins</strong></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('lastName') && user.hasOwnProperty('firstName') && !this.doctorLoading">
+              {{ user.lastName + ' ' + user.firstName }}
+            </span>
+            <div *ngIf="!user.hasOwnProperty('lastName') || !user.hasOwnProperty('firstName') || this.doctorLoading"
+              class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('email') && !this.doctorLoading">
+              {{ user.email }}
+            </span>
+            <div *ngIf="!user.hasOwnProperty('email') || this.doctorLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.hasOwnProperty('phone') && !this.doctorLoading">
+              {{ user.phone }}
+            </span>
+            <div *ngIf="!user.hasOwnProperty('phone') || this.doctorLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-icon-button class="user-edit-menu" [matMenuTriggerFor]="doctorMenu" type="button"
+              *ngIf="!this.doctorLoading">
+              <mat-icon class="icon-menu">more_vert</mat-icon>
+            </button>
+            <mat-menu #doctorMenu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="this.onEditDoctorClick(user)">
+                <mat-icon>edit</mat-icon>
+                <span>Modifier</span>
+              </button>
+              <button mat-menu-item (click)="this.onDeleteDoctorClick(user)">
+                <mat-icon>delete</mat-icon>
+                <span>Supprimer</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let user; columns: displayedColumns" [ngClass]="user.disabled && 'disabled'">
+        </tr>
+        <tr class="mat-row no-data" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            Aucun médecin trouvé
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

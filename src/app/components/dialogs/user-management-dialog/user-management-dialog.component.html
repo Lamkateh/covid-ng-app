@@ -1,14 +1,17 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
-    {{ this.data.role.value === 'ADMIN'
-    ? ( this.data.type === "creation"
+    {{ this.data.type === "creation"
+    ? (this.data.roles.length === 1
+    ? (this.data.roles[0].value === 'ADMIN'
     ? "Ajout d'un nouvel administrateur"
-    : "Modification de l'administrateur")
-    : (
-    this.data.type === "creation"
-    ? "Ajout d'un nouveau " + (this.data.role.name | lowercase)
-    : "Modification du " + (this.data.role.name | lowercase)
-    ) }}
+    : "Ajout d'un nouveau " + (this.data.roles[0].name | lowercase))
+    : "Ajout d'un nouvel utilisateur")
+    : (this.data.roles.length === 1
+    ? (this.data.roles[0].value === 'ADMIN'
+    ? "Modification de l'administrateur"
+    : "Modification du " + (this.data.roles[0].name | lowercase))
+    : "Modification de l'utilisateur")
+    }}
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
 </div>
@@ -63,12 +66,8 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input name="password_item" [type]="hide ? 'password' : 'text'" matInput [formControl]="this.userPasswordFC">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <mat-error *ngIf="this.userPasswordFC.hasError('required')">
+    <input name="password" matInput [formControl]="this.userPasswordFC">
+    <mat-error *ngIf="this.userPasswordFC.hasError('required') && this.data.type === 'creation'">
       Le mot de passe de l'utilisateur est <strong>requis</strong>
     </mat-error>
   </mat-form-field>
@@ -94,7 +93,7 @@
         <mat-option *ngFor="let center of centerList | async" [value]="center">
           {{ center.name }}
         </mat-option>
-        <mat-option *ngIf="this.data.center" [value]="this.userCenterFC.value" selected>
+        <mat-option *ngIf="this.data.center || this.data.user.center" [value]="this.userCenterFC.value" selected>
           {{ this.userCenterFC.value.name }}</mat-option>
       </mat-select>
       <mat-error *ngIf="this.userCenterFC.hasError('required')">
@@ -106,11 +105,13 @@
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'">
-      Désactiver
+    <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'"
+      [disabled]="this.storeLoading" [ngClass]="{ loading: this.storeLoading }">
+      {{ this.data.user.disabled ? 'Réactiver' : 'Désactiver' }}
+      <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>
-    <button mat-raised-button type="submit" color="primary" [disabled]="storeLoading || !formIsValid()"
-      (click)="this.storeUser()" [ngClass]="{ loading: storeLoading }">
+    <button mat-raised-button type="submit" color="primary" [disabled]="this.storeLoading || !this.formIsValid()"
+      (click)="this.storeUser()" [ngClass]="{ loading: this.storeLoading }">
       {{ this.data.type === "creation" ? "Ajouter" : "Modifier" }}
       <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>

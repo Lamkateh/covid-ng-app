@@ -16,7 +16,9 @@
 </div>
 <div class="actions-wrapper">
   <button mat-button mat-dialog-close>Annuler</button>
-  <button mat-raised-button color="primary" (click)="this.registerAppointment()">
-    Enregistrer
+  <button mat-raised-button color="primary" (click)="this.registerAppointment()" [disabled]="this.storeLoading"
+    [ngClass]="{ loading: this.storeLoading }">
+    Valider
+    <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
   </button>
 </div>

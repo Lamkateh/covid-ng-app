@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { AppointmentDialogComponent } from "../dialogs/appointment-dialog/appointment-dialog.component";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-appointment-preview",
@@ -14,7 +14,7 @@ export class AppointmentPreviewComponent implements OnInit {
   @Input() height: string;
   @Input() top: string;
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) { }
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.time = this.time.slice(0, 5);
@@ -27,6 +27,10 @@ export class AppointmentPreviewComponent implements OnInit {
         date: this.date,
         center_id: Number(this.route.snapshot.paramMap.get("id")),
       },
+    }).afterClosed().subscribe((response) => {
+      if (response) {
+        this.router.navigate(["/centers"]);
+      }
     });
   }
 }

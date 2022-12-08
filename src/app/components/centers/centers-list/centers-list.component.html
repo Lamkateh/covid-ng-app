@@ -1,5 +1,6 @@
-<div *ngFor="let aCenter of list; let last = last">
+<div class="centers-list" *ngFor="let aCenter of list; let last = last">
   <app-centers-list-item [ngClass]="{ 'last-child': last }" [center]="aCenter"
-    [available_appointments]="aCenter.availableAppointments" [lastChild]="last">
+    [available_appointments]="aCenter.availableAppointments" [lastChild]="last"
+    (centerDeletedId)="deleteCenter($event)">
   </app-centers-list-item>
 </div>

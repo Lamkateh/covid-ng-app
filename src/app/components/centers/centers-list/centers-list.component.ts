@@ -7,11 +7,13 @@ import { Center } from '../../../models/center';
   styleUrls: ['./centers-list.component.scss'],
 })
 export class CentersListComponent implements OnInit {
-  centers?: Center[] = [];
+  @Input() list: Center[] = [];
 
   constructor() { }
 
-  @Input() list: Center[] = [];
-
   ngOnInit(): void { }
+
+  deleteCenter(centerId: number) {
+    this.list = this.list.filter((center) => center.id !== centerId);
+  }
 }

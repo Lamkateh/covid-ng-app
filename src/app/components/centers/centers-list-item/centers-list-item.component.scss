@@ -1,51 +1,19 @@
-.centers-list-item {
-  background-color: #eee;
-  border-radius: 10px;
-  padding: 20px;
+.centers-list-card {
+  background-color: rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-  height: 220px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
-  .center-name {
-    font-size: 20px;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  .center-infos {
-    display: flex;
-    flex-direction: row;
-
-    .center-city {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      .city-name {
-        padding-left: 5px;
-      }
-    }
-
-    .center-phone {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-left: 30px;
-
-      .phone-number {
-        padding-left: 5px;
-      }
-    }
+  .nowrap {
+    max-height: 20px;
+    overflow: hidden;
   }
 
   .appointment-availability {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 
     .green-check-icon {
       color: red;
@@ -67,8 +35,35 @@
       }
     }
   }
+
+  .action {
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 40px 10px;
+  }
+
+  .admin-and-doctor-button {
+    display: inline-block;
+  }
+
+  .admin-and-doctor-icon {
+    display: none;
+  }
 }
 
-.vaccination-center-list-item.last-child {
-  margin-bottom: 0;
+@media screen and (max-width: 1250px) {
+  .centers-list-card {
+    .admin-and-doctor-button {
+      display: none;
+    }
+
+    .admin-and-doctor-icon {
+      display: inline-block;
+    }
+  }
 }

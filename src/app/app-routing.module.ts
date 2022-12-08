@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'centers/:id', component: CenterPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'management/centers', component: CentersManagementPageComponent },
-  { path: 'management/centers/:id', component: CenterManagementPageComponent },
-  { path: 'schedule', component: SchedulePageComponent },
+  { path: 'management/mycenter', component: CenterManagementPageComponent },
+  { path: 'myschedule', component: SchedulePageComponent },
   { path: 'configuration', component: ConfigurationPageComponent },
   { path: '', redirectTo: '/centers', pathMatch: 'full' },
 ];

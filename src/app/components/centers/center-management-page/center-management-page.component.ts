@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
 import { UserManagementDialogComponent } from '../../dialogs/user-management-dialog/user-management-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: "app-center-management-page",
@@ -31,10 +32,15 @@ export class CenterManagementPageComponent implements OnInit {
   listLoading: boolean = false;
   role: Role = this.roleService.roles[2];
 
-  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(
+    private authService: AuthService,
+    private roleService: RoleService,
+    private centerService: CenterService,
+    private userService: UserService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.centerId = Number(this.route.snapshot.paramMap.get("id"));
+    this.centerId = this.authService.user.center?.id;
     this.getCenter();
     this.getDoctors();
   }

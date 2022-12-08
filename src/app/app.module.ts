@@ -28,6 +28,7 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 
@@ -63,7 +64,8 @@ import localeFr from "@angular/common/locales/fr";
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [
     httpInterceptorProviders

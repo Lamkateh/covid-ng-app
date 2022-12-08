@@ -20,7 +20,7 @@ export class ConfigurationPageComponent implements OnInit {
     'phone',
     'actions'
   ];
-  superadmins?: User[] = [];
+  superadmins?: User[] | {}[] = [{}];
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
@@ -33,11 +33,16 @@ export class ConfigurationPageComponent implements OnInit {
   }
 
   getSuperadmins() {
+    this.listLoading = true;
     this.userService.getSuperadmins().subscribe({
       next: (data) => {
         this.superadmins = data.data;
+        this.listLoading = false;
       },
-      error: (err) => { },
+      error: (err) => {
+        this.listLoading = false;
+        console.log(err);
+      },
     });
   }
 

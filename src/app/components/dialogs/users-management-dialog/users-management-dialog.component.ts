@@ -25,11 +25,12 @@ export class UsersManagementDialogComponent implements OnInit {
     'phone',
     'actions'
   ];
-  doctors?: User[] = [];
-  admins?: User[] = [];
+  doctors?: User[] | {}[] = [{}];
+  admins?: User[] | {}[] = [{}];
   nameSearchTerm: string = "";
   nameSearched: string = "";
-  listLoading: boolean = false; //TODO: implement loading
+  adminLoading: boolean = false;
+  doctorLoading: boolean = false;
   roles: Role[] = this.roleService.roles;
 
   constructor(
@@ -49,20 +50,30 @@ export class UsersManagementDialogComponent implements OnInit {
   }
 
   getDoctors() {
+    this.doctorLoading = true;
     this.userService.getDoctors(this.data.center.id).subscribe({
       next: (data) => {
         this.doctors = data.data;
+        this.doctorLoading = false;
       },
-      error: (err) => { },
+      error: (err) => {
+        this.doctorLoading = false;
+        console.log(err);
+      },
     });
   }
 
   getAdmins() {
+    this.adminLoading = true;
     this.userService.getAdmins(this.data.center.id).subscribe({
       next: (data) => {
         this.admins = data.data;
+        this.adminLoading = false;
       },
-      error: (err) => { },
+      error: (err) => {
+        this.adminLoading = false;
+        console.log(err);
+      },
     });
   }
 

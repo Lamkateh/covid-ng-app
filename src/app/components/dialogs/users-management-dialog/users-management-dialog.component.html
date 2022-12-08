@@ -6,7 +6,7 @@
 </div>
 <div class="content">
   <div class="information-wrapper">
-    <app-center-informations [centerId]="data.center.id"></app-center-informations>
+    <app-center-informations [centerId]="this.data.center.id"></app-center-informations>
   </div>
   <div class="management-wrapper">
     <form class="search-doctor-form">
@@ -15,7 +15,7 @@
       </button>
       <mat-form-field>
         <mat-label>Filtrez par nom</mat-label>
-        <input name="search_item" matInput [(ngModel)]="nameSearchTerm" />
+        <input name="search_item" matInput [(ngModel)]="this.nameSearchTerm" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </form>
@@ -25,38 +25,51 @@
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('id') && !this.listLoading">{{ user.id }}</span>
+            <span *ngIf="user.hasOwnProperty('id') && !this.adminLoading">{{ user.id }}</span>
+            <div *ngIf="!user.hasOwnProperty('id') || this.adminLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef><strong>Administrateurs</strong></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('lastName') && user.hasOwnProperty('firstName') && !this.listLoading">
+            <span *ngIf="user.hasOwnProperty('lastName') && user.hasOwnProperty('firstName') && !this.adminLoading">
               {{ user.lastName + ' ' + user.firstName }}
             </span>
+            <div *ngIf="!user.hasOwnProperty('lastName') || !user.hasOwnProperty('firstName') || this.adminLoading"
+              class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('email') && !this.listLoading">
+            <span *ngIf="user.hasOwnProperty('email') && !this.adminLoading">
               {{ user.email }}
             </span>
+            <div *ngIf="!user.hasOwnProperty('email') || this.adminLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="phone">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('phone') && !this.listLoading">
+            <span *ngIf="user.hasOwnProperty('phone') && !this.adminLoading">
               {{ user.phone }}
             </span>
+            <div *ngIf="!user.hasOwnProperty('phone') || this.adminLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
             <button mat-icon-button class="user-edit-menu" [matMenuTriggerFor]="adminMenu" type="button"
-              *ngIf="!this.listLoading">
+              *ngIf="!this.adminLoading">
               <mat-icon class="icon-menu">more_vert</mat-icon>
             </button>
             <mat-menu #adminMenu="matMenu" xPosition="before">
@@ -86,38 +99,51 @@
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('id') && !this.listLoading">{{ user.id }}</span>
+            <span *ngIf="user.hasOwnProperty('id') && !this.doctorLoading">{{ user.id }}</span>
+            <div *ngIf="!user.hasOwnProperty('id') || this.doctorLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef><strong>Médecins</strong></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('lastName') && user.hasOwnProperty('firstName') && !this.listLoading">
+            <span *ngIf="user.hasOwnProperty('lastName') && user.hasOwnProperty('firstName') && !this.doctorLoading">
               {{ user.lastName + ' ' + user.firstName }}
             </span>
+            <div *ngIf="!user.hasOwnProperty('lastName') || !user.hasOwnProperty('firstName') || this.doctorLoading"
+              class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('email') && !this.listLoading">
+            <span *ngIf="user.hasOwnProperty('email') && !this.doctorLoading">
               {{ user.email }}
             </span>
+            <div *ngIf="!user.hasOwnProperty('email') || this.doctorLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="phone">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <span *ngIf="user.hasOwnProperty('phone') && !this.listLoading">
+            <span *ngIf="user.hasOwnProperty('phone') && !this.doctorLoading">
               {{ user.phone }}
             </span>
+            <div *ngIf="!user.hasOwnProperty('phone') || this.doctorLoading" class="skeleton-wrapper">
+              <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+            </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
             <button mat-icon-button class="user-edit-menu" [matMenuTriggerFor]="doctorMenu" type="button"
-              *ngIf="!this.listLoading">
+              *ngIf="!this.doctorLoading">
               <mat-icon class="icon-menu">more_vert</mat-icon>
             </button>
             <mat-menu #doctorMenu="matMenu" xPosition="before">

@@ -232,6 +232,11 @@ button {
     .no-data:hover {
       background-color: #fff;
     }
+
+    .skeleton-wrapper {
+      width: 70%;
+      padding-top: 15px;
+    }
   }
 
   .table-users-management {

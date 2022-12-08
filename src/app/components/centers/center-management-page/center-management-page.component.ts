@@ -23,7 +23,7 @@ export class CenterManagementPageComponent implements OnInit {
     'phone',
     'actions'
   ];
-  doctors?: User[] = [];
+  doctors?: User[] | {}[] = [{}];
   center: Center;
   centerId: number;
   nameSearchTerm: string = '';
@@ -47,11 +47,16 @@ export class CenterManagementPageComponent implements OnInit {
   }
 
   getDoctors() {
+    this.listLoading = true;
     this.userService.getDoctors(this.centerId).subscribe({
       next: (data) => {
         this.doctors = data.data;
+        this.listLoading = false;
       },
-      error: (err) => { },
+      error: (err) => {
+        this.listLoading = false;
+        console.log(err);
+      },
     });
   }
 

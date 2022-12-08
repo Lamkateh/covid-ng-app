@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { DateService } from "src/app/services/date.service";
 import { CenterService } from "../../services/center.service";
 
-const COLUMN_WIDTH = 300;
+const COLUMN_WIDTH = 200;
 const ROW_HEIGHT = 10;
 const START_HOUR = "8:00";
 const END_HOUR = "18:00";

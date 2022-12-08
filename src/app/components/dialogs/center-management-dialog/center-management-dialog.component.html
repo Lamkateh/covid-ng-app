@@ -40,8 +40,8 @@
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button type="submit" color="primary" [disabled]="storeLoading || !formIsValid()"
-      [ngClass]="{ loading: storeLoading }">
+    <button mat-raised-button type="submit" color="primary" [disabled]="this.storeLoading || !this.formIsValid()"
+      [ngClass]="{ loading: this.storeLoading }">
       {{ this.data.type === "creation" ? "Ajouter" : "Modifier" }}
       <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>

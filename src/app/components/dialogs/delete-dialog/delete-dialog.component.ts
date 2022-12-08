@@ -37,6 +37,7 @@ export class DeleteDialogComponent implements OnInit {
   ngOnInit(): void { }
 
   onConfirmDelete() {
+    this.deleteLoading = true;
     if (this.data.user) {
       this.userService.deleteUser(this.data.user.id).subscribe({
         next: () => {

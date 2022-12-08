@@ -27,8 +27,10 @@
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button color="primary" (click)="this.onConfirmDelete()">
+    <button mat-raised-button color="primary" (click)="this.onConfirmDelete()" [disabled]="this.deleteLoading"
+      [ngClass]="{ loading: this.deleteLoading }">
       Confirmer
+      <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>
   </div>
 </div>

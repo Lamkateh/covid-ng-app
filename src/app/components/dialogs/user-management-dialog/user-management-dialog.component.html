@@ -105,11 +105,13 @@
     <button mat-button mat-dialog-close>
       Annuler
     </button>
-    <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'">
+    <button mat-raised-button color="warn" (click)="this.disableUser()" *ngIf="this.data.type === 'update'"
+      [disabled]="this.storeLoading" [ngClass]="{ loading: this.storeLoading }">
       {{ this.data.user.disabled ? 'Réactiver' : 'Désactiver' }}
+      <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>
-    <button mat-raised-button type="submit" color="primary" [disabled]="storeLoading || !formIsValid()"
-      (click)="this.storeUser()" [ngClass]="{ loading: storeLoading }">
+    <button mat-raised-button type="submit" color="primary" [disabled]="this.storeLoading || !this.formIsValid()"
+      (click)="this.storeUser()" [ngClass]="{ loading: this.storeLoading }">
       {{ this.data.type === "creation" ? "Ajouter" : "Modifier" }}
       <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
     </button>

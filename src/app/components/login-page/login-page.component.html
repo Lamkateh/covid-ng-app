@@ -3,19 +3,31 @@
   <form class="login-form" (submit)="login()">
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Email</mat-label>
-      <input name="email" matInput [(ngModel)]="emailAddress" placeholder="Entrez votre adresse mail" />
+      <input name="email" matInput [formControl]="emailAddressFC" [errorStateMatcher]="matcher"
+        placeholder="Entrez votre adresse mail" />
+      <mat-error *ngIf="emailAddressFC.hasError('email') && !emailAddressFC.hasError('required')">
+        L'adresse mail n'est pas valide
+      </mat-error>
+      <mat-error *ngIf="emailAddressFC.hasError('required')">
+        L'adresse mail est <strong>requise</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline" [style.width]="'100%'">
       <mat-label>Mot de passe</mat-label>
-      <input name="password" matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'"
-        placeholder="Entrez votre mot de passe" />
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+      <input name="password" matInput [formControl]="passwordFC" [type]="hide ? 'password' : 'text'"
+        [errorStateMatcher]="matcher" placeholder="Entrez votre mot de passe" />
+      <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
+      <mat-error *ngIf="passwordFC.hasError('required')">
+        Le mot de passe est <strong>requis</strong>
+      </mat-error>
     </mat-form-field>
-    <button mat-raised-button class="login-button" type="submit">
+    <mat-error *ngIf="this.errorMessage">{{ this.errorMessage }}</mat-error>
+    <button mat-raised-button class="login-button" [ngClass]="{ loading: this.loginLoading }">
       Se connecter
+      <mat-spinner diameter="25" strokeWidth="2"></mat-spinner>
     </button>
   </form>
 </div>

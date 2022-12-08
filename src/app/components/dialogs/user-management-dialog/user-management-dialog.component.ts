@@ -43,6 +43,7 @@ export class UserManagementDialogComponent implements OnInit {
   centerListLoading: boolean = false;
   _onDestroy = new Subject<void>();
   maxDate: Date;
+  errorMessage: string = "Une erreur s'est produite";
 
   constructor(
     private authService: AuthService,
@@ -178,7 +179,10 @@ export class UserManagementDialogComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open(err.error.message, '', {
+          if (err.error.message === "Error: Email is already taken!") {
+            this.errorMessage = "Cette adresse mail est déjà utilisée";
+          }
+          this._snackBar.open(this.errorMessage, '', {
             panelClass: 'snackbar-error',
             duration: 2000,
           });
@@ -226,7 +230,10 @@ export class UserManagementDialogComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open(err.error.message, '', {
+          if (err.error.message === "Error: Email is already taken!") {
+            this.errorMessage = "Cette adresse mail est déjà utilisée";
+          }
+          this._snackBar.open(this.errorMessage, '', {
             panelClass: 'snackbar-error',
             duration: 2000,
           });

@@ -53,7 +53,9 @@ export class UsersManagementDialogComponent implements OnInit {
     this.doctorLoading = true;
     this.userService.getDoctors(this.data.center.id).subscribe({
       next: (data) => {
-        this.doctors = data.data;
+        this.doctors = data.data.sort((a, b) =>
+          a.id - b.id
+        );
         this.doctorLoading = false;
       },
       error: (err) => {
@@ -67,7 +69,9 @@ export class UsersManagementDialogComponent implements OnInit {
     this.adminLoading = true;
     this.userService.getAdmins(this.data.center.id).subscribe({
       next: (data) => {
-        this.admins = data.data;
+        this.admins = data.data.sort((a, b) =>
+          a.id - b.id
+        );
         this.adminLoading = false;
       },
       error: (err) => {

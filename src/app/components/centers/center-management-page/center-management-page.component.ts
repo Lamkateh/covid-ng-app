@@ -50,7 +50,9 @@ export class CenterManagementPageComponent implements OnInit {
     this.listLoading = true;
     this.userService.getDoctors(this.centerId).subscribe({
       next: (data) => {
-        this.doctors = data.data;
+        this.doctors = data.data.sort((a, b) =>
+          a.id - b.id
+        );
         this.listLoading = false;
       },
       error: (err) => {

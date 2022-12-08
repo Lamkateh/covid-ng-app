@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserManagementDialogComponent } from '../dialogs/user-management-dialog/user-management-dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-configuration-page',
@@ -26,7 +27,7 @@ export class ConfigurationPageComponent implements OnInit {
   listLoading: boolean = false;
   role: Role = this.roleService.roles[0];
 
-  constructor(private roleService: RoleService, private userService: UserService, public dialog: MatDialog) { }
+  constructor(private roleService: RoleService, private userService: UserService, public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getSuperadmins();
@@ -86,13 +87,13 @@ export class ConfigurationPageComponent implements OnInit {
       }
     }).afterClosed().subscribe((userEdited) => {
       if (userEdited) {
-        this.superadmins = this.superadmins.map((superadmin) => {
-          if (superadmin.id === userEdited.id) {
+        this.superadmins = this.superadmins.map((user) => {
+          if (user.id === userEdited.id) {
             return userEdited;
           }
-          return superadmin;
-        }).filter((superadmin) => {
-          return superadmin.roles[0] === this.role.value;
+          return user;
+        }).filter((user) => {
+          return user.roles[0] === "SUPERADMIN";
         });
       }
     });
@@ -107,8 +108,8 @@ export class ConfigurationPageComponent implements OnInit {
       autoFocus: false
     }).afterClosed().subscribe((userDeletedId) => {
       if (userDeletedId) {
-        this.superadmins = this.superadmins.filter((superadmin) => {
-          return superadmin.id !== userDeletedId;
+        this.superadmins = this.superadmins.filter((user) => {
+          return user.id !== userDeletedId;
         });
       }
     });

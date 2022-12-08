@@ -11,5 +11,6 @@ export interface User {
   roles: Role[];
   password: string;
   center?: Center;
+  centerId?: number;
   disabled: boolean;
 }

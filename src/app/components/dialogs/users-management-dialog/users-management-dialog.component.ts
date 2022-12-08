@@ -137,12 +137,21 @@ export class UsersManagementDialogComponent implements OnInit {
         user: admin
       }
     }).afterClosed().subscribe((userEdited) => {
-      this.doctors = this.doctors.map((user) => {
-        if (user.id === userEdited.id) {
-          return userEdited;
+      if (userEdited) {
+        this.admins = this.admins.map((user) => {
+          if (user.id === userEdited.id) {
+            return userEdited;
+          }
+          return user;
+        }).filter((user) => {
+          return user.roles[0] === "ADMIN";
+        });
+        if (userEdited.roles[0] === "DOCTOR") {
+          const newList = [...this.doctors];
+          newList.push(userEdited);
+          this.doctors = newList;
         }
-        return user;
-      });
+      }
     });
   }
 
@@ -153,10 +162,12 @@ export class UsersManagementDialogComponent implements OnInit {
         user: admin
       },
       autoFocus: false
-    }).afterClosed().subscribe((userEditedId) => {
-      this.admins = this.admins.filter((user) => {
-        return user.id !== userEditedId;
-      });
+    }).afterClosed().subscribe((userDeletedId) => {
+      if (userDeletedId) {
+        this.admins = this.admins.filter((user) => {
+          return user.id !== userDeletedId;
+        });
+      }
     });
   }
 
@@ -169,12 +180,21 @@ export class UsersManagementDialogComponent implements OnInit {
         user: doctor
       }
     }).afterClosed().subscribe((userEdited) => {
-      this.doctors = this.doctors.map((user) => {
-        if (user.id === userEdited.id) {
-          return userEdited;
+      if (userEdited) {
+        this.doctors = this.doctors.map((user) => {
+          if (user.id === userEdited.id) {
+            return userEdited;
+          }
+          return user;
+        }).filter((user) => {
+          return user.roles[0] === "DOCTOR";
+        });
+        if (userEdited.roles[0] === "ADMIN") {
+          const newList = [...this.admins];
+          newList.push(userEdited);
+          this.admins = newList;
         }
-        return user;
-      });
+      }
     });
   }
 
@@ -185,10 +205,12 @@ export class UsersManagementDialogComponent implements OnInit {
         user: doctor
       },
       autoFocus: false
-    }).afterClosed().subscribe((userEditedId) => {
-      this.doctors = this.doctors.filter((user) => {
-        return user.id !== userEditedId;
-      });
+    }).afterClosed().subscribe((userDeletedId) => {
+      if (userDeletedId) {
+        this.doctors = this.doctors.filter((user) => {
+          return user.id !== userDeletedId;
+        });
+      }
     });
   }
 }

@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 import { CenterService } from 'src/app/services/center.service';
 import { Role } from '../../../models/role';
 import { Center } from '../../../models/center';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-management-dialog',
@@ -44,6 +45,7 @@ export class UserManagementDialogComponent implements OnInit {
   maxDate: Date;
 
   constructor(
+    private authService: AuthService,
     private userService: UserService,
     private roleService: RoleService,
     private centerService: CenterService,
@@ -70,7 +72,7 @@ export class UserManagementDialogComponent implements OnInit {
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
-      if (this.data.roles[0].value === "SUPERADMIN") {
+      if (this.authService.user.roles[0].toString() === "SUPERADMIN") {
         this.userRoleFC.enable();
         this.userCenterFC.enable();
       }
@@ -171,19 +173,20 @@ export class UserManagementDialogComponent implements OnInit {
 
   updateUser(user: User) {
     this.storeLoading = true;
-    this.userService
-      .updateUser(
-        user
-      )
-      .subscribe(
-        (response) => {
+    if (user.roles[0].toString() === "SUPERADMIN") {
+      user.center = null;
+      user.centerId = null;
+    }
+    this.userService.updateUser(user)
+      .subscribe({
+        next: (response) => {
           this.storeLoading = false;
           this.dialogRef.close(response.data);
           this._snackBar.open('Utilisateur modifié avec succès', '', {
             duration: 2000,
           });
         },
-        (err) => {
+        error: (err) => {
           console.log(err);
           this.storeLoading = false;
           this._snackBar.open("Une erreur s'est produite", '', {
@@ -191,7 +194,7 @@ export class UserManagementDialogComponent implements OnInit {
             duration: 2000,
           });
         }
-      );
+      });
   }
 
   storeUser() {
@@ -222,15 +225,16 @@ export class UserManagementDialogComponent implements OnInit {
       .storeUser(
         user
       )
-      .subscribe(
-        (user) => {
-          this.storeLoading = false;
-          this.dialogRef.close(user);
-          this._snackBar.open('Utilisateur ajouté avec succès', '', {
-            duration: 2000,
-          });
-        },
-        (err) => {
+      .subscribe({
+        next:
+          (user) => {
+            this.storeLoading = false;
+            this.dialogRef.close(user);
+            this._snackBar.open('Utilisateur ajouté avec succès', '', {
+              duration: 2000,
+            });
+          },
+        error: (err) => {
           console.log(err);
           this.storeLoading = false;
           this._snackBar.open("Une erreur s'est produite", '', {
@@ -238,7 +242,7 @@ export class UserManagementDialogComponent implements OnInit {
             duration: 2000,
           });
         }
-      );
+      });
   }
 
   disableUser() {

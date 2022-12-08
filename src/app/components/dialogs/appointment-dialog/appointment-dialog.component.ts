@@ -39,7 +39,7 @@ export class AppointmentDialogComponent implements OnInit {
   getDate() {
     const date = new Date(this.data.date);
     return (
-      this.dateService.getDayOfWeek(date.getDay() - 1) +
+      this.dateService.getDayOfWeek(date.getDay()) +
       " " +
       date.getDate() +
       " " +

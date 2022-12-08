@@ -148,9 +148,7 @@ export class UsersManagementDialogComponent implements OnInit {
           }
           return user;
         }).filter((user) => {
-          return user.roles[0] === "ADMIN";
-        }).filter((user) => {
-          return user.center.id !== userEdited.center.id;
+          return user.roles[0] === "ADMIN" && user.center.id === this.data.center.id;
         });
         if (userEdited.roles[0] === "DOCTOR") {
           const newList = [...this.doctors];
@@ -193,10 +191,8 @@ export class UsersManagementDialogComponent implements OnInit {
           }
           return user;
         }).filter((user) => {
-          return user.roles[0] === "DOCTOR";
-        }).filter((user) => {
-          return user.center.id !== userEdited.center.id;
-        });
+          return user.roles[0] === "DOCTOR" && user.center.id === this.data.center.id;
+        })
         if (userEdited.roles[0] === "ADMIN") {
           const newList = [...this.admins];
           newList.push(userEdited);

@@ -70,8 +70,9 @@ export class UserManagementDialogComponent implements OnInit {
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
-      if (this.data.roles.length > 1) {
+      if (this.data.roles[0].value === "SUPERADMIN") {
         this.userRoleFC.enable();
+        this.userCenterFC.enable();
       }
       if (this.userRoleFC.value !== "SUPERADMIN") {
         this.userCenterFC.setValue(this.data.user.center);

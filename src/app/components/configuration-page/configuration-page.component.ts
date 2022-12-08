@@ -85,12 +85,16 @@ export class ConfigurationPageComponent implements OnInit {
         user: superadmin
       }
     }).afterClosed().subscribe((userEdited) => {
-      this.superadmins = this.superadmins.map((superadmin) => {
-        if (superadmin.id === userEdited.id) {
-          return userEdited;
-        }
-        return superadmin;
-      });
+      if (userEdited) {
+        this.superadmins = this.superadmins.map((superadmin) => {
+          if (superadmin.id === userEdited.id) {
+            return userEdited;
+          }
+          return superadmin;
+        }).filter((superadmin) => {
+          return superadmin.roles[0] === this.role.value;
+        });
+      }
     });
   }
 
@@ -101,10 +105,12 @@ export class ConfigurationPageComponent implements OnInit {
         user: superadmin
       },
       autoFocus: false
-    }).afterClosed().subscribe((userEditedId) => {
-      this.superadmins = this.superadmins.filter((superadmin) => {
-        return superadmin.id !== userEditedId;
-      });
+    }).afterClosed().subscribe((userDeletedId) => {
+      if (userDeletedId) {
+        this.superadmins = this.superadmins.filter((superadmin) => {
+          return superadmin.id !== userDeletedId;
+        });
+      }
     });
   }
 }

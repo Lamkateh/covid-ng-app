@@ -1,21 +1,36 @@
 <div class="center">
   <h1 class="title" [title]="center?.name">{{ center?.name | uppercase }}</h1>
-  <section class="group" *ngIf="center?.city || center?.address || center?.zipCode">
-    <h2>Adresse</h2>
-    <div>
+  <div *ngIf="this.centerLoading" class="skeleton-wrapper" [style.width]="'150px'">
+    <ngx-skeleton-loader count="3"></ngx-skeleton-loader>
+  </div>
+  <section class="group">
+    <h2 *ngIf="center?.city || center?.address || center?.zipCode">Adresse</h2>
+    <div *ngIf="this.centerLoading" class="skeleton-wrapper" [style.width]="'100px'">
+      <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+    </div>
+    <div *ngIf="center?.address">
       <span>{{ center?.address }}</span>
     </div>
-    <div>
+    <div *ngIf="center?.city || center?.zipCode">
       <span>{{ center?.zipCode }} {{ center?.city }}</span>
     </div>
+    <div *ngIf="this.centerLoading" class="skeleton-wrapper" [style.width]="'150px'">
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+    </div>
   </section>
-  <section class="group" *ngIf="center?.phone || center?.email">
-    <h2>Contact</h2>
-    <div *ngIf="center.phone !== null">
+  <section class="group">
+    <h2 *ngIf="center?.phone || center?.email">Contact</h2>
+    <div *ngIf="this.centerLoading" class="skeleton-wrapper" [style.width]="'100px'">
+      <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
+    </div>
+    <div *ngIf="center?.phone">
       <span>Téléphone : </span><span>{{ center.phone }}</span>
     </div>
-    <div *ngIf="center.email !== null">
+    <div *ngIf="center?.email">
       <span>Email : </span><span>{{ center.email }}</span>
+    </div>
+    <div *ngIf="this.centerLoading" class="skeleton-wrapper" [style.width]="'150px'">
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
     </div>
   </section>
 </div>

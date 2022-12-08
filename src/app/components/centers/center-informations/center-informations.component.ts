@@ -11,6 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 export class CenterInformationsComponent implements OnInit {
   center?: Center;
   @Input() centerId: number;
+  centerLoading: boolean = false;
 
   constructor(
     private centerService: CenterService,
@@ -25,9 +26,11 @@ export class CenterInformationsComponent implements OnInit {
   }
 
   getCenter(id: number) {
+    this.centerLoading = true;
     this.centerService.getCenterById(id)
       .subscribe((center: { data: Center }) => {
         this.center = center.data;
+        this.centerLoading = false;
       });
   }
 }

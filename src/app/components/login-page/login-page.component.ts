@@ -36,15 +36,19 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  formIsValid(): boolean {
+    return (
+      this.emailAddressFC.valid &&
+      this.passwordFC.valid &&
+      this.emailAddressFC.value !== "" &&
+      this.passwordFC.value !== "" &&
+      this.emailAddressFC.value !== null &&
+      this.passwordFC.value !== null
+    );
+  }
+
   login() {
-    if (
-      this.emailAddressFC.invalid ||
-      this.passwordFC.invalid ||
-      this.emailAddressFC.value === "" ||
-      this.passwordFC.value === "" ||
-      this.emailAddressFC.value === null ||
-      this.passwordFC.value === null
-    ) {
+    if (!this.formIsValid()) {
       return;
     }
     this.loginLoading = true;

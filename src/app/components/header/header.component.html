@@ -2,29 +2,34 @@
   <a class="title" routerLink="/centers">{{ title }}</a>
   <ul>
     <li>
-      <a routerLink="/centers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a mat-button routerLink="/centers" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
     </li>
     <li *ngIf="this.authService.user === null">
-      <a routerLink="/login" routerLinkActive="active">Se connecter</a>
+      <a mat-button routerLink="/login" routerLinkActive="active">Se connecter</a>
     </li>
     <!-- superadmin only -->
     <li *ngIf="this.authService.user !== null">
-      <a routerLink="/management/centers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a mat-button routerLink="/management/centers" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
         Gestion des centres
       </a>
     </li>
     <!-- admins only -->
     <li *ngIf="this.authService.user !== null">
-      <a routerLink="/management/centers/{{ this.authService.user.center.id }}" routerLinkActive="active">
+      <a mat-button routerLink="/management/centers/{{ this.authService.user.center.id }}" routerLinkActive="active">
         Gestion de mon centre</a>
     </li>
     <!-- admins and doctors only -->
     <li *ngIf="this.authService.user !== null">
-      <a routerLink="/schedule" routerLinkActive="active">Planning</a>
+      <a mat-button routerLink="/schedule" routerLinkActive="active">Planning</a>
     </li>
     <!-- superadmin only -->
     <li *ngIf="this.authService.user !== null">
-      <a routerLink="/configuration" routerLinkActive="active">Configuration</a>
+      <a mat-button routerLink="/configuration" routerLinkActive="active">Configuration</a>
+    </li>
+    <li *ngIf="this.authService.user !== null">
+      <button mat-raised-button color="warn" (click)="this.onLogout()">Déconnexion</button>
     </li>
   </ul>
 </div>

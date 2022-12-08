@@ -39,7 +39,7 @@ export class AppointmentDialogComponent implements OnInit {
   getDate() {
     const date = new Date(this.data.date);
     return (
-      this.dateService.getDayOfWeek(date.getDay()) +
+      this.dateService.getDayOfWeek(date.getDay() - 1) +
       " " +
       date.getDate() +
       " " +
@@ -58,14 +58,14 @@ export class AppointmentDialogComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.storeLoading = false;
-          this.dialogRef.close();
+          this.dialogRef.close(res);
           this._snackBar.open("Rendez-vous pris avec succès !", "", {
             duration: 2000,
           });
         },
         error: (err) => {
+          console.log(err);
           this.storeLoading = false;
           this._snackBar.open("Une erreur s'est produite", "", {
             panelClass: "snackbar-error",

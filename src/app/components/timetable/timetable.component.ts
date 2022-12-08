@@ -71,7 +71,7 @@ export class TimetableComponent implements OnInit {
               dateTimestamp: date.getTime(),
 
               cleanDate:
-                this.dateService.getDayOfWeek(date.getDay(), "short") +
+                this.dateService.getDayOfWeek(date.getDay() - 1, "short") +
                 " " +
                 date.getDate().toString() +
                 " " +

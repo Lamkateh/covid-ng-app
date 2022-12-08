@@ -27,8 +27,10 @@ export class AppointmentPreviewComponent implements OnInit {
         date: this.date,
         center_id: Number(this.route.snapshot.paramMap.get("id")),
       },
-    }).afterClosed().subscribe(() => {
-      this.router.navigate(["/centers"]);
+    }).afterClosed().subscribe((response) => {
+      if (response) {
+        this.router.navigate(["/centers"]);
+      }
     });
   }
 }

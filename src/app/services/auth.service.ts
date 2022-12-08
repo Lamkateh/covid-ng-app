@@ -25,38 +25,6 @@ export class AuthService {
     );
   }
 
-  signup(
-    email: string,
-    password: string,
-    first_name: string,
-    last_name: string,
-    phone: string,
-    birth_date: string
-  ): Observable<any> {
-    return this.httpClient.post<any>(
-      '/public/signup',
-      // TODO: remove this
-      {
-        email: 'aaa',
-        password: password,
-        first_name: first_name,
-        last_name: last_name,
-        phone: phone,
-        birth_date: birth_date,
-      },
-      {
-        params: {
-          email: email,
-          password: password,
-          first_name: first_name,
-          last_name: last_name,
-          phone: phone,
-          birth_date: birth_date,
-        },
-      }
-    );
-  }
-
   storeToken(email: string, password: string) {
     const token = btoa(email + ':' + password);
     localStorage.setItem('rdvaccination-token', token);

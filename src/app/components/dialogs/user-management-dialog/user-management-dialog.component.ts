@@ -194,12 +194,12 @@ export class UserManagementDialogComponent implements OnInit {
     if (!this.formIsValid()) {
       return;
     }
-
+    let formattedBirthDate = this.userBirthDateFC.value.getFullYear() + "-" + String(this.userBirthDateFC.value.getMonth() + 1).padStart(2, '0') + "-" + String(this.userBirthDateFC.value.getDate()).padStart(2, '0');
     let user = {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
-      birthDate: this.userBirthDateFC.value,
+      birthDate: formattedBirthDate,
       email: this.userEmailFC.value,
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,
@@ -242,11 +242,12 @@ export class UserManagementDialogComponent implements OnInit {
   }
 
   disableUser() {
+    let formattedBirthDate = this.userBirthDateFC.value.getFullYear() + "-" + String(this.userBirthDateFC.value.getMonth() + 1).padStart(2, '0') + "-" + String(this.userBirthDateFC.value.getDate()).padStart(2, '0');
     let user = {
       id: this.data.user?.id,
       lastName: this.userLastNameFC.value,
       firstName: this.userFirstNameFC.value,
-      birthDate: this.userBirthDateFC.value,
+      birthDate: formattedBirthDate,
       email: this.userEmailFC.value,
       phone: this.userPhoneFC.value,
       password: this.userPasswordFC.value,

@@ -122,26 +122,23 @@ export class UserManagementDialogComponent implements OnInit {
       });
   }
 
-  //TODO : factoriser
   formIsValid() {
+    let common = this.userLastNameFC.valid &&
+      this.userFirstNameFC.valid &&
+      this.userBirthDateFC.valid &&
+      this.userEmailFC.valid &&
+      this.userPhoneFC.valid;
+
     if (this.data.type === "creation") {
       if (this.userRoleFC.value === "SUPERADMIN") {
         return (
-          this.userLastNameFC.valid &&
-          this.userFirstNameFC.valid &&
-          this.userBirthDateFC.valid &&
-          this.userEmailFC.valid &&
-          this.userPhoneFC.valid &&
+          common &&
           this.userPasswordFC.valid &&
           (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED")
         );
       } else {
         return (
-          this.userLastNameFC.valid &&
-          this.userFirstNameFC.valid &&
-          this.userBirthDateFC.valid &&
-          this.userEmailFC.valid &&
-          this.userPhoneFC.valid &&
+          common &&
           this.userPasswordFC.valid &&
           (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED") &&
           (this.userCenterFC.valid || this.userCenterFC.status === "DISABLED")
@@ -150,20 +147,12 @@ export class UserManagementDialogComponent implements OnInit {
     } else {
       if (this.userRoleFC.value === "SUPERADMIN") {
         return (
-          this.userLastNameFC.valid &&
-          this.userFirstNameFC.valid &&
-          this.userBirthDateFC.valid &&
-          this.userEmailFC.valid &&
-          this.userPhoneFC.valid &&
+          common &&
           (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED")
         );
       } else {
         return (
-          this.userLastNameFC.valid &&
-          this.userFirstNameFC.valid &&
-          this.userBirthDateFC.valid &&
-          this.userEmailFC.valid &&
-          this.userPhoneFC.valid &&
+          common &&
           (this.userRoleFC.valid || this.userRoleFC.status === "DISABLED") &&
           (this.userCenterFC.valid || this.userCenterFC.status === "DISABLED")
         );

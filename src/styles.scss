@@ -259,3 +259,15 @@ button {
     }
   }
 }
+
+.centers-loading {
+  z-index: 1;
+  background-color: #FFF;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+
+  .centers-skeleton {
+    padding: 10px 20px;
+    text-align: center;
+  }
+}

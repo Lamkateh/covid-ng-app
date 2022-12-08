@@ -52,8 +52,8 @@ export class CentersManagementPageComponent implements OnInit {
   }
 
   getResult() {
-    this.listLoading = true;
     if (this.page === 0) {
+      this.listLoading = true;
       this.centers = [];
     }
     if (this.citySearched === '') {

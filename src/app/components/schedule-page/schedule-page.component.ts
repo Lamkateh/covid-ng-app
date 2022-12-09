@@ -42,19 +42,21 @@ export class SchedulePageComponent implements OnInit {
 
   getAppointments() {
     this.listLoading = true;
-    this.appointmentService.getAppointmentsByDoctorId(23).subscribe({ //TODO
-      next: (data) => {
-        this.allAppointments = data.data;
-        this.appointments = this.allAppointments.filter((appointment: Appointment) => {
-          return new Date(appointment.date).toLocaleDateString() === this.date.toLocaleDateString();
-        }).sort((a, b) => Number('' + a.time[0] + a.time[1]) - Number('' + b.time[0] + b.time[1]));
-        this.listLoading = false;
-      },
-      error: (err) => {
-        this.listLoading = false;
-        console.log(err);
-      }
-    });
+    if (this.authService.user?.id) {
+      this.appointmentService.getAppointmentsByDoctorId(this.authService.user?.id).subscribe({
+        next: (data) => {
+          this.allAppointments = data.data;
+          this.appointments = this.allAppointments.filter((appointment: Appointment) => {
+            return new Date(appointment.date).toLocaleDateString() === this.date.toLocaleDateString();
+          }).sort((a, b) => Number('' + a.time[0] + a.time[1]) - Number('' + b.time[0] + b.time[1]));
+          this.listLoading = false;
+        },
+        error: (err) => {
+          this.listLoading = false;
+          console.log(err);
+        }
+      });
+    }
   }
 
   getAppointmentsList() {

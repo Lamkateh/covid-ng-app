@@ -10,7 +10,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'RDVaccination';
 
-  constructor(private authService: AuthService) { }
+  constructor(protected authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.getUserInfo().subscribe(

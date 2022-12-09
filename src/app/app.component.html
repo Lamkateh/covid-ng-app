@@ -1,4 +1,7 @@
 <app-header [title]="title"></app-header>
 <div class="main-content">
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="this.authService.user"></router-outlet>
+  <div class="loading" *ngIf="!this.authService.user">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

@@ -1,0 +1,21 @@
+<div class="header">
+  <h1 class="title" mat-dialog-title>
+    Validation de la vaccination d'un patient
+  </h1>
+  <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
+</div>
+<div mat-dialog-content>
+  Etes-vous sûr de vouloir valider la vaccination de
+  <strong>{{ this.data.appointment?.patient.lastName | uppercase }} {{ this.data.appointment?.patient.firstName |
+    titlecase }}</strong> ?
+  <div class="actions-wrapper">
+    <button mat-button mat-dialog-close>
+      Annuler
+    </button>
+    <button mat-raised-button color="primary" (click)="this.onConfirmValidate()" [disabled]="this.validateLoading"
+      [ngClass]="{ loading: this.validateLoading }">
+      Confirmer
+      <mat-spinner diameter="25" strokeWidth="2" [style.margin]="'0'"></mat-spinner>
+    </button>
+  </div>
+</div>

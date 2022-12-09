@@ -1,28 +1,31 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { Center } from "../../../models/center";
 import { CenterService } from "../../../services/center.service";
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-center-informations",
   templateUrl: "./center-informations.component.html",
   styleUrls: ["./center-informations.component.scss"],
 })
-export class CenterInformationsComponent implements OnInit {
+export class CenterInformationsComponent implements OnInit, OnChanges {
   center?: Center;
   @Input() centerId: number;
   centerLoading: boolean = false;
 
   constructor(
-    private centerService: CenterService,
-    private route: ActivatedRoute
+    private centerService: CenterService
   ) { }
 
   ngOnInit(): void {
-    if (!this.centerId) {
-      this.centerId = Number(this.route.snapshot.paramMap.get("id"));
+    if (this.centerId) {
+      this.getCenter(this.centerId);
     }
-    this.getCenter(this.centerId);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.centerId) {
+      this.getCenter(this.centerId);
+    }
   }
 
   getCenter(id: number) {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { AppointmentService } from "src/app/services/appointment.service";
 import { DateService } from "src/app/services/date.service";
-import { CenterService } from "../../services/center.service";
 
 const COLUMN_WIDTH = 200;
 const ROW_HEIGHT = 10;
@@ -46,7 +46,7 @@ export class TimetableComponent implements OnInit {
   )}px`;
 
   constructor(
-    private centerService: CenterService,
+    private appointmentService: AppointmentService,
     protected dateService: DateService
   ) { }
 
@@ -57,7 +57,7 @@ export class TimetableComponent implements OnInit {
   // TODO : Review after fix in back-end
   getAppointments() {
     if (this.centerId) {
-      this.centerService
+      this.appointmentService
         .getAppointmentsByCenterId(this.centerId)
         .subscribe((timetable) => {
           this.timetable = timetable.data.days.map((day) => {

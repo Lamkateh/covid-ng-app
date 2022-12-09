@@ -40,13 +40,14 @@ export class CenterManagementPageComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.centerId = this.authService.user.center?.id;
+    this.centerId = this.authService.user?.center.id;
     this.getCenter();
     this.getDoctors();
   }
 
+  //TODO
   getCenter() {
-    this.centerService.getCenterById(this.centerId)
+    this.centerService.getCenterById(this.authService.user.center.id)
       .subscribe((center: { data: Center }) => {
         this.center = center.data;
       });
@@ -54,7 +55,7 @@ export class CenterManagementPageComponent implements OnInit {
 
   getDoctors() {
     this.listLoading = true;
-    this.userService.getDoctors(this.centerId).subscribe({
+    this.userService.getDoctors(this.authService.user.center.id).subscribe({
       next: (data) => {
         this.doctors = data.data.sort((a, b) =>
           a.id - b.id
@@ -72,7 +73,7 @@ export class CenterManagementPageComponent implements OnInit {
     if (!this.nameSearchTerm && this.doctors.length > 0) {
       return this.doctors;
     }
-    return this.doctors.filter((doctor) => {
+    return this.doctors.filter((doctor: User) => {
       return (
         doctor.lastName !== null &&
         doctor.lastName
@@ -107,8 +108,8 @@ export class CenterManagementPageComponent implements OnInit {
         roles: [this.role],
         user: doctor
       }
-    }).afterClosed().subscribe((userEdited) => {
-      this.doctors = this.doctors.map((doctor) => {
+    }).afterClosed().subscribe((userEdited: User) => {
+      this.doctors = this.doctors.map((doctor: User) => {
         if (doctor.id === userEdited.id) {
           return userEdited;
         }
@@ -124,8 +125,8 @@ export class CenterManagementPageComponent implements OnInit {
         user: doctor
       },
       autoFocus: false
-    }).afterClosed().subscribe((userEditedId) => {
-      this.doctors = this.doctors.filter((doctor) => {
+    }).afterClosed().subscribe((userEditedId: number) => {
+      this.doctors = this.doctors.filter((doctor: User) => {
         return doctor.id !== userEditedId;
       });
     });

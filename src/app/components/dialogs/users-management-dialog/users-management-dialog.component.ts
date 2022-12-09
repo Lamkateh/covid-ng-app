@@ -85,7 +85,7 @@ export class UsersManagementDialogComponent implements OnInit {
     if (!this.nameSearchTerm && this.doctors.length > 0) {
       return this.doctors;
     }
-    return this.doctors.filter((doctor) => {
+    return this.doctors.filter((doctor: User) => {
       return (
         doctor.lastName !== null &&
         doctor.lastName
@@ -99,7 +99,7 @@ export class UsersManagementDialogComponent implements OnInit {
     if (!this.nameSearchTerm && this.admins.length > 0) {
       return this.admins;
     }
-    return this.admins.filter((admin) => {
+    return this.admins.filter((admin: User) => {
       return (
         admin.lastName !== null &&
         admin.lastName
@@ -166,9 +166,9 @@ export class UsersManagementDialogComponent implements OnInit {
         user: admin
       },
       autoFocus: false
-    }).afterClosed().subscribe((userDeletedId) => {
+    }).afterClosed().subscribe((userDeletedId: number) => {
       if (userDeletedId) {
-        this.admins = this.admins.filter((user) => {
+        this.admins = this.admins.filter((user: User) => {
           return user.id !== userDeletedId;
         });
       }
@@ -209,9 +209,9 @@ export class UsersManagementDialogComponent implements OnInit {
         user: doctor
       },
       autoFocus: false
-    }).afterClosed().subscribe((userDeletedId) => {
+    }).afterClosed().subscribe((userDeletedId: number) => {
       if (userDeletedId) {
-        this.doctors = this.doctors.filter((user) => {
+        this.doctors = this.doctors.filter((user: User) => {
           return user.id !== userDeletedId;
         });
       }

@@ -1,22 +1,11 @@
-<div class="timetable-container">
-  <button
-    class="control-btn control-btn-right"
-    (click)="this.translateToRight()"
-    *ngIf="this.canTranslateToRight()"
-  >
+<div class="timetable-container" *ngIf="!this.listLoading">
+  <button class="control-btn control-btn-right" (click)="this.translateToRight()" *ngIf="this.canTranslateToRight()">
     <mat-icon>arrow_forward</mat-icon>
   </button>
-  <button
-    class="control-btn control-btn-left"
-    (click)="this.translateToLeft()"
-    *ngIf="this.canTranslateToLeft()"
-  >
+  <button class="control-btn control-btn-left" (click)="this.translateToLeft()" *ngIf="this.canTranslateToLeft()">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <div
-    class="timetable-translation"
-    [style.transform]="'translateX(' + translationX + 'px)'"
-  >
+  <div class="timetable-translation" [style.transform]="'translateX(' + translationX + 'px)'">
     <div class="day-column-headers">
       <div *ngFor="let day of this.timetable; let first = first">
         <div class="day-column-header" [ngClass]="{ first: first }">
@@ -29,16 +18,15 @@
         <div *ngFor="let day of this.timetable">
           <div class="day-column">
             <div *ngFor="let appointment of day.appointments">
-              <app-appointment-preview
-                [date]="day.date"
-                [time]="appointment.time"
-                [height]="appointment.height"
-                [top]="appointment.top"
-              ></app-appointment-preview>
+              <app-appointment-preview [date]="day.date" [time]="appointment.time" [height]="appointment.height"
+                [top]="appointment.top"></app-appointment-preview>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="loading" *ngIf="this.listLoading">
+  <mat-spinner></mat-spinner>
 </div>

@@ -16,7 +16,7 @@ const DURATION = 15;
 export class TimetableComponent implements OnInit {
   @Input() centerId: number | null = null;
   translationX: number = 0;
-
+  listLoading: boolean = false;
   timetable: {
     date: string;
     cleanDate?: string;
@@ -56,6 +56,7 @@ export class TimetableComponent implements OnInit {
 
   // TODO : Review after fix in back-end
   getAppointments() {
+    this.listLoading = true;
     if (this.centerId) {
       this.appointmentService
         .getAppointmentsByCenterId(this.centerId)
@@ -95,7 +96,7 @@ export class TimetableComponent implements OnInit {
               }),
             };
           });
-
+          this.listLoading = false;
           this.startHourTimestamp = new Date(
             "2020-01-01 " + timetable.data.startTime.trim() // dummy day
           ).getTime();

@@ -49,29 +49,37 @@ export class AppointmentDialogComponent implements OnInit {
 
   registerAppointment() {
     this.storeLoading = true;
-    this.appointmentService
-      .registerAppointment(
-        this.data.center_id,
-        this.authService.user.id,
-        this.data.date,
-        this.data.time
-      )
-      .subscribe({
-        next: (res) => {
-          this.storeLoading = false;
-          this.dialogRef.close(res);
-          this._snackBar.open("Rendez-vous pris avec succès !", "", {
-            duration: 2000,
-          });
-        },
-        error: (err) => {
-          console.log(err);
-          this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", "", {
-            panelClass: "snackbar-error",
-            duration: 2000,
-          });
-        },
+    if (!this.authService.user) {
+      this.storeLoading = false;
+      this._snackBar.open("Vous devez être connecté", "", {
+        panelClass: "snackbar-error",
+        duration: 2000,
       });
+    } else {
+      this.appointmentService
+        .registerAppointment(
+          this.data.center_id,
+          this.authService.user.id,
+          this.data.date,
+          this.data.time
+        )
+        .subscribe({
+          next: (res) => {
+            this.storeLoading = false;
+            this.dialogRef.close(res);
+            this._snackBar.open("Rendez-vous pris avec succès !", "", {
+              duration: 2000,
+            });
+          },
+          error: (err) => {
+            console.log(err);
+            this.storeLoading = false;
+            this._snackBar.open("Une erreur s'est produite", "", {
+              panelClass: "snackbar-error",
+              duration: 2000,
+            });
+          },
+        });
+    }
   }
 }

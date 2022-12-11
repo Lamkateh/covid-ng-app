@@ -1,27 +1,106 @@
-# CovidNgApp
+# Centres de vaccination. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+Voici le site de web de centre de vaccination français. 
 
-## Development server
+## Equipe 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Armutlu Ethan N°31807867 - 
+Di Livio Bruno N° - 
+Nousse Gaëtan N°
 
-## Code scaffolding
+## Contexte 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+L'objectif de ce projet est de créer un site web permettant tout d'abord la prise de rendez-vous simplifier dans un centre de vaccination pour le COVID-19. De plus, le site web permet une gestion des centres et des rendez-vous simple. 
 
-## Build
+## Enrolement dans le projet 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Tout d'abord, vous pourrez retrouver la partie back-end sur ce lien github : https://github.com/Lamkateh/covid-api.
 
-## Running unit tests
+Ensuite, pour lancer simplement le projet, il vous suffit de cloner les deux répertoire github et de lancer la commande suivante sur le répertoire contenant les deux clones : 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+docker compose up
+```
 
-## Running end-to-end tests
+Cela va lancer ce fichier docker compose : 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```yaml
+version: "3"
 
-## Further help
+services:
+    api:
+        container_name: api
+        build: ../covid-api
+        ports:
+            - "8080:8080"
+        environment:
+            DATABASE.HOST: db
+            DATABASE.PORT: 5432
+            DATABASE.PASSWORD: password
+            DATABASE.USERNAME: postgres
+            DATABASE.DB: covid-db
+        depends_on:
+            - db
+    db:
+        image: postgres:14
+        container_name: db
+        environment:
+            POSTGRES_PASSWORD: password
+            POSTGRES_USER: postgres
+            POSTGRES_DB: covid-db
+            PGDATA: /var/lib/postgresql/data/pgdata
+        ports:
+            - "5432:5432"
+        volumes:
+            - db-data:/var/lib/postgresql/data
+    
+#    angular:
+#        container_name: angular
+#        build: ../covid-ng-app
+#        environment:
+#            API_URL: http://api:8080/
+#        ports:
+#          - "4200:80"
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+volumes:
+    db-data:
+```
+
+Ainsi, vous pourrez accéder au site web sur le port 4200 et l'api sur le port 8080.
+
+En effet, le docker compose de la partie back-end va lancer 3 conteneurs : un pour la base de données, un pour le script python permettant de récupérer les centres français du site web du gouvernement (conteneur qui se ferme après remplissage de la base de données ) et un pour l'api.
+
+La partie frond-end elle va lancer un conteneur pour le site web.
+
+## Fonctionnalités
+
+Tout d'abord, un utilisateur de notre site web peut avoir 4 rôles différents :
+
+Il peut être un simple utilisateur avec le rôle `USER`. Il pourra seulement prendre un rendez-vous dans un centre de vaccination.
+
+Il peut être un docteur avec le rôle `DOCTOR`. Il pourra gérer les rendez-vous de ses patients.
+
+Il peut être un administrateur avec le rôle `ADMIN`. Il pourra gérer les centres de vaccination et les docteurs.
+
+Enfin, il peut être un super administrateur avec le rôle `SUPERADMIN`. Il pourra gérer les centres de vaccination, les docteurs et les administrateurs.
+
+Il s'agit désormais d'étudier quelques fonctionnalités de notre site web.
+
+
+Tout d'abord, la page d'accueil de notre site web correspond à la requête GET `/public/centers`. Cette requête permet de récupérer tous les centres de vaccination (A noter que la partie public et private est supprimé dans l'url de la page web).
+
+![List_centres](/doc_ressources/centres.png)
+
+On peut constater également qu'il est possible de faire une recherche par ville d'un centre. 
+
+
+Une autre fonctionnalitée est la prise de rendez-vous. Pour ce faire, il faut tout d'abord se connecter. Ensuite, en cliquant sur un centre de vaccination, on peut voir les rendez-vous disponibles avec la requête GET `/public/centers/{id}/appointments` : 
+
+![List_appointments](/doc_ressources/appointments.png)
+
+Enfin, une autre fonctionnalité de notre site web est l'ajout de centre et de docteur. Pour ce faire, il faut se connecter en tant qu'administrateur ou super administrateur. Ensuite, il faut cliquer sur le bouton `Ajouter un centre` ou `Ajouter un docteur` :
+
+![Add_center](/doc_ressources/add_center.png)
+
+
+

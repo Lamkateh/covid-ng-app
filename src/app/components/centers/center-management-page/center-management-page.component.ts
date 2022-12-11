@@ -66,7 +66,7 @@ export class CenterManagementPageComponent implements OnInit {
     if (!this.nameSearchTerm && this.doctors.length > 0) {
       return this.doctors;
     }
-    return this.doctors.filter((doctor) => {
+    return this.doctors.filter((doctor:User) => {
       return (
         doctor.lastName !== null &&
         doctor.lastName
@@ -119,7 +119,7 @@ export class CenterManagementPageComponent implements OnInit {
       },
       autoFocus: false
     }).afterClosed().subscribe((userEditedId) => {
-      this.doctors = this.doctors.filter((doctor) => {
+      this.doctors = this.doctors.filter((doctor:User) => {
         return doctor.id !== userEditedId;
       });
     });

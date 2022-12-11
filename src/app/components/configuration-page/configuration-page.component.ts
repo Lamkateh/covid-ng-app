@@ -51,7 +51,7 @@ export class ConfigurationPageComponent implements OnInit {
     if (!this.nameSearchTerm && this.superadmins.length > 0) {
       return this.superadmins;
     }
-    return this.superadmins.filter((superadmin) => {
+    return this.superadmins.filter((superadmin:User) => {
       return (
         superadmin.lastName !== null &&
         superadmin.lastName
@@ -108,7 +108,7 @@ export class ConfigurationPageComponent implements OnInit {
       autoFocus: false
     }).afterClosed().subscribe((userDeletedId) => {
       if (userDeletedId) {
-        this.superadmins = this.superadmins.filter((user) => {
+        this.superadmins = this.superadmins.filter((user:User) => {
           return user.id !== userDeletedId;
         });
       }

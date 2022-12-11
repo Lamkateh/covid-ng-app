@@ -13,15 +13,13 @@ export class AppComponent {
   constructor(protected authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.getUserInfo().subscribe(
-      (response: {
-        data: User;
-      }) => {
+    this.authService.getUserInfo().subscribe({
+      next: (response) => {
         this.authService.setAuthUser(response.data);
-      }
-    ),
-      (error: any) => {
+      },
+      error: (error: any) => {
         console.log(error);
-      };
+      },
+    });
   }
 }

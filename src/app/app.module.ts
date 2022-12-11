@@ -32,6 +32,7 @@ import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 import { ValidationAppointmentDialogComponent } from './components/dialogs/validation-appointment-dialog/validation-appointment-dialog.component';
+import { SignupPageComponent } from './components/signup-page/signup-page.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ValidationAppointmentDialogComponent } from './components/dialogs/valid
     UsersManagementDialogComponent,
     DeleteDialogComponent,
     ValidationAppointmentDialogComponent,
+    SignupPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,12 +17,12 @@
     </li>
     <!-- admins only -->
     <li *ngIf="this.authService.user !== null">
-      <a mat-button routerLink="/management/centers/{{ this.authService.user.center?.id }}" routerLinkActive="active">
+      <a mat-button routerLink="/management/mycenter" routerLinkActive="active">
         Gestion de mon centre</a>
     </li>
     <!-- admins and doctors only -->
     <li *ngIf="this.authService.user !== null">
-      <a mat-button routerLink="/schedule" routerLinkActive="active">Planning</a>
+      <a mat-button routerLink="/myschedule" routerLinkActive="active">Planning</a>
     </li>
     <!-- superadmin only -->
     <li *ngIf="this.authService.user !== null">

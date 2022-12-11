@@ -31,6 +31,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
+import { ValidationAppointmentDialogComponent } from './components/dialogs/validation-appointment-dialog/validation-appointment-dialog.component';
+import { SignupPageComponent } from './components/signup-page/signup-page.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import localeFr from "@angular/common/locales/fr";
     UserManagementDialogComponent,
     UsersManagementDialogComponent,
     DeleteDialogComponent,
+    ValidationAppointmentDialogComponent,
+    SignupPageComponent,
   ],
   imports: [
     BrowserModule,

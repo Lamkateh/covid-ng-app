@@ -1,4 +1,4 @@
-$information-min-width: 300px;
+$information-width: 300px;
 
 .appointment-page {
   display: flex;
@@ -8,11 +8,11 @@ $information-min-width: 300px;
   overflow: hidden;
 
   .information-wrapper {
-    min-width: $information-min-width;
+    width: $information-width;
     border-right: 2px solid #ddd;
   }
 
   .timetable-wrapper {
-    width: calc(100% - #{$information-min-width});
+    width: calc(100% - #{$information-width});
   }
 }

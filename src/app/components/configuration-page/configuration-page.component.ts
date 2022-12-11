@@ -51,7 +51,7 @@ export class ConfigurationPageComponent implements OnInit {
     if (!this.nameSearchTerm && this.superadmins.length > 0) {
       return this.superadmins;
     }
-    return this.superadmins.filter((superadmin:User) => {
+    return this.superadmins.filter((superadmin: User) => {
       return (
         superadmin.lastName !== null &&
         superadmin.lastName
@@ -85,7 +85,7 @@ export class ConfigurationPageComponent implements OnInit {
         roles: [this.role],
         user: superadmin
       }
-    }).afterClosed().subscribe((userEdited) => {
+    }).afterClosed().subscribe((userEdited: User) => {
       if (userEdited) {
         this.superadmins = this.superadmins.map((user) => {
           if (user.id === userEdited.id) {
@@ -106,9 +106,9 @@ export class ConfigurationPageComponent implements OnInit {
         user: superadmin
       },
       autoFocus: false
-    }).afterClosed().subscribe((userDeletedId) => {
+    }).afterClosed().subscribe((userDeletedId: number) => {
       if (userDeletedId) {
-        this.superadmins = this.superadmins.filter((user:User) => {
+        this.superadmins = this.superadmins.filter((user: User) => {
           return user.id !== userDeletedId;
         });
       }

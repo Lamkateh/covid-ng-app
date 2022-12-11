@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AppointmentPreview } from "../models/appointment-preview";
 import { Center } from "../models/center";
 
 @Injectable({
@@ -65,28 +64,6 @@ export class CenterService {
         },
       }
     );
-  }
-
-  getAppointmentsByCenterId(id: number): Observable<{
-    data: {
-      days: {
-        date: string;
-        appointments: AppointmentPreview[];
-      }[];
-      startTime: string;
-      closeTime: string;
-    };
-  }> {
-    return this.httpClient.get<{
-      data: {
-        days: {
-          date: string;
-          appointments: AppointmentPreview[];
-        }[];
-        startTime: string;
-        closeTime: string;
-      };
-    }>("/public/centers/" + id + "/appointments");
   }
 
   storeCenter(

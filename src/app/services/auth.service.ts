@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Center } from '../models/center';
 import { User } from '../models/user';
 
 @Injectable({
@@ -22,6 +21,12 @@ export class AuthService {
           password: password,
         },
       }
+    );
+  }
+
+  signup(user): Observable<any> {
+    return this.httpClient.post<any>(
+      '/public/signup', user
     );
   }
 

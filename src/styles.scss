@@ -176,6 +176,10 @@ button {
   }
 }
 
+.snackbar-error {
+  background-color: #ff0000;
+}
+
 .top-bar {
   display: flex;
   flex-direction: column;
@@ -201,6 +205,65 @@ button {
   }
 }
 
+.login-page,
+.signup-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: var(--blue);
+  }
+
+  .login-form {
+    width: 30%;
+    min-width: 200px;
+  }
+
+  .signup-form {
+    width: 40%;
+    min-width: 500px;
+  }
+
+  .login-form,
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    app-input {
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
+    .login-button,
+    .signup-button {
+      margin-top: 10px;
+    }
+  }
+}
+
+.signup-page .title {
+  margin-top: 5%;
+}
+
+.login-page .title {
+  margin-top: 10%;
+}
+
+@media screen and (max-width: 800px) {
+
+  .login-page .login-form .login-button,
+  .signup-page .signup-form .signup-button {
+    width: 100%;
+  }
+}
+
 .table-wrapper {
   width: 100%;
 
@@ -215,7 +278,8 @@ button {
       color: rgba(0, 0, 0, .26)
     }
 
-    .mat-column-id {
+    .mat-column-id,
+    .mat-column-time {
       font-style: italic;
     }
 
@@ -227,6 +291,10 @@ button {
           cursor: pointer;
         }
       }
+    }
+
+    .mat-column-action {
+      width: 100px;
     }
 
     .no-data:hover {
@@ -255,6 +323,10 @@ button {
 
   .table-hover {
     .mat-column-id {
+      width: 150px;
+    }
+
+    .mat-column-time {
       width: 150px;
     }
   }

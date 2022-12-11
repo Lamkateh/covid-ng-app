@@ -1,4 +1,12 @@
 .main-content {
   box-sizing: border-box;
   margin: auto;
+  height: calc(100vh - 56px);
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 }

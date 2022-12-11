@@ -1,0 +1,72 @@
+<div class="signup-page">
+  <div class="title">Inscription</div>
+  <form class="signup-form" (submit)="signup()">
+    <div class="form-field-row" [style.width]="'100%'">
+      <mat-form-field appearance="outline" [style.width]="'100%'">
+        <mat-label>Nom</mat-label>
+        <input name="last_name" matInput [formControl]="lastNameFC" placeholder="Entrez votre nom" />
+        <mat-error *ngIf="lastNameFC.hasError('required')">
+          Le nom est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width]="'100%'">
+        <mat-label>Prénom</mat-label>
+        <input name="first_name" matInput [formControl]="firstNameFC" placeholder="Entrez votre prénom" />
+        <mat-error *ngIf="firstNameFC.hasError('required')">
+          Le prénom est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-field-row" [style.width]="'100%'">
+      <mat-form-field appearance="outline" [style.width]="'100%'">
+        <mat-label>Date de naissance</mat-label>
+        <input matInput [matDatepicker]="picker" [max]="this.maxDate" name="bith_date"
+          [formControl]="this.birthDateFC" />
+        <mat-hint>JJ/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="this.birthDateFC.hasError('required')">
+          Le date de naissance est <strong>requise</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width]="'100%'">
+        <mat-label>Téléphone</mat-label>
+        <input name="phone" matInput [formControl]="phoneFC" placeholder="Entrez votre numéro de téléphone" />
+        <mat-error *ngIf="phoneFC.hasError('required')">
+          Le numéro de téléphone est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Email</mat-label>
+      <input name="email" matInput [formControl]="emailAddressFC" placeholder="Entrez votre adresse mail" />
+      <mat-error *ngIf="emailAddressFC.hasError('email') && !emailAddressFC.hasError('required')">
+        Le champ doit être un <strong>email</strong>
+      </mat-error>
+      <mat-error *ngIf="emailAddressFC.hasError('required')">
+        L'adresse mail est <strong>requise</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Mot de passe</mat-label>
+      <input name="password" matInput [formControl]="passwordFC" placeholder="Entrez votre mot de passe" />
+      <mat-error *ngIf="passwordFC.hasError('required')">
+        Le mot de passe est <strong>requis</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" [style.width]="'100%'">
+      <mat-label>Confirmation du mot de passe</mat-label>
+      <input name="password_confirmation" matInput [formControl]="passwordConfirmationFC"
+        placeholder="Entrez à nouveau votre mot de passe" />
+      <mat-error *ngIf="passwordConfirmationFC.hasError('required')">
+        La confirmation du mot de passe est <strong>requise</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="this.errorMessage">{{ this.errorMessage }}</mat-error>
+    <button mat-raised-button class="signup-button" [disabled]="this.signupLoading || !formIsValid()"
+      [ngClass]="{ loading: this.signupLoading }">
+      S'inscrire
+      <mat-spinner diameter="25" strokeWidth="2"></mat-spinner>
+    </button>
+  </form>
+</div>

@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
 import { UserManagementDialogComponent } from '../../dialogs/user-management-dialog/user-management-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: "app-center-management-page",
@@ -31,16 +32,22 @@ export class CenterManagementPageComponent implements OnInit {
   listLoading: boolean = false;
   role: Role = this.roleService.roles[2];
 
-  constructor(private roleService: RoleService, private centerService: CenterService, private userService: UserService, private route: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(
+    private authService: AuthService,
+    private roleService: RoleService,
+    private centerService: CenterService,
+    private userService: UserService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.centerId = Number(this.route.snapshot.paramMap.get("id"));
+    this.centerId = this.authService.user?.center.id;
     this.getCenter();
     this.getDoctors();
   }
 
+  //TODO
   getCenter() {
-    this.centerService.getCenterById(this.centerId)
+    this.centerService.getCenterById(this.authService.user.center.id)
       .subscribe((center: { data: Center }) => {
         this.center = center.data;
       });
@@ -48,7 +55,7 @@ export class CenterManagementPageComponent implements OnInit {
 
   getDoctors() {
     this.listLoading = true;
-    this.userService.getDoctors(this.centerId).subscribe({
+    this.userService.getDoctors(this.authService.user.center.id).subscribe({
       next: (data) => {
         this.doctors = data.data.sort((a, b) =>
           a.id - b.id
@@ -66,7 +73,7 @@ export class CenterManagementPageComponent implements OnInit {
     if (!this.nameSearchTerm && this.doctors.length > 0) {
       return this.doctors;
     }
-    return this.doctors.filter((doctor:User) => {
+    return this.doctors.filter((doctor: User) => {
       return (
         doctor.lastName !== null &&
         doctor.lastName
@@ -101,8 +108,8 @@ export class CenterManagementPageComponent implements OnInit {
         roles: [this.role],
         user: doctor
       }
-    }).afterClosed().subscribe((userEdited) => {
-      this.doctors = this.doctors.map((doctor) => {
+    }).afterClosed().subscribe((userEdited: User) => {
+      this.doctors = this.doctors.map((doctor: User) => {
         if (doctor.id === userEdited.id) {
           return userEdited;
         }
@@ -118,8 +125,8 @@ export class CenterManagementPageComponent implements OnInit {
         user: doctor
       },
       autoFocus: false
-    }).afterClosed().subscribe((userEditedId) => {
-      this.doctors = this.doctors.filter((doctor:User) => {
+    }).afterClosed().subscribe((userEditedId: number) => {
+      this.doctors = this.doctors.filter((doctor: User) => {
         return doctor.id !== userEditedId;
       });
     });

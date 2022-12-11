@@ -40,7 +40,7 @@ export class UsersManagementDialogComponent implements OnInit {
     public data: {
       center: Center;
     }
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getDoctors();
@@ -163,22 +163,19 @@ export class UsersManagementDialogComponent implements OnInit {
   }
 
   onDeleteAdminClick(admin: User) {
-    this.dialog
-      .open(DeleteDialogComponent, {
-        width: '50%',
-        data: {
-          user: admin,
-        },
-        autoFocus: false,
-      })
-      .afterClosed()
-      .subscribe((userDeletedId) => {
-        if (userDeletedId) {
-          this.admins = this.admins.filter((user: User) => {
-            return user.id !== userDeletedId;
-          });
-        }
-      });
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        user: admin
+      },
+      autoFocus: false
+    }).afterClosed().subscribe((userDeletedId: number) => {
+      if (userDeletedId) {
+        this.admins = this.admins.filter((user: User) => {
+          return user.id !== userDeletedId;
+        });
+      }
+    });
   }
 
   onEditDoctorClick(doctor: User) {
@@ -217,21 +214,18 @@ export class UsersManagementDialogComponent implements OnInit {
   }
 
   onDeleteDoctorClick(doctor: User) {
-    this.dialog
-      .open(DeleteDialogComponent, {
-        width: '50%',
-        data: {
-          user: doctor,
-        },
-        autoFocus: false,
-      })
-      .afterClosed()
-      .subscribe((userDeletedId) => {
-        if (userDeletedId) {
-          this.doctors = this.doctors.filter((user: User) => {
-            return user.id !== userDeletedId;
-          });
-        }
-      });
+    this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: {
+        user: doctor
+      },
+      autoFocus: false
+    }).afterClosed().subscribe((userDeletedId: number) => {
+      if (userDeletedId) {
+        this.doctors = this.doctors.filter((user: User) => {
+          return user.id !== userDeletedId;
+        });
+      }
+    });
   }
 }

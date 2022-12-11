@@ -6,7 +6,7 @@
       <input name="email" matInput [formControl]="emailAddressFC" [errorStateMatcher]="matcher"
         placeholder="Entrez votre adresse mail" />
       <mat-error *ngIf="emailAddressFC.hasError('email') && !emailAddressFC.hasError('required')">
-        Le champ soit être un <strong>email</strong>
+        Le champ doit être un <strong>email</strong>
       </mat-error>
       <mat-error *ngIf="emailAddressFC.hasError('required')">
         L'adresse mail est <strong>requise</strong>
@@ -30,5 +30,8 @@
       Se connecter
       <mat-spinner diameter="25" strokeWidth="2"></mat-spinner>
     </button>
+    <a class="signup-link" routerLink="/signup">
+      Pas encore inscrit ? Inscrivez-vous ici
+    </a>
   </form>
 </div>

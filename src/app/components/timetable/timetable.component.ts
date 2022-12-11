@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { AppointmentService } from "src/app/services/appointment.service";
 import { DateService } from "src/app/services/date.service";
-import { CenterService } from "../../services/center.service";
 
 const COLUMN_WIDTH = 200;
 const ROW_HEIGHT = 10;
@@ -16,7 +16,7 @@ const DURATION = 15;
 export class TimetableComponent implements OnInit {
   @Input() centerId: number | null = null;
   translationX: number = 0;
-
+  listLoading: boolean = false;
   timetable: {
     date: string;
     cleanDate?: string;
@@ -46,7 +46,7 @@ export class TimetableComponent implements OnInit {
   )}px`;
 
   constructor(
-    private centerService: CenterService,
+    private appointmentService: AppointmentService,
     protected dateService: DateService
   ) { }
 
@@ -56,8 +56,9 @@ export class TimetableComponent implements OnInit {
 
   // TODO : Review after fix in back-end
   getAppointments() {
+    this.listLoading = true;
     if (this.centerId) {
-      this.centerService
+      this.appointmentService
         .getAppointmentsByCenterId(this.centerId)
         .subscribe((timetable) => {
           this.timetable = timetable.data.days.map((day) => {
@@ -95,7 +96,7 @@ export class TimetableComponent implements OnInit {
               }),
             };
           });
-
+          this.listLoading = false;
           this.startHourTimestamp = new Date(
             "2020-01-01 " + timetable.data.startTime.trim() // dummy day
           ).getTime();

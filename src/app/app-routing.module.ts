@@ -7,14 +7,16 @@ import { HomePublicPageComponent } from './components/home-public-page/home-publ
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SchedulePageComponent } from './components/schedule-page/schedule-page.component';
 import { CenterPageComponent } from './components/centers/center-page/center-page.component';
+import { SignupPageComponent } from './components/signup-page/signup-page.component';
 
 const routes: Routes = [
   { path: 'centers', component: HomePublicPageComponent },
   { path: 'centers/:id', component: CenterPageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: SignupPageComponent },
   { path: 'management/centers', component: CentersManagementPageComponent },
-  { path: 'management/centers/:id', component: CenterManagementPageComponent },
-  { path: 'schedule', component: SchedulePageComponent },
+  { path: 'management/mycenter', component: CenterManagementPageComponent },
+  { path: 'myschedule', component: SchedulePageComponent },
   { path: 'configuration', component: ConfigurationPageComponent },
   { path: '', redirectTo: '/centers', pathMatch: 'full' },
 ];

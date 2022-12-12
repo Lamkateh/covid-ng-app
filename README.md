@@ -64,11 +64,16 @@ volumes:
     db-data:
 ```
 
-Ainsi, vous pourrez accéder au site web sur le port 4200 et l'api sur le port 8080.
+Ainsi, vous pourrez accéder au site web sur le port 4200 et à l'api sur le port 8080.
 
-En effet, le docker compose de la partie back-end va lancer 3 conteneurs : un pour la base de données, un pour le script python permettant de récupérer les centres français du site web du gouvernement (conteneur qui se ferme après remplissage de la base de données ) et un pour l'api.
+En effet, le docker compose de la partie back-end va lancer 3 conteneurs : un pour la base de données, un pour l'api et un dernier pour l'application angular.
 
-La partie frond-end elle va lancer un conteneur pour le site web.
+Afin de récupérer les centres français du site web du gouvernement (conteneur qui se ferme après remplissage de la base de données), il faut exécuter la commande suivante :
+
+```bash
+docker run -it --rm --name centercrawling -v "$PWD/covid-api/crawling:/usr/src/crawling" -w /usr/src/crawling --network=<DB-NETWORK> -e HOST=<DB-HOST> -e USER=<DB-USERNAME> -e PASSWORD=<DB-PASSWORD> -e DATABASE=<DB-NAME> python:3.7-alpine sh -c "apk update && apk add build-base && apk add libpq-dev && pip install -r requirements.txt && python centerCrawling.py"
+```
+
 
 ## Fonctionnalités
 ### 1 - Se connecter, s'incrire et se déconnecter

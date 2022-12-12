@@ -8,24 +8,17 @@
     <li *ngIf="this.authService.user === null">
       <a mat-button routerLink="/login" routerLinkActive="active">Se connecter</a>
     </li>
-    <!-- superadmin only -->
-    <li *ngIf="this.authService.user !== null">
-      <a mat-button routerLink="/management/centers" routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }">
-        Gestion des centres
-      </a>
+    <li *ngIf="this.authService.user !== null && this.authService.user.roles[0].toString() === 'SUPERADMIN'">
+      <a mat-button routerLink="/management/centers" routerLinkActive="active">Gestion des centres</a>
     </li>
-    <!-- admins only -->
-    <li *ngIf="this.authService.user !== null">
-      <a mat-button routerLink="/management/mycenter" routerLinkActive="active">
-        Gestion de mon centre</a>
+    <li *ngIf="this.authService.user !== null && this.authService.user.roles[0].toString() === 'ADMIN'">
+      <a mat-button routerLink="/management/mycenter" routerLinkActive="active">Gestion de mon centre</a>
     </li>
-    <!-- admins and doctors only -->
-    <li *ngIf="this.authService.user !== null">
+    <li
+      *ngIf="this.authService.user !== null && (this.authService.user.roles[0].toString() === 'ADMIN' || this.authService.user.roles[0].toString() === 'DOCTOR')">
       <a mat-button routerLink="/myschedule" routerLinkActive="active">Planning</a>
     </li>
-    <!-- superadmin only -->
-    <li *ngIf="this.authService.user !== null">
+    <li *ngIf="this.authService.user !== null && this.authService.user.roles[0].toString() === 'SUPERADMIN'">
       <a mat-button routerLink="/configuration" routerLinkActive="active">Configuration</a>
     </li>
     <li *ngIf="this.authService.user !== null">

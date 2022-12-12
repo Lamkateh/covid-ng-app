@@ -9,7 +9,7 @@ import { User } from '../models/user';
 export class AuthService {
   public user: User | null = null;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   signin(email: string, password: string): Observable<any> {
     return this.httpClient.post<any>(
@@ -25,9 +25,7 @@ export class AuthService {
   }
 
   signup(user): Observable<any> {
-    return this.httpClient.post<any>(
-      '/public/signup', user
-    );
+    return this.httpClient.post<any>('/public/signup', user);
   }
 
   storeToken(email: string, password: string) {
@@ -35,8 +33,21 @@ export class AuthService {
     localStorage.setItem('rdvaccination-token', token);
   }
 
+  storeUserInformation(user: User) {
+    localStorage.setItem('rdvaccination-user', btoa(JSON.stringify(user)));
+  }
+
+  getStoredUserInformation(): User | null {
+    const user = localStorage.getItem('rdvaccination-user');
+    if (user) {
+      return JSON.parse(atob(user));
+    }
+    return null;
+  }
+
   setAuthUser(user: User) {
     this.user = user;
+    this.storeUserInformation(user);
   }
 
   getUserInfo(): Observable<any> {
@@ -45,6 +56,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('rdvaccination-token');
+    localStorage.removeItem('rdvaccination-user');
     this.user = null;
   }
 }

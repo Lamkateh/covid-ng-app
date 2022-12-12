@@ -11,20 +11,53 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
 import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 
-//TODO: Add AuthGuard and RoleGuard from routes
-
-/**const routes: Routes = [
-  { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
-  { path: 'signup', component: SignupPageComponent, canActivate: [AuthGuard] },
-  { path: 'centers', component: HomePublicPageComponent },
-  { path: 'centers/:id', component: CenterPageComponent },
-  { path: 'management/centers', component: CentersManagementPageComponent, canActivate: [RoleGuard], data: { roles: ['SUPERADMIN'] } },
-  { path: 'management/mycenter', component: CenterManagementPageComponent, canActivate: [RoleGuard], data: { roles: ['ADMIN'] } },
-  { path: 'myschedule', component: SchedulePageComponent, canActivate: [RoleGuard], data: { roles: ['ADMIN', 'DOCTOR'] } },
-  { path: 'configuration', component: ConfigurationPageComponent, canActivate: [RoleGuard], data: { roles: ['SUPERADMIN'] } },
+const routes: Routes = [
+  {
+    path: 'signup',
+    component: SignupPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'centers',
+    component: HomePublicPageComponent,
+  },
+  {
+    path: 'centers/:id',
+    component: CenterPageComponent,
+  },
+  {
+    path: 'management/centers',
+    component: CentersManagementPageComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['SUPERADMIN'] },
+  },
+  {
+    path: 'management/mycenter',
+    component: CenterManagementPageComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['ADMIN'] },
+  },
+  {
+    path: 'myschedule',
+    component: SchedulePageComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['ADMIN', 'DOCTOR'] },
+  },
+  {
+    path: 'configuration',
+    component: ConfigurationPageComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['SUPERADMIN'] },
+  },
   { path: '**', redirectTo: '/centers', pathMatch: 'full' },
-];**/
+];
 
+/*
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
@@ -36,9 +69,10 @@ const routes: Routes = [
   { path: 'configuration', component: ConfigurationPageComponent },
   { path: '**', redirectTo: '/centers', pathMatch: 'full' },
 ];
+*/
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,40 +1,68 @@
 <div class="schedule-page">
   <div class="information-wrapper">
-    <app-center-informations [centerId]="this.centerId"></app-center-informations>
+    <app-center-informations
+      [centerId]="this.centerId"
+    ></app-center-informations>
   </div>
   <div class="schedule-wrapper">
     <form class="top-bar">
       <div class="title">Gérez vos rendez-vous</div>
       <div class="actions">
         <div class="change-date-wrapper">
-          <button mat-raised-button color="primary" type="button" (click)="this.onPreviousDay()">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="this.onPreviousDay()"
+          >
             <mat-icon>chevron_left</mat-icon>
           </button>
           <div class="date">
             {{ this.getDate() }}
           </div>
-          <button mat-raised-button color="primary" type="button" (click)="this.onNextDay()">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="this.onNextDay()"
+          >
             <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
         <mat-form-field>
           <mat-label>Filtrez par nom</mat-label>
-          <input name="search_item" matInput [(ngModel)]="this.nameSearchTerm">
+          <input
+            name="search_item"
+            matInput
+            [(ngModel)]="this.nameSearchTerm"
+          />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
     </form>
     <div class="table-wrapper">
-      <table class="table-hover mat-elevation-z8" mat-table [dataSource]="this.getAppointmentsList()"
-        [fixedLayout]="true">
+      <table
+        class="table-hover mat-elevation-z8"
+        mat-table
+        [dataSource]="this.getAppointmentsList()"
+        [fixedLayout]="true"
+      >
         <ng-container matColumnDef="time">
           <th mat-header-cell *matHeaderCellDef>Heure</th>
           <td mat-cell *matCellDef="let appointment">
-            <span *ngIf="appointment.hasOwnProperty('time') && !this.listLoading">
-              {{ appointment.time[0] }}h{{ appointment.time[1] > 9 ? appointment.time[1] :
-              appointment.time[1] + '0'}}
+            <span
+              *ngIf="appointment.hasOwnProperty('time') && !this.listLoading"
+            >
+              {{ appointment.time[0] }}h{{
+                appointment.time[1] > 9
+                  ? appointment.time[1]
+                  : appointment.time[1] + "0"
+              }}
             </span>
-            <div *ngIf="!appointment.hasOwnProperty('time') || this.listLoading" class="skeleton-wrapper">
+            <div
+              *ngIf="!appointment.hasOwnProperty('time') || this.listLoading"
+              class="skeleton-wrapper"
+            >
               <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
             </div>
           </td>
@@ -42,10 +70,16 @@
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Patient</th>
           <td mat-cell *matCellDef="let appointment">
-            <span *ngIf="appointment.hasOwnProperty('patient') && !this.listLoading">
-              {{ appointment.patient.lastName | uppercase}} {{appointment.patient.firstName | titlecase }}
+            <span
+              *ngIf="appointment.hasOwnProperty('patient') && !this.listLoading"
+            >
+              {{ appointment.patient.lastName | uppercase }}
+              {{ appointment.patient.firstName | titlecase }}
             </span>
-            <div *ngIf="!appointment.hasOwnProperty('patient') || this.listLoading" class="skeleton-wrapper">
+            <div
+              *ngIf="!appointment.hasOwnProperty('patient') || this.listLoading"
+              class="skeleton-wrapper"
+            >
               <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
             </div>
           </td>
@@ -53,10 +87,15 @@
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let appointment">
-            <span *ngIf="appointment.hasOwnProperty('patient') && !this.listLoading">
+            <span
+              *ngIf="appointment.hasOwnProperty('patient') && !this.listLoading"
+            >
               {{ appointment.patient.email }}
             </span>
-            <div *ngIf="!appointment.hasOwnProperty('patient') || this.listLoading" class="skeleton-wrapper">
+            <div
+              *ngIf="!appointment.hasOwnProperty('patient') || this.listLoading"
+              class="skeleton-wrapper"
+            >
               <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
             </div>
           </td>
@@ -64,43 +103,91 @@
         <ng-container matColumnDef="phone">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let appointment">
-            <span *ngIf="appointment.hasOwnProperty('patient') && !this.listLoading">
+            <span
+              *ngIf="appointment.hasOwnProperty('patient') && !this.listLoading"
+            >
               {{ appointment.patient.phone }}
             </span>
-            <div *ngIf="!appointment.hasOwnProperty('patient') || this.listLoading" class="skeleton-wrapper">
+            <div
+              *ngIf="!appointment.hasOwnProperty('patient') || this.listLoading"
+              class="skeleton-wrapper"
+            >
               <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
             </div>
           </td>
         </ng-container>
-        <ng-container matColumnDef="doctor" *ngIf="this.authService.user.roles.toString() === 'ADMIN'">
+        <ng-container
+          matColumnDef="doctor"
+          *ngIf="
+            this.authService.user &&
+            this.authService.user.roles.toString() === 'ADMIN'
+          "
+        >
           <th mat-header-cell *matHeaderCellDef>Médecin</th>
           <td mat-cell *matCellDef="let appointment">
-            <span *ngIf="appointment.hasOwnProperty('doctor') && !this.listLoading">
-              {{ appointment.doctor.lastName | uppercase}} {{appointment.doctor.firstName | titlecase }}
+            <span
+              *ngIf="appointment.hasOwnProperty('doctor') && !this.listLoading"
+            >
+              {{ appointment.doctor.lastName | uppercase }}
+              {{ appointment.doctor.firstName | titlecase }}
             </span>
-            <div *ngIf="!appointment.hasOwnProperty('doctor') || this.listLoading" class="skeleton-wrapper">
+            <div
+              *ngIf="!appointment.hasOwnProperty('doctor') || this.listLoading"
+              class="skeleton-wrapper"
+            >
               <ngx-skeleton-loader count="1"></ngx-skeleton-loader>
             </div>
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let appointment" [style.text-align]="'center'">
-            <button mat-stroked-button color="primary" type="button" *ngIf="!this.listLoading && !appointment.isDone"
-              (click)="this.onValidate(appointment)">
+          <td
+            mat-cell
+            *matCellDef="let appointment"
+            [style.text-align]="'center'"
+          >
+            <button
+              mat-stroked-button
+              color="primary"
+              type="button"
+              *ngIf="!this.listLoading && !appointment.isDone"
+              (click)="this.onValidate(appointment)"
+            >
               Valider
             </button>
-            <mat-icon *ngIf="!this.listLoading && appointment.isDone" [style.color]="'green'">check_circle</mat-icon>
+            <mat-icon
+              *ngIf="!this.listLoading && appointment.isDone"
+              [style.color]="'green'"
+              >check_circle</mat-icon
+            >
           </td>
         </ng-container>
-        <tr mat-header-row
-          *matHeaderRowDef="this.authService.user.roles.toString() === 'ADMIN' ? displayedColumnsAdmin : displayedColumnsDoctor">
-        </tr>
-        <tr mat-row
-          *matRowDef="let appointment; columns: this.authService.user.roles.toString() === 'ADMIN' ? displayedColumnsAdmin : displayedColumnsDoctor">
-        </tr>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="
+            this.authService.user &&
+            this.authService.user.roles.toString() === 'ADMIN'
+              ? displayedColumnsAdmin
+              : displayedColumnsDoctor
+          "
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="
+            let appointment;
+            columns: this.authService.user &&
+            this.authService.user.roles.toString() === 'ADMIN'
+              ? displayedColumnsAdmin
+              : displayedColumnsDoctor
+          "
+        ></tr>
         <tr class="mat-row no-data" *matNoDataRow>
-          <td class="mat-cell" [attr.colspan]="this.authService.user.roles.toString() === 'ADMIN' ? 5 : 4">
+          <td
+            class="mat-cell"
+            [attr.colspan]="
+              this.authService.user.roles.toString() === 'ADMIN' ? 5 : 4
+            "
+          >
             Aucun rendez-vous trouvé
           </td>
         </tr>

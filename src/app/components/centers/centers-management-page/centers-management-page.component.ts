@@ -17,27 +17,26 @@ export class CentersManagementPageComponent implements OnInit {
   page: number = 0;
   lastPage: boolean = false;
 
-  constructor(
-    private centerService: CenterService,
-    public dialog: MatDialog,
-  ) {
-  }
+  constructor(private centerService: CenterService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getResult();
   }
 
   onNewCenter(): void {
-    this.dialog.open(CenterManagementDialogComponent, {
-      width: '60%',
-      data: {
-        type: "creation",
-      },
-    }).afterClosed().subscribe((result: Center) => {
-      if (result) {
-        this.getResult();
-      }
-    });
+    this.dialog
+      .open(CenterManagementDialogComponent, {
+        width: '60%',
+        data: {
+          type: 'creation',
+        },
+      })
+      .afterClosed()
+      .subscribe((result: Center) => {
+        if (result) {
+          this.getResult();
+        }
+      });
   }
 
   onSearchCity() {
@@ -59,19 +58,23 @@ export class CentersManagementPageComponent implements OnInit {
     if (this.citySearched === '') {
       this.centerService
         .getAllCenters(this.page)
-        .subscribe((centers: { data: { content: Center[]; last: boolean } }) => {
-          this.centers.push(...centers.data.content);
-          this.listLoading = false;
-          this.lastPage = centers.data.last;
-        });
+        .subscribe(
+          (centers: { data: { content: Center[]; last: boolean } }) => {
+            this.centers.push(...centers.data.content);
+            this.listLoading = false;
+            this.lastPage = centers.data.last;
+          }
+        );
     } else {
       this.centerService
         .getCentersByCity(this.citySearched, this.page)
-        .subscribe((centers: { data: { content: Center[]; last: boolean } }) => {
-          this.centers.push(...centers.data.content);
-          this.listLoading = false;
-          this.lastPage = centers.data.last;
-        });
+        .subscribe(
+          (centers: { data: { content: Center[]; last: boolean } }) => {
+            this.centers.push(...centers.data.content);
+            this.listLoading = false;
+            this.lastPage = centers.data.last;
+          }
+        );
     }
   }
 }

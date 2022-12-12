@@ -11,6 +11,8 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
 import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 
+//TODO: Add AuthGuard and RoleGuard from routes
+
 /**const routes: Routes = [
   { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupPageComponent, canActivate: [AuthGuard] },

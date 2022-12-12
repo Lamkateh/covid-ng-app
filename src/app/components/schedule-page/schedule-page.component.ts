@@ -15,12 +15,19 @@ import { ValidationAppointmentDialogComponent } from '../dialogs/validation-appo
   styleUrls: ['./schedule-page.component.scss'],
 })
 export class SchedulePageComponent implements OnInit {
-  displayedColumns: string[] = [
+  displayedColumnsAdmin: string[] = [
     'time',
     'name',
     'email',
     'phone',
     'doctor',
+    'action'
+  ];
+  displayedColumnsDoctor: string[] = [
+    'time',
+    'name',
+    'email',
+    'phone',
     'action'
   ];
   appointments?: Appointment[] | {}[] = [{}];
@@ -57,7 +64,7 @@ export class SchedulePageComponent implements OnInit {
           console.log(err);
         }
       });
-    } else if (this.authService.user.roles.toString().includes('ADMIN')) {
+    } else if (this.authService.user.roles.toString() === 'ADMIN') {
       this.appointmentService.getAppointmentsByAdminId(this.authService.user?.id).subscribe({
         next: (data) => {
           this.allAppointments = data.data;

@@ -73,7 +73,7 @@ export class UserManagementDialogComponent implements OnInit {
       this.userPhoneFC.setValue(this.data.user.phone);
       this.userPasswordFC.setValue(this.data.user.password);
       this.userRoleFC.setValue(this.data.user.roles[0]);
-      if (this.authService.user.roles[0].toString() === "SUPERADMIN") {
+      if (this.authService.user.roles.toString().includes("SUPERADMIN")) {
         this.userRoleFC.enable();
         this.userCenterFC.enable();
       }
@@ -163,7 +163,7 @@ export class UserManagementDialogComponent implements OnInit {
 
   updateUser(user: User) {
     this.storeLoading = true;
-    if (user.roles[0].toString() === "SUPERADMIN") {
+    if (user.roles.toString().includes("SUPERADMIN")) {
       user.center = null;
       user.centerId = null;
     }

@@ -19,6 +19,7 @@ import { AuthService } from '../../../services/auth.service';
 export class DeleteDialogComponent implements OnInit {
 
   deleteLoading: boolean = false;
+  roles: string[] = [];
 
   constructor(
     private userService: UserService,
@@ -34,7 +35,9 @@ export class DeleteDialogComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.data.user) this.roles = this.data.user?.roles as string[];
+  }
 
   onConfirmDelete() {
     this.deleteLoading = true;

@@ -1,10 +1,10 @@
 <div class="header">
   <h1 class="title" mat-dialog-title>
-    {{ this.data.user?.roles[0].toString() === 'SUPERADMIN'
+    {{ this.roles.includes('SUPERADMIN')
     ? "Suppression du superadmin"
-    : (this.data.user?.roles[0].toString() === 'ADMIN'
+    : (this.roles.includes('ADMIN')
     ? "Suppression de l'administrateur"
-    : (this.data.user?.roles[0].toString() === 'DOCTOR'
+    : (this.roles.includes('DOCTOR')
     ? "Suppression du médecin"
     : "Suppression du centre"))
     }}
@@ -13,11 +13,11 @@
 </div>
 <div mat-dialog-content>
   Etes-vous sûr de vouloir supprimer
-  {{ this.data.user?.roles[0].toString() === 'SUPERADMIN'
+  {{ this.roles.includes('SUPERADMIN')
   ? "le superadmin"
-  : (this.data.user?.roles[0].toString() === 'ADMIN'
+  : (this.roles.includes('ADMIN')
   ? "l'administrateur"
-  : (this.data.user?.roles[0].toString() === 'DOCTOR'
+  : (this.roles.includes('DOCTOR')
   ? "le médecin"
   : "le centre"))
   }}

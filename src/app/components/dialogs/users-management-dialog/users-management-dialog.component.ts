@@ -114,11 +114,11 @@ export class UsersManagementDialogComponent implements OnInit {
       .afterClosed()
       .subscribe((response) => {
         if (response) {
-          if (response.data.roles[0] === this.roles[1].value) {
+          if (response.data.roles.includes(this.roles[1].value)) {
             const newList = [...this.admins];
             newList.push(response.data);
             this.admins = newList;
-          } else if (response.data.roles[0] === this.roles[2].value) {
+          } else if (response.data.roles.includes(this.roles[2].value)) {
             const newList = [...this.doctors];
             newList.push(response.data);
             this.doctors = newList;
@@ -149,11 +149,11 @@ export class UsersManagementDialogComponent implements OnInit {
             })
             .filter((user) => {
               return (
-                user.roles[0] === 'ADMIN' &&
+                user.roles.includes('ADMIN') &&
                 user.center.id === this.data.center.id
               );
             });
-          if (userEdited.roles[0] === 'DOCTOR') {
+          if (userEdited.roles.includes('DOCTOR')) {
             const newList = [...this.doctors];
             newList.push(userEdited);
             this.doctors = newList;
@@ -200,11 +200,11 @@ export class UsersManagementDialogComponent implements OnInit {
             })
             .filter((user) => {
               return (
-                user.roles[0] === 'DOCTOR' &&
+                user.roles.includes('DOCTOR') &&
                 user.center.id === this.data.center.id
               );
             });
-          if (userEdited.roles[0] === 'ADMIN') {
+          if (userEdited.roles.includes('ADMIN')) {
             const newList = [...this.admins];
             newList.push(userEdited);
             this.admins = newList;

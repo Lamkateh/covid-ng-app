@@ -8,7 +8,7 @@ export interface User {
   birthDate?: Date | string;
   email: string;
   phone: string;
-  roles: Role[];
+  roles: Role[] | string[];
   password: string;
   center?: Center;
   centerId?: number;

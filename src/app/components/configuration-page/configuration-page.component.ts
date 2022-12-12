@@ -93,7 +93,7 @@ export class ConfigurationPageComponent implements OnInit {
           }
           return user;
         }).filter((user) => {
-          return user.roles[0] === "SUPERADMIN";
+          return user.roles.includes('SUPERADMIN');
         });
       }
     });

@@ -32,6 +32,10 @@ export class AppointmentService {
     }>("/public/centers/" + id + "/appointments");
   }
 
+  getAppointmentsByAdminId(id: number): Observable<{ data: Appointment[] }> {
+    return this.httpClient.get<{ data: Appointment[] }>("/private/admins/" + id + "/appointments");
+  }
+
   getAppointmentsByDoctorId(id: number): Observable<{ data: Appointment[] }> {
     return this.httpClient.get<{ data: Appointment[] }>("/private/doctors/" + id + "/appointments");
   }

@@ -20,6 +20,7 @@ export class SchedulePageComponent implements OnInit {
     'name',
     'email',
     'phone',
+    'doctor',
     'action'
   ];
   appointments?: Appointment[] | {}[] = [{}];
@@ -30,7 +31,7 @@ export class SchedulePageComponent implements OnInit {
   date: Date = new Date();
   listLoading: boolean = false;
 
-  constructor(private authService: AuthService,
+  constructor(protected authService: AuthService,
     private appointmentService: AppointmentService,
     private dateService: DateService,
     public dialog: MatDialog) { }
@@ -42,8 +43,22 @@ export class SchedulePageComponent implements OnInit {
 
   getAppointments() {
     this.listLoading = true;
-    if (this.authService.user?.id) {
+    if (this.authService.user.roles.toString().includes('DOCTOR')) {
       this.appointmentService.getAppointmentsByDoctorId(this.authService.user?.id).subscribe({
+        next: (data) => {
+          this.allAppointments = data.data;
+          this.appointments = this.allAppointments.filter((appointment: Appointment) => {
+            return new Date(appointment.date).toLocaleDateString() === this.date.toLocaleDateString();
+          }).sort((a, b) => Number('' + a.time[0] + a.time[1]) - Number('' + b.time[0] + b.time[1]));
+          this.listLoading = false;
+        },
+        error: (err) => {
+          this.listLoading = false;
+          console.log(err);
+        }
+      });
+    } else if (this.authService.user.roles.toString().includes('ADMIN')) {
+      this.appointmentService.getAppointmentsByAdminId(this.authService.user?.id).subscribe({
         next: (data) => {
           this.allAppointments = data.data;
           this.appointments = this.allAppointments.filter((appointment: Appointment) => {

@@ -6,4 +6,5 @@ export interface Appointment {
   time: string;
   isDone: boolean;
   patient: User;
+  doctor?: User;
 }

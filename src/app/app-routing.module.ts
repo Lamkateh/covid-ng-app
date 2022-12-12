@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'management/mycenter', component: CenterManagementPageComponent },
   { path: 'myschedule', component: SchedulePageComponent },
   { path: 'configuration', component: ConfigurationPageComponent },
-  { path: '', redirectTo: '/centers', pathMatch: 'full' },
+  { path: '**', redirectTo: '/centers', pathMatch: 'full' },
 ];
 
 @NgModule({

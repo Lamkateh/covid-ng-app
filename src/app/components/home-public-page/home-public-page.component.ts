@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { CenterService } from "../../services/center.service";
 import { Center } from "../../models/center";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-home-public-page",
@@ -17,7 +18,8 @@ export class HomePublicPageComponent implements OnInit {
   lastPage: boolean = false;
 
   constructor(
-    private centerService: CenterService
+    private centerService: CenterService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -43,14 +45,24 @@ export class HomePublicPageComponent implements OnInit {
     if (this.citySearched === "") {
       this.centerService
         .getAllCenters(this.page)
-        .subscribe(
-          (centers: {
+        .subscribe({
+          next: (centers: {
             data: { content: Center[]; last: boolean };
           }) => {
+
             this.centers.push(...centers.data.content);
             this.listLoading = false;
             this.lastPage = centers.data.last;
+          }, error: (err) => {
+            if (err.status === 429) {
+              this._snackBar.open("Trop de requêtes. Veuillez réessayer dans quelques instants", "", {
+                duration: 2000,
+                panelClass: "snackbar-error",
+              });
+            }
           }
+        }
+
         );
     } else {
       this.centerService

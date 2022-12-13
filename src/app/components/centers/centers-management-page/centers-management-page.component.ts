@@ -3,6 +3,7 @@ import { CenterService } from '../../../services/center.service';
 import { Center } from '../../../models/center';
 import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-centers-management-page',
@@ -17,7 +18,9 @@ export class CentersManagementPageComponent implements OnInit {
   page: number = 0;
   lastPage: boolean = false;
 
-  constructor(private centerService: CenterService, public dialog: MatDialog) {}
+  constructor(private centerService: CenterService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getResult();
@@ -59,10 +62,20 @@ export class CentersManagementPageComponent implements OnInit {
       this.centerService
         .getAllCenters(this.page)
         .subscribe(
-          (centers: { data: { content: Center[]; last: boolean } }) => {
-            this.centers.push(...centers.data.content);
-            this.listLoading = false;
-            this.lastPage = centers.data.last;
+          {
+            next: (centers: { data: { content: Center[]; last: boolean } }) => {
+              this.centers.push(...centers.data.content);
+              this.listLoading = false;
+              this.lastPage = centers.data.last;
+            },
+            error: (err) => {
+              if (err.status === 429) {
+                this._snackBar.open("Trop de requêtes. Veuillez réessayer dans quelques instants", "", {
+                  duration: 2000,
+                  panelClass: "snackbar-error",
+                });
+              }
+            }
           }
         );
     } else {

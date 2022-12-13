@@ -9,6 +9,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatTableModule } from "@angular/material/table";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -23,6 +26,9 @@ import { MatCardModule } from '@angular/material/card';
     MatTableModule,
     MatMenuModule,
     MatCardModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    NgxMatSelectSearchModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: "fr-FR" },

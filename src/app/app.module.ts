@@ -8,7 +8,6 @@ import { CentersListComponent } from './components/centers/centers-list/centers-
 import { CentersListItemComponent } from './components/centers/centers-list-item/centers-list-item.component';
 import { CenterPageComponent } from './components/centers/center-page/center-page.component';
 import { HomePublicPageComponent } from './components/home-public-page/home-public-page.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared-modules/shared.module';
 import { LoginPageComponent } from './components/login-page/login-page.component';
@@ -26,8 +25,6 @@ import { UserManagementDialogComponent } from './components/dialogs/user-managem
 import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
@@ -62,13 +59,10 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    MatDialogModule,
     CenterInformationsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSnackBarModule,
-    NgxMatSelectSearchModule,
     NgxSkeletonLoaderModule
   ],
   providers: [

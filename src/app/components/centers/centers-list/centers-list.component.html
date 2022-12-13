@@ -4,3 +4,6 @@
     (centerDeletedId)="deleteCenter($event)">
   </app-centers-list-item>
 </div>
+<div class="no-center" *ngIf="list.length === 0">
+  <h3>Aucun centre n'a été trouvé</h3>
+</div>

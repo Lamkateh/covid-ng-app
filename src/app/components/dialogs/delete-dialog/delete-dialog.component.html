@@ -6,7 +6,7 @@
     ? "Suppression de l'administrateur"
     : (this.roles.includes('DOCTOR')
     ? "Suppression du médecin"
-    : "Suppression du centre"))
+    : (this.data.center ? "Suppression du centre" : "Suppression du rendez-vous")))
     }}
   </h1>
   <mat-icon class="close-button" mat-dialog-close>close</mat-icon>
@@ -19,10 +19,13 @@
   ? "l'administrateur"
   : (this.roles.includes('DOCTOR')
   ? "le médecin"
-  : "le centre"))
+  : (this.data.center ? "le centre" : "le rendez-vous de ")))
   }}
-  <strong>{{ this.data.user?.lastName | uppercase }} {{ this.data.user?.firstName | titlecase }}{{
-    this.data.center?.name | titlecase }}</strong> ?
+  <strong>
+    {{ this.data.user?.lastName | uppercase }} {{ this.data.user?.firstName | titlecase }}
+    {{this.data.center?.name | titlecase }}
+    {{this.data.appointment?.patient.lastName | uppercase }} {{this.data.appointment?.patient.firstName | titlecase }}
+  </strong> ?
   <div class="actions-wrapper">
     <button mat-button mat-dialog-close>
       Annuler

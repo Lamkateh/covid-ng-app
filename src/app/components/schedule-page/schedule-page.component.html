@@ -91,13 +91,17 @@
             </div>
           </td>
         </ng-container>
-        <ng-container matColumnDef="action">
+        <ng-container matColumnDef="actions-appointments">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let appointment" [style.text-align]="'center'">
             <button mat-stroked-button color="primary" type="button" *ngIf="!this.listLoading && !appointment.isDone"
               (click)="this.onValidate(appointment)">
               Valider
             </button>
+            <mat-icon mat-icon-button *ngIf="!this.listLoading && !appointment.isDone" color="warn" class="delete-icon"
+              (click)="this.onDelete(appointment)">
+              delete_forever
+            </mat-icon>
             <mat-icon *ngIf="!this.listLoading && appointment.isDone" [style.color]="'green'">check_circle</mat-icon>
           </td>
         </ng-container>

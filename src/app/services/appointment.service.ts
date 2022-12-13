@@ -69,4 +69,8 @@ export class AppointmentService {
   validateAppointment(id: number): Observable<any> {
     return this.httpClient.put<any>("/private/appointments/" + id, id);
   }
+
+  deleteAppointment(id: number): Observable<any> {
+    return this.httpClient.delete('/private/appointments/' + id);
+  }
 }

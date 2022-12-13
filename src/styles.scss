@@ -293,8 +293,15 @@ button {
       }
     }
 
-    .mat-column-action {
-      width: 100px;
+    .mat-column-actions-appointments {
+      padding-right: 0;
+      width: 150px;
+
+      .delete-icon {
+        cursor: pointer;
+        margin-left: 10px;
+        transform: translateY(7px);
+      }
     }
 
     .no-data:hover {

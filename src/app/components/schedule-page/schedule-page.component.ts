@@ -9,6 +9,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { DateService } from 'src/app/services/date.service';
 import { ValidationAppointmentDialogComponent } from '../dialogs/validation-appointment-dialog/validation-appointment-dialog.component';
 import { User } from 'src/app/models/user';
+import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-schedule-page',
@@ -22,14 +23,14 @@ export class SchedulePageComponent implements OnInit {
     'email',
     'phone',
     'doctor',
-    'action',
+    'actions-appointments',
   ];
   displayedColumnsDoctor: string[] = [
     'time',
     'name',
     'email',
     'phone',
-    'action',
+    'actions-appointments',
   ];
   appointments?: Appointment[] | {}[] = [{}];
   allAppointments?: Appointment[];
@@ -183,6 +184,25 @@ export class SchedulePageComponent implements OnInit {
               appointment.isDone = true;
             }
             return appointment;
+          });
+        }
+      });
+  }
+
+  onDelete(appointment: Appointment) {
+    this.dialog
+      .open(DeleteDialogComponent, {
+        width: '50%',
+        data: {
+          appointment: appointment,
+        },
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((appointmentDeletedId: number) => {
+        if (appointmentDeletedId) {
+          this.appointments = this.appointments.filter((appointment: Appointment) => {
+            return appointment.id !== appointmentDeletedId;
           });
         }
       });

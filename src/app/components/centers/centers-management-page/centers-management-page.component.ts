@@ -3,7 +3,9 @@ import { CenterService } from '../../../services/center.service';
 import { Center } from '../../../models/center';
 import { CenterManagementDialogComponent } from '../../dialogs/center-management-dialog/center-management-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { Subscription, timer } from 'rxjs';
+import { QueueSnackbarComponent } from '../../snackbar/queue-snackbar/queue-snackbar-component';
 
 @Component({
   selector: 'app-centers-management-page',
@@ -17,10 +19,15 @@ export class CentersManagementPageComponent implements OnInit {
   listLoading: boolean = false;
   page: number = 0;
   lastPage: boolean = false;
+  queueTimer: Subscription;
+  counter: number = 0;
+  queueSnackBar: MatSnackBarRef<any>;
 
-  constructor(private centerService: CenterService,
+  constructor(
+    private centerService: CenterService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.getResult();
@@ -59,25 +66,33 @@ export class CentersManagementPageComponent implements OnInit {
       this.centers = [];
     }
     if (this.citySearched === '') {
-      this.centerService
-        .getAllCenters(this.page)
-        .subscribe(
-          {
-            next: (centers: { data: { content: Center[]; last: boolean } }) => {
-              this.centers.push(...centers.data.content);
-              this.listLoading = false;
-              this.lastPage = centers.data.last;
-            },
-            error: (err) => {
-              if (err.status === 429) {
-                this._snackBar.open("Trop de requêtes. Veuillez réessayer dans quelques instants", "", {
-                  duration: 2000,
-                  panelClass: "snackbar-error",
-                });
+      this.centerService.getAllCenters(this.page).subscribe({
+        next: (centers: { data: { content: Center[]; last: boolean } }) => {
+          this.centers.push(...centers.data.content);
+          this.listLoading = false;
+          this.lastPage = centers.data.last;
+        },
+        error: (err) => {
+          if (err.status === 429) {
+            this.counter = 30;
+            this.queueSnackBar = this._snackBar.openFromComponent(
+              QueueSnackbarComponent
+            );
+            this.queueTimer = timer(0, 1000).subscribe((count) => {
+              this.queueSnackBar.instance.currentTime = this.counter;
+
+              if (this.counter === 0) {
+                if (this.queueTimer) {
+                  this.getResult();
+                  this.queueSnackBar.dismiss();
+                  this.queueTimer.unsubscribe();
+                }
               }
-            }
+              --this.counter;
+            });
           }
-        );
+        },
+      });
     } else {
       this.centerService
         .getCentersByCity(this.citySearched, this.page)

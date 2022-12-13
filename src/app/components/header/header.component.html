@@ -21,7 +21,7 @@
     <li *ngIf="this.authService.user !== null && this.authService.user.roles.toString().includes('SUPERADMIN')">
       <a mat-button routerLink="/configuration" routerLinkActive="active">Configuration</a>
     </li>
-    <li *ngIf="this.authService.user !== null">
+    <li *ngIf="this.authService.user !== null" [style.margin-left]="'10px'">
       <button mat-raised-button color="warn" (click)="this.onLogout()">Déconnexion</button>
     </li>
   </ul>

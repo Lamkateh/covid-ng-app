@@ -153,7 +153,7 @@ export class UsersManagementDialogComponent implements OnInit {
                 user.center.id === this.data.center.id
               );
             });
-          if (userEdited.roles.includes('DOCTOR')) {
+          if (userEdited.roles.includes('DOCTOR') && userEdited.center.id === this.data.center.id) {
             const newList = [...this.doctors];
             newList.push(userEdited);
             this.doctors = newList;
@@ -204,7 +204,7 @@ export class UsersManagementDialogComponent implements OnInit {
                 user.center.id === this.data.center.id
               );
             });
-          if (userEdited.roles.includes('ADMIN')) {
+          if (userEdited.roles.includes('ADMIN') && userEdited.center.id === this.data.center.id) {
             const newList = [...this.admins];
             newList.push(userEdited);
             this.admins = newList;

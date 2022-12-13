@@ -54,7 +54,6 @@ export class TimetableComponent implements OnInit {
     this.getAppointments();
   }
 
-  // TODO : Review after fix in back-end
   getAppointments() {
     this.listLoading = true;
     if (this.centerId) {

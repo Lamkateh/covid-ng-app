@@ -57,22 +57,8 @@ const routes: Routes = [
   { path: '**', redirectTo: '/centers', pathMatch: 'full' },
 ];
 
-/*
-const routes: Routes = [
-  { path: 'login', component: LoginPageComponent },
-  { path: 'signup', component: SignupPageComponent },
-  { path: 'centers', component: HomePublicPageComponent },
-  { path: 'centers/:id', component: CenterPageComponent },
-  { path: 'management/centers', component: CentersManagementPageComponent },
-  { path: 'management/mycenter', component: CenterManagementPageComponent },
-  { path: 'myschedule', component: SchedulePageComponent },
-  { path: 'configuration', component: ConfigurationPageComponent },
-  { path: '**', redirectTo: '/centers', pathMatch: 'full' },
-];
-*/
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

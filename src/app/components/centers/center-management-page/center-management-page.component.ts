@@ -19,7 +19,6 @@ export class CenterManagementPageComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'actions'];
   doctors?: User[] | {}[] = [{}];
   center: Center;
-  centerId: number;
   nameSearchTerm: string = '';
   nameSearched: string = '';
   listLoading: boolean = false;
@@ -32,19 +31,16 @@ export class CenterManagementPageComponent implements OnInit {
     private centerService: CenterService,
     private userService: UserService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.user = this.authService.getStoredUserInformation();
-
     if (this.user && this.user.center) {
-      this.centerId = this.user?.center.id;
       this.getCenter();
       this.getDoctors();
     }
   }
 
-  //TODO
   getCenter() {
     this.centerService
       .getCenterById(this.user.center.id)

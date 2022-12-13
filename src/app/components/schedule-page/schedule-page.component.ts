@@ -35,7 +35,6 @@ export class SchedulePageComponent implements OnInit {
   allAppointments?: Appointment[];
   nameSearchTerm: string = '';
   nameSearched: string = '';
-  centerId: number;
   date: Date = new Date();
   listLoading: boolean = false;
   user: User | null = null;
@@ -45,15 +44,12 @@ export class SchedulePageComponent implements OnInit {
     private appointmentService: AppointmentService,
     private dateService: DateService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.centerId = this.authService.user?.center.id;
     const user = this.authService.getStoredUserInformation();
     if (user) {
       this.user = user;
-      console.log('user', user);
-
       this.getAppointments();
     }
   }
@@ -128,7 +124,7 @@ export class SchedulePageComponent implements OnInit {
   }
 
   getDate() {
-    const date = this.date; //TODO
+    const date = this.date;
     return (
       this.dateService.getDayOfWeek(date.getDay() - 1) +
       ' ' +

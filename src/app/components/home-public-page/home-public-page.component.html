@@ -1,26 +1,26 @@
 <div class="homepage">
   <form class="search-center-form" (submit)="onSearchCity()">
     <div class="title">Trouvez un centre de vaccination près de chez vous</div>
-    <mat-form-field [style.width]="'90%'">
+    <mat-form-field [style.width]="'40%'">
       <mat-label>Dans quelle ville ?</mat-label>
-      <input name="search_item" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy" />
+      <input name="search_item" class="search-input" matInput [(ngModel)]="citySearchTerm" placeholder="Ex: Nancy" />
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
+    <img class="image" src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
   </form>
-  <img src="/assets/doctor-vaccinating-patient-clinic.png" alt="Vaccination" />
   <app-centers-list *ngIf="!this.listLoading" [list]="centers"></app-centers-list>
   <div *ngIf="this.listLoading" class="centers-loading">
     <div class="centers-skeleton">
       <ngx-skeleton-loader count="2" appearance="circle" [theme]="{
         width: '47.5%',
-        height: '170px',
+        height: '168px',
         'border-radius': '10px'
       }"></ngx-skeleton-loader>
     </div>
     <div class="centers-skeleton">
       <ngx-skeleton-loader count="2" appearance="circle" [theme]="{
         width: '47.5%',
-        height: '170px',
+        height: '168px',
         'border-radius': '10px'
       }"></ngx-skeleton-loader>
     </div>

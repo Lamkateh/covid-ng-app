@@ -1,43 +1,11 @@
 .centers-management-page {
-  padding-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
   .search-center {
     height: 25rem;
-    width: 40%;
+    width: 100%;
     padding-left: 5%;
 
     .title {
-      font-size: 30px;
-      font-weight: bold;
       padding: 50px 0 20px 0;
-      white-space: nowrap;
-      color: var(--blue);
     }
-
-    .loader {
-      margin: 5px 0 0 40%;
-    }
-  }
-
-  img {
-    z-index: -1;
-    top: 0;
-    right: 10%;
-    position: absolute;
-    width: 450px;
-  }
-
-  app-centers-list {
-    z-index: 1;
-    background-color: #FFF;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 10px 20px;
-    margin-bottom: 20px;
   }
 }

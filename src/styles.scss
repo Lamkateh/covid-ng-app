@@ -205,6 +205,40 @@ button {
   }
 }
 
+.homepage,
+.centers-management-page {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--blue);
+    line-height: normal;
+  }
+
+  .image {
+    z-index: -1;
+    top: 0;
+    right: 10%;
+    position: absolute;
+    width: 450px;
+  }
+
+  app-centers-list {
+    z-index: 1;
+    background-color: #FFF;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+  }
+}
+
 .login-page,
 .signup-page {
   display: flex;
@@ -254,14 +288,6 @@ button {
 
 .login-page .title {
   margin-top: 10%;
-}
-
-@media screen and (max-width: 800px) {
-
-  .login-page .login-form .login-button,
-  .signup-page .signup-form .signup-button {
-    width: 100%;
-  }
 }
 
 .table-wrapper {
@@ -348,5 +374,53 @@ button {
   .centers-skeleton {
     padding: 10px 20px;
     text-align: center;
+  }
+}
+
+
+// Responsive
+
+@media screen and (max-width: 1050px) {
+
+  .homepage,
+  .centers-management-page {
+    .search-center-form {
+      padding-top: 3rem;
+    }
+
+    .image {
+      right: 5%;
+      top: 100px;
+      width: 350px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .homepage,
+  .centers-management-page {
+    .search-center-form {
+      padding-top: 2rem;
+      height: 15rem;
+    }
+
+    .image {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  .login-page .login-form .login-button,
+  .signup-page .signup-form .signup-button {
+    width: 100%;
+  }
+
+  .centers-management-page {
+    .image {
+      display: none;
+    }
   }
 }

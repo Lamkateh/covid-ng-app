@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   templateUrl: 'queue-snackbar.component.html',
 })
 export class QueueSnackbarComponent {
-  currentTime = 30;
+  currentTime = 60;
 }

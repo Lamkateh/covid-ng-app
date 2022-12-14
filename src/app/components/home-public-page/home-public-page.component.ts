@@ -25,7 +25,7 @@ export class HomePublicPageComponent implements OnInit {
   constructor(
     private centerService: CenterService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getResult();
@@ -56,7 +56,7 @@ export class HomePublicPageComponent implements OnInit {
         },
         error: (err) => {
           if (err.status === 429) {
-            this.counter = 30;
+            this.counter = 60;
             this.queueSnackBar = this._snackBar.openFromComponent(
               QueueSnackbarComponent
             );

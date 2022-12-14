@@ -89,10 +89,7 @@ export class CenterManagementDialogComponent implements OnInit {
         (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
-            panelClass: 'snackbar-error',
-            duration: 2000,
-          });
+          this.dialogRef.close();
         }
       );
   }
@@ -133,33 +130,7 @@ export class CenterManagementDialogComponent implements OnInit {
         (err) => {
           console.log(err);
           this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
-            panelClass: 'snackbar-error',
-            duration: 2000,
-          });
-        }
-      );
-  }
-
-  deleteCenter() {
-    this.storeLoading = true;
-    this.centerService
-      .deleteCenter(this.data.center.id)
-      .subscribe(
-        (res) => {
-          this.storeLoading = false;
-          this.dialogRef.close(this.data.center);
-          this._snackBar.open('Centre supprimé avec succès', '', {
-            duration: 2000,
-          });
-        },
-        (err) => {
-          console.log(err);
-          this.storeLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
-            panelClass: 'snackbar-error',
-            duration: 2000,
-          });
+          this.dialogRef.close();
         }
       );
   }

@@ -109,6 +109,9 @@ export class CenterManagementPageComponent implements OnInit {
       })
       .afterClosed()
       .subscribe((userEdited: User) => {
+        if (!userEdited) {
+          return;
+        }
         this.doctors = this.doctors.map((doctor: User) => {
           if (doctor.id === userEdited.id) {
             return userEdited;
@@ -129,6 +132,9 @@ export class CenterManagementPageComponent implements OnInit {
       })
       .afterClosed()
       .subscribe((userEditedId: number) => {
+        if (!userEditedId) {
+          return;
+        }
         this.doctors = this.doctors.filter((doctor: User) => {
           return doctor.id !== userEditedId;
         });

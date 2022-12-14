@@ -49,10 +49,7 @@ export class ValidationAppointmentDialogComponent implements OnInit {
         error: (err) => {
           console.log(err);
           this.validateLoading = false;
-          this._snackBar.open("Une erreur s'est produite", '', {
-            panelClass: 'snackbar-error',
-            duration: 2000,
-          });
+          this.dialogRef.close();
         },
       });
     }

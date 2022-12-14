@@ -74,10 +74,7 @@ export class AppointmentDialogComponent implements OnInit {
           error: (err) => {
             console.log(err);
             this.storeLoading = false;
-            this._snackBar.open("Une erreur s'est produite", "", {
-              panelClass: "snackbar-error",
-              duration: 2000,
-            });
+            this.dialogRef.close();
           },
         });
     }

@@ -9,3 +9,63 @@
     }
   }
 }
+
+@media screen and (max-width: 1250px) {
+
+  .centers-management-page {
+    .search-center {
+      .image {
+        right: 5%;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 950px) {
+
+  .centers-management-page {
+    .search-center {
+      .image {
+        right: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+
+  .centers-management-page {
+    .search-center {
+
+      .title.second {
+        max-width: 350px;
+      }
+
+      .image {
+        width: 400px;
+        top: 50px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+
+  .centers-management-page {
+    .search-center {
+
+      .title {
+        padding-top: 30px;
+      }
+
+      .title.second {
+        max-width: none;
+      }
+
+      .image {
+        display: none;
+      }
+    }
+  }
+}

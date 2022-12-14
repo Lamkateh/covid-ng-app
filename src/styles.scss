@@ -377,50 +377,10 @@ button {
   }
 }
 
-
-// Responsive
-
-@media screen and (max-width: 1050px) {
-
-  .homepage,
-  .centers-management-page {
-    .search-center-form {
-      padding-top: 3rem;
-    }
-
-    .image {
-      right: 5%;
-      top: 100px;
-      width: 350px;
-    }
-  }
-}
-
-@media screen and (max-width: 500px) {
-
-  .homepage,
-  .centers-management-page {
-    .search-center-form {
-      padding-top: 2rem;
-      height: 15rem;
-    }
-
-    .image {
-      display: none;
-    }
-  }
-}
-
 @media screen and (max-width: 800px) {
 
   .login-page .login-form .login-button,
   .signup-page .signup-form .signup-button {
     width: 100%;
-  }
-
-  .centers-management-page {
-    .image {
-      display: none;
-    }
   }
 }

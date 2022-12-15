@@ -46,6 +46,10 @@ export class SignupPageComponent implements OnInit {
     if (!this.formIsValid()) {
       return;
     }
+    if (this.passwordFC.value !== this.passwordConfirmationFC.value) {
+      this.errorMessage = "Les mots de passe ne correspondent pas";
+      return;
+    }
     this.signupLoading = true;
     this.errorMessage = null;
     let formattedBirthDate = this.birthDateFC.value.getFullYear() + "-" + String(this.birthDateFC.value.getMonth() + 1).padStart(2, '0') + "-" + String(this.birthDateFC.value.getDate()).padStart(2, '0');
@@ -71,17 +75,14 @@ export class SignupPageComponent implements OnInit {
       },
       error: (err: any) => {
         this.signupLoading = false;
-        if (this.passwordFC.value !== this.passwordConfirmationFC.value) {
-          this.errorMessage = "Les mots de passe ne correspondent pas";
-        }
-        else if (err.error.message === "Error: Email is already taken!") {
+        console.log(err);
+        if (err.error.message === "Error: Email is already taken!") {
           this.errorMessageSnackBar = "Cette adresse mail est déjà utilisée";
-          console.log(err);
-          this._snackBar.open(this.errorMessageSnackBar, "", {
-            "panelClass": "snackbar-error",
-            duration: 2000,
-          });
         }
+        this._snackBar.open(this.errorMessageSnackBar, "", {
+          "panelClass": "snackbar-error",
+          duration: 2000,
+        });
       },
     });
   }

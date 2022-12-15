@@ -10,7 +10,9 @@ export class AuthGuardService implements CanActivate {
   constructor(public authService: AuthService, public router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (this.authService.user) {
+    const user = this.authService.getStoredUserInformation();
+
+    if (user) {
       this.router.navigate(['centers']);
       return false;
     }
